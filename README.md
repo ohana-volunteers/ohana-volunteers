@@ -1,3 +1,3 @@
 ![ci-badge](https://github.com/ics-software-engineering/matrp/workflows/ci-matrp/badge.svg)
 
-For details, please see http://ohana-volunteers/ohana-volunteers.github.io/ 
+For details, please see https://ohana-volunteers.github.io/
