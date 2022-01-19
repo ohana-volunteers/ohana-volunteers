@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Image, Button, Container, Divider, Card } from 'semantic-ui-react';
+import { Grid, Header, Image, Button, Container, Divider, Card, Icon } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 /** A simple static component to render some text for the landing page. */
@@ -73,7 +73,7 @@ const Landing = () => (
     <Grid.Row>
       <Header as='h2'>Check Out Our Latest Opportunities</Header>
       <Card.Group centered>
-        <Card>
+        <Card href='#opportunity-test-opportunity'>
           <Card.Content extra>
             <p>March 4, 2022 9:30am - 11:30am</p>
           </Card.Content>
@@ -88,7 +88,7 @@ const Landing = () => (
           </Card.Content>
         </Card>
 
-        <Card>
+        <Card href='#opportunity-test-opportunity'>
           <Card.Content extra>
             <p>January 21, 2022 8:30am - 12:00am</p>
           </Card.Content>
@@ -103,7 +103,7 @@ const Landing = () => (
           </Card.Content>
         </Card>
 
-        <Card>
+        <Card href='#opportunity-test-opportunity'>
           <Card.Content extra>
             <p>December 9, 2021 9:00am - 12:00pm</p>
           </Card.Content>
@@ -118,7 +118,7 @@ const Landing = () => (
           </Card.Content>
         </Card>
 
-        <Card>
+        <Card href='#opportunity-test-opportunity'>
           <Card.Content extra>
             <p>January 1, 2022 12:00pm - 2:00pm</p>
           </Card.Content>
@@ -140,59 +140,59 @@ const Landing = () => (
     <Grid.Row>
       <Header as='h2'>Browse Opportunities By Category</Header>
       <Card.Group centered>
-        <Card>
+        <Card href='#category-animal-welfare-rescue'>
           <Card.Content>
-            <Card.Header>Animal Welfare/Rescue</Card.Header>
+            <Card.Header><Icon name='paw'/>Animal Welfare/Rescue</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-child-family-support'>
           <Card.Content>
-            <Card.Header>Child/Family Support</Card.Header>
+            <Card.Header><Icon name='child'/>Child/Family Support</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-covid-19-recovery'>
           <Card.Content>
-            <Card.Header>COVID-19 Recovery</Card.Header>
+            <Card.Header><Icon name='certificate'/>COVID-19 Recovery</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-crisis-disaster-relief'>
           <Card.Content>
-            <Card.Header>Crisis/Disaster Relief</Card.Header>
+            <Card.Header><Icon name='bell'/>Crisis/Disaster Relief</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-education'>
           <Card.Content>
-            <Card.Header>Education</Card.Header>
+            <Card.Header><Icon name='apple'/>Education</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-environment'>
           <Card.Content>
-            <Card.Header>Environment</Card.Header>
+            <Card.Header><Icon name='leaf'/>Environment</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-elderly-senior-care'>
           <Card.Content>
-            <Card.Header>Elderly/Senior Care</Card.Header>
+            <Card.Header><Icon name='users'/>Elderly/Senior Care</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-food-insecurity'>
           <Card.Content>
-            <Card.Header>Food Insecurity</Card.Header>
+            <Card.Header><Icon name='certificate'/>Food Insecurity</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-housing'>
           <Card.Content>
-            <Card.Header>Housing</Card.Header>
+            <Card.Header><Icon name='home'/>Housing</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-homelessness-poverty'>
           <Card.Content>
-            <Card.Header>Homelessness/Poverty</Card.Header>
+            <Card.Header><Icon name='bed'/>Homelessness/Poverty</Card.Header>
           </Card.Content>
         </Card>
-        <Card>
+        <Card href='#category-special-needs'>
           <Card.Content>
-            <Card.Header>Special Needs</Card.Header>
+            <Card.Header><Icon name='wheelchair'/>Special Needs</Card.Header>
           </Card.Content>
         </Card>
       </Card.Group>
