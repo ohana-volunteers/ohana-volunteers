@@ -3,47 +3,38 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Dropdown, Header } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => {
-  const menuStyle = { marginBottom: '10px' };
+  const menuStyle = { marginBottom: '25px', paddingBottom: '2rem', paddingTop: '2rem', backgroundColor: '#FFFFFF' };
+  const input = { width: '30rem' };
   return (
-    <Menu style={menuStyle} attached="top" borderless inverted>
+    <Menu secondary style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
-        <Header inverted as='h1'>MATRP</Header>
+        <Image src='https://volunteerally.org/wp-content/uploads/2021/08/VA-logo-circle-v5.svg' size="tiny"/>
       </Menu.Item>
-      {currentUser ? (
-        [<Menu.Item id={COMPONENT_IDS.NAVBAR_ADD_STUFF} as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Stuff</Menu.Item>,
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_LIST_STUFF} as={NavLink} activeClassName="active" exact to="/list" key='list'>List Stuff</Menu.Item>]
-      ) : ''}
-      {Roles.userIsInRole(Meteor.userId(), [ROLE.ADMIN]) ? (
-        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN} as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>,
-          <Dropdown id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN} item text="Manage" key="manage-dropdown">
+      <Menu.Item><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
+      <Menu.Item position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
+      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
+      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='library'>Organization Library</Menu.Item>
+      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='about'>About Us</Menu.Item>
+      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='signin'>Sign Up</Menu.Item>
+      {currentUser === '' ? (
+        <Menu.Item as={NavLink} exact to="/signin"><Icon name='user'/>Sign In</Menu.Item>
+      ) : (
+        [<Menu.Item key="user">
+          <Icon name='user'/>
+          <Dropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} text="Login" pointing="top right">
             <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN_DATABASE} key="manage-database" as={NavLink} exact to="/manage-database" content="Database" />
-            </Dropdown.Menu>
-          </Dropdown>]
-      ) : ''}
-      <Menu.Item position="right">
-        {currentUser === '' ? (
-          <Dropdown id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN} text="Login" pointing="top right" icon={'user'}>
-            <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN} icon="user" text="Sign In" as={NavLink} exact to="/signin" />
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} icon="add user" text="Sign Up" as={NavLink} exact to="/signup" />
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP} icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
             </Dropdown.Menu>
           </Dropdown>
-        ) : (
-          <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right" icon={'user'}>
-            <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Sign Out" as={NavLink} exact to="/signout" />
-            </Dropdown.Menu>
-          </Dropdown>
-        )}
-      </Menu.Item>
+        </Menu.Item>]
+      )}
     </Menu>
   );
 };
