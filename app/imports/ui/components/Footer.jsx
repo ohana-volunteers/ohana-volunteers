@@ -6,11 +6,12 @@ const Footer = () => {
   return (
     <footer>
       <div style={divStyle} className="ui center aligned container">
-        <hr />
-        Department of Information and Computer Sciences <br />
-        University of Hawaii<br />
-        Honolulu, HI 96822 <br />
-        <a href="http://ics-software-engineering.github.io/matrp">Template Home Page</a>
+        <hr/>
+        ©2021-2022 VolunteerAlly and
+        <a href='https://github.com/ohana-volunteers'> Ohana Volunteers. </a>
+        All rights reserved.
+        Privacy Policy.
+        Terms & Conditions.
       </div>
     </footer>
   );
