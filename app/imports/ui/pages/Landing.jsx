@@ -15,6 +15,8 @@ const Landing = () => (
       <Header as='h2'>We connect passionate volunteers with charitable organizations in order to build community. Let us help you easily find service opportunities for organizations in your area of interest.</Header>
     </Grid.Row>
 
+    <Divider/>
+
     <Grid.Row>
       <Header as='h2'>Dozens of Opportunities for Organizations and Volunteers</Header>
     </Grid.Row>
@@ -70,7 +72,7 @@ const Landing = () => (
 
     <Grid.Row>
       <Header as='h2'>Check Out Our Latest Opportunities</Header>
-      <Card.Group>
+      <Card.Group centered>
         <Card>
           <Card.Content extra>
             <p>March 4, 2022 9:30am - 11:30am</p>
@@ -103,29 +105,31 @@ const Landing = () => (
 
         <Card>
           <Card.Content extra>
-            <p>March 4, 2022 9:30am - 11:30am</p>
+            <p>December 9, 2021 9:00am - 12:00pm</p>
           </Card.Content>
           <Card.Content>
-            <Card.Header>Kokua Learning Farm Community Workday</Card.Header>
-            <Card.Meta>66-249 Kamehameha Highway</Card.Meta>
-            <Card.Description>Kokua Learning Farm Community Workday</Card.Description>
+            <Image size='tiny' src='/images/VA-logo-circle-v5.svg'/>
+            <Card.Header>Joshlyn Sand</Card.Header>
+            <Card.Meta>123 North Kuakini Street</Card.Meta>
+            <Card.Description>Nuuanu Stream Clean-Up</Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <p>Category: Education, Environment</p>
+            <p>Category: Environment</p>
           </Card.Content>
         </Card>
 
         <Card>
           <Card.Content extra>
-            <p>March 4, 2022 9:30am - 11:30am</p>
+            <p>January 1, 2022 12:00pm - 2:00pm</p>
           </Card.Content>
           <Card.Content>
-            <Card.Header>Kokua Learning Farm Community Workday</Card.Header>
-            <Card.Meta>66-249 Kamehameha Highway</Card.Meta>
-            <Card.Description>Kokua Learning Farm Community Workday</Card.Description>
+            <Image size='tiny' src='/images/VA-logo-circle-v5.svg'/>
+            <Card.Header>Scott Wo</Card.Header>
+            <Card.Meta>921770b Kunia Road</Card.Meta>
+            <Card.Description>Test Opportunity</Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <p>Category: Education, Environment</p>
+            <p>Category: Environment</p>
           </Card.Content>
         </Card>
       </Card.Group>
@@ -135,7 +139,7 @@ const Landing = () => (
 
     <Grid.Row>
       <Header as='h2'>Browse Opportunities By Category</Header>
-      <Card.Group>
+      <Card.Group centered>
         <Card>
           <Card.Content>
             <Card.Header>Animal Welfare/Rescue</Card.Header>
@@ -166,7 +170,44 @@ const Landing = () => (
             <Card.Header>Environment</Card.Header>
           </Card.Content>
         </Card>
+        <Card>
+          <Card.Content>
+            <Card.Header>Elderly/Senior Care</Card.Header>
+          </Card.Content>
+        </Card>
+        <Card>
+          <Card.Content>
+            <Card.Header>Food Insecurity</Card.Header>
+          </Card.Content>
+        </Card>
+        <Card>
+          <Card.Content>
+            <Card.Header>Housing</Card.Header>
+          </Card.Content>
+        </Card>
+        <Card>
+          <Card.Content>
+            <Card.Header>Homelessness/Poverty</Card.Header>
+          </Card.Content>
+        </Card>
+        <Card>
+          <Card.Content>
+            <Card.Header>Special Needs</Card.Header>
+          </Card.Content>
+        </Card>
       </Card.Group>
+    </Grid.Row>
+
+    <Divider/>
+
+    <Grid.Row>
+      <Header as='h1'>Ready to Get Started?</Header>
+    </Grid.Row>
+    <Grid.Row>
+      <p>Sign up now as a volunteer or organization</p>
+    </Grid.Row>
+    <Grid.Row>
+      <Button>Get Started</Button>
     </Grid.Row>
   </Grid>
 );
