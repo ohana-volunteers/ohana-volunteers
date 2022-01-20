@@ -10,7 +10,7 @@ const Footer = () => {
         ©2021-2022 VolunteerAlly and
         <a href='https://github.com/ohana-volunteers'> Ohana Volunteers. </a>
         All rights reserved.
-        Privacy Policy.
+        <a href='#privacy-policy'>Privacy Policy.</a>
         Terms & Conditions.
       </div>
     </footer>
