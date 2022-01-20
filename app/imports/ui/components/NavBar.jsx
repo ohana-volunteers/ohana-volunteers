@@ -24,8 +24,8 @@ const NavBar = ({ currentUser }) => {
       <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='library'>Organization Library</Menu.Item>
       <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='about'>About Us</Menu.Item>
       {currentUser === '' ? (
-        [<Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='signup'>Sign Up</Menu.Item>,
-          <Menu.Item as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
+        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
       ) : (
         [<Menu.Item key="user">
           <Image src='https://volunteerally.org/wp-content/uploads/2021/08/VA-logo-circle-v5.svg' avatar/>

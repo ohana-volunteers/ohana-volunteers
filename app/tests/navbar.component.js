@@ -14,8 +14,7 @@ class NavBar {
 
   async gotoSigninPage() {
     await this.ensureLogout();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN}`);
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_IN}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN}`);
   }
 
   /** Check that the specified user is currently logged in. */
@@ -34,8 +33,7 @@ class NavBar {
   /** Pull down login menu, go to sign up page. */
   async gotoSignupPage() {
     await this.ensureLogout();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN}`);
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_DROPDOWN_SIGN_UP}`);
+    await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP}`);
   }
 
   /** Go to the add stuff page. */
