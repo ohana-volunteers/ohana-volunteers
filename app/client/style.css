@@ -1,3 +1,8 @@
 .card img {
     padding-bottom: 10px;
 }
+
+.modal-margin {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
