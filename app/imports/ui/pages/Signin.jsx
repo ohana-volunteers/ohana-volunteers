@@ -51,52 +51,54 @@ const Signin = ({ location }) => {
   }
   // Otherwise return the Login form.
   return (
-    <Container id={PAGE_IDS.SIGN_IN}>
-      <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
-        <Grid.Column>
-          <Header as="h2" textAlign="center">
-            Login to your account
-          </Header>
-          <Form onSubmit={submit}>
-            <Segment stacked>
-              <Form.Input
-                label="Email"
-                id={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
-                icon="user"
-                iconPosition="left"
-                name="email"
-                type="email"
-                placeholder="E-mail address"
-                onChange={handleChange}
+    <div className='ohana-signin-background'>
+      <Container id={PAGE_IDS.SIGN_IN}>
+        <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
+          <Grid.Column>
+            <Header as="h2" textAlign="center">
+              Login to your account
+            </Header>
+            <Form onSubmit={submit}>
+              <Segment stacked>
+                <Form.Input
+                  label="Email"
+                  id={COMPONENT_IDS.SIGN_IN_FORM_EMAIL}
+                  icon="user"
+                  iconPosition="left"
+                  name="email"
+                  type="email"
+                  placeholder="E-mail address"
+                  onChange={handleChange}
+                />
+                <Form.Input
+                  label="Password"
+                  id={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}
+                  icon="lock"
+                  iconPosition="left"
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                  onChange={handleChange}
+                />
+                <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Submit" />
+              </Segment>
+            </Form>
+            <Message>
+              <Link to="/signup">Click here to Register</Link>
+            </Message>
+            {error === '' ? (
+              ''
+            ) : (
+              <Message
+                error
+                header="Login was not successful"
+                content={error}
               />
-              <Form.Input
-                label="Password"
-                id={COMPONENT_IDS.SIGN_IN_FORM_PASSWORD}
-                icon="lock"
-                iconPosition="left"
-                name="password"
-                placeholder="Password"
-                type="password"
-                onChange={handleChange}
-              />
-              <Form.Button id={COMPONENT_IDS.SIGN_IN_FORM_SUBMIT} content="Submit" />
-            </Segment>
-          </Form>
-          <Message>
-            <Link to="/signup">Click here to Register</Link>
-          </Message>
-          {error === '' ? (
-            ''
-          ) : (
-            <Message
-              error
-              header="Login was not successful"
-              content={error}
-            />
-          )}
-        </Grid.Column>
-      </Grid>
-    </Container>
+            )}
+          </Grid.Column>
+        </Grid>
+      </Container>
+    </div>
   );
 };
 

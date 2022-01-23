@@ -6,3 +6,58 @@
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
+
+.ohana-landing-background {
+  background-image: url('');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  height: 500px;
+}
+
+.ohana-home-background {
+  background-image: url('');
+  height: 1100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.ohana-event-background {
+  text-align: center;
+  background-color: white;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.ohana-signin-background {
+  background-image: url('images/ohana-signin.jpg');
+  height: 800px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.App {
+  text-align: center;
+  background-color: white;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
