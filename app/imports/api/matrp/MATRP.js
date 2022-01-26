@@ -46,7 +46,7 @@ class MATRPClass {
     // console.log('MATRP', collectionName, this.collectionAssociation);
     const collection = this.collectionAssociation[collectionName];
     if (!collection) {
-      throw new Meteor.Error(`Called MARTP.getCollection with unknown collection name: ${collectionName}`);
+      throw new Meteor.Error(`Called MATRP.getCollection with unknown collection name: ${collectionName}`);
     }
     return collection;
   }
