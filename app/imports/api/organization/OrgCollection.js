@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
@@ -52,7 +51,7 @@ export const volunteerCategories = {
     name: 'Homelessness/Poverty',
     icon: 'bed',
   },
-  specialneeds: {
+  special_needs: {
     name: 'Special Needs',
     icon: 'wheelchair',
   },
@@ -60,13 +59,27 @@ export const volunteerCategories = {
 
 class OrgCollection extends BaseCollection {
   constructor() {
-    super('Orgs', new SimpleSchema({
-      name: String,
-      categories: Array,
-      'categories.$': String,
-      location: String,
-      website: URL,
-      owner: String,
+    super('Organizations', new SimpleSchema({
+      name: String, // Organization name
+      categories: Array, // List of applicable categories
+      'categories.$': {
+        type: String,
+        allowedValues: Object.keys(volunteerCategories),
+      },
+      location: String, // Organization address
+      website: URL, // Organization website
+      contact: Object, // Organization contact info
+      'contact.name': String, // Name of person to contact
+      'contact.email': String, // Email of person to contact
+      'contact.address': {
+        type: String,
+        optional: true,
+      },
+      'contact.phone': {
+        type: String,
+        optional: true,
+      },
+      owner: String, // Organization owner user account
       status: {
         type: String,
         allowedValues: orgPublicationStatus,
@@ -76,42 +89,47 @@ class OrgCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Stuff item.
-   * @param name the name of the item.
-   * @param quantity how many.
+   * Defines a new Organization.
+   * @param name the name of the organization.
+   * @param categories List of applicable categories.
+   * @param location Organization address.
+   * @param website Organization website.
+   * @param contact Organization contact info.
    * @param owner the owner of the item.
-   * @param condition the condition of the item.
-   * @return {String} the docID of the new document.
+   * @param status the publication status of the item.
+   * @return {never} the docID of the new document.
    */
-  define({ name, quantity, owner, condition }) {
-    const docID = this._collection.insert({
+  define({ name, categories, location, website, contact, owner, status }) {
+    return this._collection.insert({
       name,
-      quantity,
+      categories,
+      location,
+      website,
+      contact,
       owner,
-      condition,
+      status,
     });
-    return docID;
   }
 
   /**
    * Updates the given document.
    * @param docID the id of the document to update.
    * @param name the new name (optional).
-   * @param quantity the new quantity (optional).
-   * @param condition the new condition (optional).
+   * @param categories List of applicable categories (optional).
+   * @param location Organization address (optional).
+   * @param website Organization website (optional).
+   * @param contact Organization contact info (optional).
+   * @param status the publication status of the item (optional).
+   * @return {never}
    */
-  update(docID, { name, quantity, condition }) {
+  update(docID, { name, categories, location, website, contact, status }) {
     const updateData = {};
-    if (name) {
-      updateData.name = name;
-    }
-    // if (quantity) { NOTE: 0 is falsy so we need to check if the quantity is a number.
-    if (_.isNumber(quantity)) {
-      updateData.quantity = quantity;
-    }
-    if (condition) {
-      updateData.condition = condition;
-    }
+    if (name) updateData.name = name;
+    if (categories) updateData.categories = categories;
+    if (location) updateData.location = location;
+    if (website) updateData.website = website;
+    if (contact) updateData.contact = contact;
+    if (status) updateData.status = status;
     this._collection.update(docID, { $set: updateData });
   }
 
@@ -129,22 +147,18 @@ class OrgCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the entire collection for admin and just the stuff associated to an owner.
+   * It publishes the 'published' orgs for users, and all orgs for admin
    */
   publish() {
     if (Meteor.isServer) {
-      // get the StuffCollection instance.
+      // get the Collection instance.
       const instance = this;
-      /** This subscription publishes only the documents associated with the logged in user */
+      /** This subscription publishes only the documents with status 'published' */
       Meteor.publish(orgPublications.orgs, function publish() {
-        if (this.userId) {
-          const username = Meteor.users.findOne(this.userId).username;
-          return instance._collection.find({ owner: username });
-        }
-        return this.ready();
+        return instance._collection.find({ status: 'published' });
       });
 
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
+      /** This subscription publishes all documents, but only if the logged in user is Admin. */
       Meteor.publish(orgPublications.orgsAdmin, function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
@@ -155,9 +169,9 @@ class OrgCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for stuff owned by the current user.
+   * Subscription method for normal user.
    */
-  subscribeStuff() {
+  subscribeOrgs() {
     if (Meteor.isClient) {
       return Meteor.subscribe(orgPublications.orgs);
     }
@@ -168,7 +182,7 @@ class OrgCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeStuffAdmin() {
+  subscribeOrgsAdmin() {
     if (Meteor.isClient) {
       return Meteor.subscribe(orgPublications.orgsAdmin);
     }
@@ -183,20 +197,6 @@ class OrgCollection extends BaseCollection {
    */
   assertValidRoleForMethod(userId) {
     this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
-  }
-
-  /**
-   * Returns an object representing the definition of docID in a format appropriate to the restoreOne or define function.
-   * @param docID
-   * @return {{owner: (*|number), condition: *, quantity: *, name}}
-   */
-  dumpOne(docID) {
-    const doc = this.findDoc(docID);
-    const name = doc.name;
-    const quantity = doc.quantity;
-    const condition = doc.condition;
-    const owner = doc.owner;
-    return { name, quantity, condition, owner };
   }
 }
 
