@@ -16,13 +16,13 @@ const NavBar = ({ currentUser }) => {
   return (
     <Menu secondary style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
-        <Image src='https://volunteerally.org/wp-content/uploads/2021/08/VA-logo-circle-v5.svg' size="tiny"/>
+        <Image src='/images/VA-logo-circle-v5.svg' size="tiny"/>
       </Menu.Item>
       <Menu.Item><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
       <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
       <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='library'>Organization Library</Menu.Item>
-      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='about'>About Us</Menu.Item>
+      <Menu.Item as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
       {currentUser === '' ? (
         [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,
           <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]

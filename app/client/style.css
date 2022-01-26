@@ -61,3 +61,10 @@
 .App-title {
   font-size: 1.5em;
 }
+
+.about-us-icon {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
