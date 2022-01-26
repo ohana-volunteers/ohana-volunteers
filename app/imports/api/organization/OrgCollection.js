@@ -68,6 +68,7 @@ class OrgCollection extends BaseCollection {
       },
       location: String, // Organization address
       website: URL, // Organization website
+      avatar: String,
       contact: Object, // Organization contact info
       'contact.name': String, // Name of person to contact
       'contact.email': String, // Email of person to contact
@@ -94,17 +95,19 @@ class OrgCollection extends BaseCollection {
    * @param categories List of applicable categories.
    * @param location Organization address.
    * @param website Organization website.
+   * @param avatar Organization logo/ profile pic.
    * @param contact Organization contact info.
    * @param owner the owner of the item.
    * @param status the publication status of the item.
    * @return {never} the docID of the new document.
    */
-  define({ name, categories, location, website, contact, owner, status }) {
+  define({ name, categories, location, website, avatar, contact, owner, status }) {
     return this._collection.insert({
       name,
       categories,
       location,
       website,
+      avatar,
       contact,
       owner,
       status,
@@ -118,16 +121,18 @@ class OrgCollection extends BaseCollection {
    * @param categories List of applicable categories (optional).
    * @param location Organization address (optional).
    * @param website Organization website (optional).
+   * @param avatar Organization logo/ profile pic (optional).
    * @param contact Organization contact info (optional).
    * @param status the publication status of the item (optional).
    * @return {never}
    */
-  update(docID, { name, categories, location, website, contact, status }) {
+  update(docID, { name, categories, location, website, avatar, contact, status }) {
     const updateData = {};
     if (name) updateData.name = name;
     if (categories) updateData.categories = categories;
     if (location) updateData.location = location;
     if (website) updateData.website = website;
+    if (avatar) updateData.avatar = avatar;
     if (contact) updateData.contact = contact;
     if (status) updateData.status = status;
     this._collection.update(docID, { $set: updateData });
