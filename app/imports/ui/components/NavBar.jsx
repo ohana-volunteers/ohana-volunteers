@@ -28,7 +28,7 @@ const NavBar = ({ currentUser }) => {
           <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
       ) : (
         [<Menu.Item key="user">
-          <Image src='https://volunteerally.org/wp-content/uploads/2021/08/VA-logo-circle-v5.svg' avatar/>
+          <Image src='/images/VA-logo-circle-v5.svg' avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
               <Dropdown.Item activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
