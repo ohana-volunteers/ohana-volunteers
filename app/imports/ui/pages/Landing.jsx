@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Header, Image, Button, Container, Divider, Card, Icon } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { volunteerCategories } from '../../api/organization/OrgCollection';
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
@@ -140,61 +141,14 @@ const Landing = () => (
     <Grid.Row>
       <Header as='h2'>Browse Opportunities By Category</Header>
       <Card.Group centered>
-        <Card href='#category-animal-welfare-rescue'>
-          <Card.Content>
-            <Card.Header><Icon name='paw'/>Animal Welfare/Rescue</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-child-family-support'>
-          <Card.Content>
-            <Card.Header><Icon name='child'/>Child/Family Support</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-covid-19-recovery'>
-          <Card.Content>
-            <Card.Header><Icon name='certificate'/>COVID-19 Recovery</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-crisis-disaster-relief'>
-          <Card.Content>
-            <Card.Header><Icon name='bell'/>Crisis/Disaster Relief</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-education'>
-          <Card.Content>
-            <Card.Header><Icon name='apple'/>Education</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-environment'>
-          <Card.Content>
-            <Card.Header><Icon name='leaf'/>Environment</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-elderly-senior-care'>
-          <Card.Content>
-            <Card.Header><Icon name='users'/>Elderly/Senior Care</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-food-insecurity'>
-          <Card.Content>
-            <Card.Header><Icon name='certificate'/>Food Insecurity</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-housing'>
-          <Card.Content>
-            <Card.Header><Icon name='home'/>Housing</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-homelessness-poverty'>
-          <Card.Content>
-            <Card.Header><Icon name='bed'/>Homelessness/Poverty</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-special-needs'>
-          <Card.Content>
-            <Card.Header><Icon name='wheelchair'/>Special Needs</Card.Header>
-          </Card.Content>
-        </Card>
+        {Object.getOwnPropertyNames(volunteerCategories).map((item) => {
+          const cat = volunteerCategories[item];
+          return <Card key={cat.name} raised>
+            <Card.Content>
+              <Card.Header><Icon name={cat.icon}/>{cat.name}</Card.Header>
+            </Card.Content>
+          </Card>;
+        })}
       </Card.Group>
     </Grid.Row>
 
