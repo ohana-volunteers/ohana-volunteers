@@ -7,12 +7,13 @@ const Footer = () => {
     <footer>
       <div style={divStyle} className="ui center aligned container">
         <hr/>
-        ©2021-2022 VolunteerAlly and
-        <a href='https://github.com/ohana-volunteers'> Ohana Volunteers. </a>
-        All rights reserved.
-        <a href='#privacy-policy'>Privacy Policy.</a>
-        Terms & Conditions.
+        ©2021-2022 VolunteerAlly and&nbsp;
+        <a href='https://github.com/ohana-volunteers'>Ohana Volunteers.</a>&nbsp;
+        All rights reserved.&nbsp;
+        <a href='#/privacy-policy'>Privacy Policy.</a>&nbsp;
+        Terms & Conditions.&nbsp;
       </div>
+      <br/>
     </footer>
   );
 };
