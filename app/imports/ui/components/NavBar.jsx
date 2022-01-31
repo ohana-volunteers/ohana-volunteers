@@ -16,7 +16,7 @@ const NavBar = ({ currentUser }) => {
   return (
     <Menu secondary style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
-        <Image src='/images/VA-logo-circle-v5.svg' size="tiny"/>
+        <Image src="/images/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
       <Menu.Item><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
@@ -28,12 +28,12 @@ const NavBar = ({ currentUser }) => {
           <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
       ) : (
         [<Menu.Item key="user">
-          <Image src='/images/VA-logo-circle-v5.svg' avatar/>
+          <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
               <Dropdown.Item activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item activeClassName="" text="My Opportunity" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item activeClassName="" text="My Profile" as={NavLink} exact to="/notfound"/>
+              <Dropdown.Item activeClassName="" text="My Profile" as={NavLink} exact to="/my-profile"/>
               <Dropdown.Item activeClassName="" text="My Organization Profile" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item activeClassName="" text="Account Settings" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item activeClassName="" id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout" />
