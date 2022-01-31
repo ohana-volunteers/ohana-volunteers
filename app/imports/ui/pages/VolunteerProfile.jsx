@@ -14,7 +14,7 @@ const VolunteerProfile = () => (
 
           <Grid.Row columns={2}>
 
-            <Grid.Column width={8}>
+            <Grid.Column width={12}>
               <Card.Header as="h1">
                 <Image circular size="small" src="https://react.semantic-ui.com/images/avatar/large/matthew.png"/> John Foo
               </Card.Header>
@@ -23,7 +23,7 @@ const VolunteerProfile = () => (
                 xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Card.Description>
             </Grid.Column>
 
-            <Grid.Column verticalAlign="right">
+            <Grid.Column width={4}>
               <Header as="h2">Stats:</Header>
               <List size="massive">
                 <List.Item><b>Recorded Hours:</b> 36</List.Item>

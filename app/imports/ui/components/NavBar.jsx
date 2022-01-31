@@ -14,7 +14,7 @@ const NavBar = ({ currentUser }) => {
   const input = { width: '30rem' };
   const [open, setOpen] = React.useState(false);
   return (
-    <Menu secondary style={menuStyle} attached="top" borderless>
+    <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
         <Image src="/images/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
