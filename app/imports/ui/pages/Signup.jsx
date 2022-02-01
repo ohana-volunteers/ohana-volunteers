@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Meteor } from 'meteor/meteor';
+// import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import { Link, Redirect } from 'react-router-dom';
 import { Checkbox, Container, Form, Grid, Header, Message, Segment, Divider } from 'semantic-ui-react';
-import { Accounts } from 'meteor/accounts-base';
+// import { Accounts } from 'meteor/accounts-base';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { UserProfiles } from '../../api/user/UserProfileCollection.js';
@@ -15,8 +15,8 @@ import { defineMethod } from '../../api/base/BaseCollection.methods';
  */
 const Signup = ({ location }) => {
   const [email, setEmail] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -51,11 +51,11 @@ const Signup = ({ location }) => {
     case 'password':
       setPassword(value);
       break;
-    case 'firstname':
-      setFirstname(value);
+    case 'firstName':
+      setFirstName(value);
       break;
-    case 'lastname':
-      setLastname(value);
+    case 'lastName':
+      setLastName(value);
       break;
     case 'gender':
       setGender(value);
@@ -97,28 +97,23 @@ const Signup = ({ location }) => {
 
   /* Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   const submit = () => {
-    Accounts.createUser({ email, username: email, password }, (err) => {
-      if (err) {
-        setError(err.reason);
-      } else {
+    const username = email;
+    // assignRole();
+    // Meteor.call('assignRole');
+    // UserProfiles.assignRole(username);
+    const collectionName = UserProfiles.getCollectionName();
+    console.log(collectionName);
+    const definitionData = { username, firstName, lastName, gender, address, city, state, zip, phone, password,
+      interests, skills, environmentalPreference, availability };
+    console.log(definitionData);
+    defineMethod.callPromise({ collectionName, definitionData })
+    // eslint-disable-next-line no-shadow
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', 'submit successfully', 'success');
         setError('');
         setRedirectToReferer(true);
-        const username = email;
-        // assignRole();
-        Meteor.call('assignRole');
-        // UserProfiles.assignRole(username);
-        const collectionName = UserProfiles.getCollectionName();
-        // console.log(collectionName);
-        const definitionData = { username, firstname, lastname, gender, address, city, state, zip, phone,
-          interests, skills, environmentalPreference, availability };
-        defineMethod.callPromise({ collectionName, definitionData })
-        // eslint-disable-next-line no-shadow
-          .catch(error => swal('Error', error.message, 'error'))
-          .then(() => {
-            swal('Success', 'submit successfully', 'success');
-          });
-      }
-    });
+      });
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
@@ -142,14 +137,14 @@ const Signup = ({ location }) => {
               <Form.Input
                 label="First Name"
                 id={COMPONENT_IDS.SIGN_UP_FORM_FIRSTNAME}
-                name="firstname"
+                name="firstName"
                 // type="first name"
                 onChange={handleChange}
               />
               <Form.Input
                 label="Last Name"
                 id={COMPONENT_IDS.SIGN_UP_FORM_LASTNAME}
-                name="lastname"
+                name="lastName"
                 // type="last name"
                 onChange={handleChange}
               />
