@@ -1,6 +1,50 @@
 import React from 'react';
 import { Grid, Header, Image, Button, Container, Divider, Card, Icon } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
+
+const OpportunityItem = ({ opp }) => (
+  <Card href={opp.url}>
+    <Card.Content extra>
+      <p>{opp.date}</p>
+    </Card.Content>
+    <Card.Content>
+      <Image size='tiny' src={opp.img}/>
+      <Card.Header>{opp.organization}</Card.Header>
+      <Card.Meta>{opp.address}</Card.Meta>
+      <Card.Description>{opp.event}</Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <p>Category: {opp.categories}</p>
+    </Card.Content>
+  </Card>
+);
+OpportunityItem.propTypes = {
+  opp: PropTypes.shape({
+    url: PropTypes.string,
+    date: PropTypes.string,
+    img: PropTypes.string,
+    organization: PropTypes.string,
+    address: PropTypes.string,
+    event: PropTypes.string,
+    categories: PropTypes.string,
+  }).isRequired,
+};
+
+const CategoryItem = ({ category }) => (
+  <Card href={category.url}>
+    <Card.Content>
+      <Card.Header><Icon name={category.icon}/>{category.name}</Card.Header>
+    </Card.Content>
+  </Card>
+);
+CategoryItem.propTypes = {
+  category: PropTypes.shape({
+    url: PropTypes.string,
+    icon: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
+};
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
@@ -73,65 +117,42 @@ const Landing = () => (
     <Grid.Row>
       <Header as='h2'>Check Out Our Latest Opportunities</Header>
       <Card.Group centered>
-        <Card href='#opportunity-test-opportunity'>
-          <Card.Content extra>
-            <p>March 4, 2022 9:30am - 11:30am</p>
-          </Card.Content>
-          <Card.Content>
-            <Image size='tiny' src='/images/VA-logo-circle-v5.svg'/>
-            <Card.Header>Kokua</Card.Header>
-            <Card.Meta>66-249 Kamehameha Highway</Card.Meta>
-            <Card.Description>Kokua Learning Farm Community Workday</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <p>Category: Education, Environment</p>
-          </Card.Content>
-        </Card>
-
-        <Card href='#opportunity-test-opportunity'>
-          <Card.Content extra>
-            <p>January 21, 2022 8:30am - 12:00am</p>
-          </Card.Content>
-          <Card.Content>
-            <Image size='tiny' src='/images/org-logos-03-150x150.png'/>
-            <Card.Header>Hawaii Foodbank</Card.Header>
-            <Card.Meta>Waipio Point Access Road</Card.Meta>
-            <Card.Description>Distribution Assistance</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <p>Category: COVID-19 Recovery</p>
-          </Card.Content>
-        </Card>
-
-        <Card href='#opportunity-test-opportunity'>
-          <Card.Content extra>
-            <p>December 9, 2021 9:00am - 12:00pm</p>
-          </Card.Content>
-          <Card.Content>
-            <Image size='tiny' src='/images/VA-logo-circle-v5.svg'/>
-            <Card.Header>Joshlyn Sand</Card.Header>
-            <Card.Meta>123 North Kuakini Street</Card.Meta>
-            <Card.Description>Nuuanu Stream Clean-Up</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <p>Category: Environment</p>
-          </Card.Content>
-        </Card>
-
-        <Card href='#opportunity-test-opportunity'>
-          <Card.Content extra>
-            <p>January 1, 2022 12:00pm - 2:00pm</p>
-          </Card.Content>
-          <Card.Content>
-            <Image size='tiny' src='/images/VA-logo-circle-v5.svg'/>
-            <Card.Header>Scott Wo</Card.Header>
-            <Card.Meta>921770b Kunia Road</Card.Meta>
-            <Card.Description>Test Opportunity</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <p>Category: Environment</p>
-          </Card.Content>
-        </Card>
+        <OpportunityItem opp={{
+          url: '#opportunity-test-opportunity',
+          date: 'March 4, 2022 9:30am - 11:30am',
+          img: '/images/VA-logo-circle-v5.svg',
+          organization: 'Kokua',
+          address: '66-249 Kamehameha Highway',
+          event: 'Kokua Learning Farm Community Workday',
+          categories: 'Education, Environment',
+        }}/>
+        <OpportunityItem opp={{
+          url: '#opportunity-test-opportunity',
+          date: 'January 21, 2022 8:30am - 12:00am',
+          img: '/images/org-logos-03-150x150.png',
+          organization: 'Hawaii Foodbank',
+          address: 'Waipio Point Access Road',
+          event: 'Distribution Assistance',
+          categories: 'COVID-19 Recovery',
+        }}/>
+        <OpportunityItem opp={{
+          url: '#opportunity-test-opportunity',
+          date: 'December 9, 2021 9:00am - 12:00pm',
+          img: '/images/VA-logo-circle-v5.svg',
+          organization: 'Joshlyn Sand',
+          address: '123 North Kuakini Street',
+          event: 'Nuuanu Stream Clean-Up',
+          categories: 'Environment',
+        }}/>
+        <OpportunityItem opp={{
+          url: '#opportunity-test-opportunity',
+          date: 'January 1, 2022 12:00pm - 2:00pm',
+          img: '/images/VA-logo-circle-v5.svg',
+          organization: 'Scott Wo',
+          address: '921770b Kunia Road',
+          event: 'Test Opportunity',
+          categories: 'Environment',
+        }}/>
       </Card.Group>
     </Grid.Row>
 
@@ -140,61 +161,61 @@ const Landing = () => (
     <Grid.Row>
       <Header as='h2'>Browse Opportunities By Category</Header>
       <Card.Group centered>
-        <Card href='#category-animal-welfare-rescue'>
-          <Card.Content>
-            <Card.Header><Icon name='paw'/>Animal Welfare/Rescue</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-child-family-support'>
-          <Card.Content>
-            <Card.Header><Icon name='child'/>Child/Family Support</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-covid-19-recovery'>
-          <Card.Content>
-            <Card.Header><Icon name='certificate'/>COVID-19 Recovery</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-crisis-disaster-relief'>
-          <Card.Content>
-            <Card.Header><Icon name='bell'/>Crisis/Disaster Relief</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-education'>
-          <Card.Content>
-            <Card.Header><Icon name='apple'/>Education</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-environment'>
-          <Card.Content>
-            <Card.Header><Icon name='leaf'/>Environment</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-elderly-senior-care'>
-          <Card.Content>
-            <Card.Header><Icon name='users'/>Elderly/Senior Care</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-food-insecurity'>
-          <Card.Content>
-            <Card.Header><Icon name='certificate'/>Food Insecurity</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-housing'>
-          <Card.Content>
-            <Card.Header><Icon name='home'/>Housing</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-homelessness-poverty'>
-          <Card.Content>
-            <Card.Header><Icon name='bed'/>Homelessness/Poverty</Card.Header>
-          </Card.Content>
-        </Card>
-        <Card href='#category-special-needs'>
-          <Card.Content>
-            <Card.Header><Icon name='wheelchair'/>Special Needs</Card.Header>
-          </Card.Content>
-        </Card>
+        <CategoryItem category={{
+          url: '#category-animal-welfare-rescue',
+          icon: 'paw',
+          name: 'Animal Welfare/Rescue',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-child-family-support',
+          icon: 'child',
+          name: 'Child/Family Support',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-covid-19-recovery',
+          icon: 'certificate',
+          name: 'COVID-19 Recovery',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-crisis-disaster-relief',
+          icon: 'bell',
+          name: 'Crisis/Disaster Relief',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-education',
+          icon: 'apple',
+          name: 'Education',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-environment',
+          icon: 'leaf',
+          name: 'Environment',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-elderly-senior-care',
+          icon: 'users',
+          name: 'Elderly/Senior Care',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-food-insecurity',
+          icon: 'leaf',
+          name: 'Food Insecurity',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-housing',
+          icon: 'home',
+          name: 'Housing',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-homelessness-poverty',
+          icon: 'bed',
+          name: 'Homelessness/Poverty',
+        }}/>
+        <CategoryItem category={{
+          url: '#category-special-needs',
+          icon: 'wheelchair',
+          name: 'Special Needs',
+        }}/>
       </Card.Group>
     </Grid.Row>
 
