@@ -20,65 +20,65 @@ const Organizations = () => (
     </Divider>
         <Grid centered columns={4}>
             <Grid.Column>
-                <Image src='org-logos-01.png' />
+                <Image src='/images/org-logos-01-150x150.png' />
             </Grid.Column>
             <Grid.Column>
-                <Image src='org-logos-02.png' />
+                <Image src='/images/org-logos-02-150x150.png' />
             </Grid.Column>
             <Grid.Column>
-                <Image src='org-logos-03.png' />
+                <Image src='/images/org-logos-03-150x150.png' />
             </Grid.Column>
             <Grid.Column>
-                <Image src='org-logos-04.png' />
+                <Image src='/images/org-logos-04-150x150.png' />
             </Grid.Column>
 
             <Grid.Row centered columns={4}>
                 <Grid.Column>
-                    <Image src='org-logos-05.png' />
+                    <Image src='/images/org-logos-05-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-06.png' />
+                    <Image src='/images/org-logos-06-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-07.png' />
+                    <Image src='/images/org-logos-07-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-08.png' />
+                    <Image src='/images/org-logos-08-150x150.png' />
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row centered columns={4}>
                 <Grid.Column>
-                    <Image src='org-logos-09.png' />
+                    <Image src='/images/org-logos-09-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-10.png' />
+                    <Image src='/images/org-logos-10-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-11.png' />
+                    <Image src='/images/org-logos-11-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-12.png' />
+                    <Image src='/images/org-logos-12-150x150.png' />
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row centered columns={4}>
                 <Grid.Column>
-                    <Image src='org-logos-13.png' />
+                    <Image src='/images/org-logos-13-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-14.png' />
+                    <Image src='/images/org-logos-14-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-15.png' />
+                    <Image src='/images/org-logos-15-150x150.png' />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='org-logos-16.png' />
+                    <Image src='/images/org-logos-16-150x150.png' />
                 </Grid.Column>
             </Grid.Row>
         </Grid>
 
-        <Image src='elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpeg' fluid />
+        <Image src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid />
 
         <Item.Header as="h1" style={textStyle2}> Join over 20 organizations already finding the help they need with Volunteer Ally. </Item.Header>
 
