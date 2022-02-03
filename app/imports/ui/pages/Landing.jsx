@@ -5,7 +5,7 @@ import { volunteerCategories } from '../../api/organization/OrgCollection';
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
-  <Grid id={PAGE_IDS.LANDING} textAlign='center' container>
+  <Grid id={PAGE_IDS.LANDING} textAlign='centered' container>
 
     <Grid.Row>
       <Image size='large' src='/images/VA-logo-v5-web.svg'/>
@@ -36,8 +36,8 @@ const Landing = () => (
         <Grid columns={4}>
           <Grid.Row>
             <Image src="/images/org-logos-01-150x150.png"/>
-            <Image src="/images/org-logos-02-150x150.png"/>
-            <Image src="/images/org-logos-03-150x150.png"/>
+            <Image src='/images/org-logos-02-150x150.png'/>
+            <Image as='a' href='#/organization-profile' src='/images/org-logos-03-150x150.png'/>
             <Image src="/images/org-logos-04-150x150.png"/>
           </Grid.Row>
           <Grid.Row>
