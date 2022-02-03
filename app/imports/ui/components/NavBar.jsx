@@ -4,8 +4,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Menu, Dropdown, Image, Input, Icon, Modal, Button, Grid, Header } from 'semantic-ui-react';
-// import { Roles } from 'meteor/alanning:roles';
-// import { ROLE } from '../../api/role/Role';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
@@ -14,28 +12,28 @@ const NavBar = ({ currentUser }) => {
   const input = { width: '20rem' };
   const [open, setOpen] = React.useState(false);
   return (
-    <Menu secondary style={menuStyle} attached="top" borderless>
+    <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
-        <Image src='/images/VA-logo-circle-v5.svg' size="tiny"/>
+        <Image src="/images/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
-      <Menu.Item><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
-      <Menu.Item position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
-      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
-      <Menu.Item as={NavLink} activeClassName="" exact to="/notfound" key='library'>Organization Library</Menu.Item>
-      <Menu.Item as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/notfound" key='library'>Organization Library</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
       {currentUser === '' ? (
         [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,
           <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
       ) : (
         [<Menu.Item key="user">
-          <Image src='https://volunteerally.org/wp-content/uploads/2021/08/VA-logo-circle-v5.svg' avatar/>
+          <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
-              <Dropdown.Item activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item activeClassName="" text="My Opportunity" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item activeClassName="" text="My Profile" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item activeClassName="" text="My Organization Profile" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item activeClassName="" text="Account Settings" as={NavLink} exact to="/notfound"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_OPPORTUNITY} activeClassName="" text="My Opportunity" as={NavLink} exact to="/notfound"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} activeClassName="" text="My Profile" as={NavLink} exact to="/my-profile"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} activeClassName="" text="My Organization Profile" as={NavLink} exact to="/notfound"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} activeClassName="" text="Account Settings" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item activeClassName="" id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout" />
             </Dropdown.Menu>
           </Dropdown>
@@ -46,7 +44,7 @@ const NavBar = ({ currentUser }) => {
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button basic circular><Icon name="comments" color="black"/></Button>}
+            trigger={<Button basic circular id={COMPONENT_IDS.NAVBAR_MESSAGES}><Icon name="comments" color="black"/></Button>}
             key='messages'>
             <Modal.Header>Messages</Modal.Header>
             <Grid container doubling centered verticalAlign='middle'>
@@ -59,6 +57,7 @@ const NavBar = ({ currentUser }) => {
             </Grid>
             <Modal.Actions>
               <Button
+                id={COMPONENT_IDS.NAVBAR_MESSAGES_COMPOSE}
                 content="Compose"
                 labelPosition='right'
                 color="blue"

@@ -1,31 +1,46 @@
 import React, { useState } from 'react';
+// import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import { Link, Redirect } from 'react-router-dom';
 import { Checkbox, Container, Form, Grid, Header, Message, Segment, Divider } from 'semantic-ui-react';
-import { Accounts } from 'meteor/accounts-base';
+// import { Accounts } from 'meteor/accounts-base';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { UserProfiles } from '../../api/user/UserProfileCollection.js';
+import { defineMethod } from '../../api/base/BaseCollection.methods';
 
 /**
  * Signup component is similar to signin component, but we create a new user instead.
  */
 const Signup = ({ location }) => {
   const [email, setEmail] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [gender, setGender] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
   const [phone, setPhone] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [interests, setInterests] = useState('');
-  const [skills, setSkills] = useState('');
+  // const [nickname, setNickname] = useState('');
+  const [interests, setInterests] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [environmentalPreference, setEnvironmentalPreference] = useState('');
-  const [availability, setAvailability] = useState('');
+  const [availability, setAvailability] = useState([]);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [redirectToReferer, setRedirectToReferer] = useState(false);
+
+  function multipleCheckedItem(checkArray, value) {
+    const index = checkArray.indexOf(value);
+    if (index >= 0) {
+      checkArray.splice(index, 1);
+    } else {
+      checkArray.push(value);
+    }
+    return checkArray;
+  }
 
   // Update the form controls each time the user interacts with them.
   const handleChange = (e, { name, value }) => {
@@ -36,11 +51,14 @@ const Signup = ({ location }) => {
     case 'password':
       setPassword(value);
       break;
-    case 'firstname':
-      setFirstname(value);
+    case 'firstName':
+      setFirstName(value);
       break;
-    case 'lastname':
-      setLastname(value);
+    case 'lastName':
+      setLastName(value);
+      break;
+    case 'gender':
+      setGender(value);
       break;
     case 'address':
       setAddress(value);
@@ -57,20 +75,20 @@ const Signup = ({ location }) => {
     case 'phone':
       setPhone(value);
       break;
-    case 'nickname':
-      setNickname(value);
-      break;
+    // case 'nickname':
+      //  setNickname(value);
+    //  break;
     case 'interests':
-      setInterests(value);
+      setInterests(multipleCheckedItem(interests, value));
       break;
     case 'skills':
-      setSkills(value);
+      setSkills(multipleCheckedItem(skills, value));
       break;
     case 'environmentalPreference':
       setEnvironmentalPreference(value);
       break;
     case 'availability':
-      setAvailability(value);
+      setAvailability(multipleCheckedItem(availability, value));
       break;
     default:
         // do nothing.
@@ -79,15 +97,23 @@ const Signup = ({ location }) => {
 
   /* Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   const submit = () => {
-    Accounts.createUser({ email, username: email, password, firstname, lastname, address, city, state, zip, phone,
-      nickname, interests, skills, environmentalPreference, availability }, (err) => {
-      if (err) {
-        setError(err.reason);
-      } else {
+    const username = email;
+    // assignRole();
+    // Meteor.call('assignRole');
+    // UserProfiles.assignRole(username);
+    const collectionName = UserProfiles.getCollectionName();
+    console.log(collectionName);
+    const definitionData = { username, firstName, lastName, gender, address, city, state, zip, phone, password,
+      interests, skills, environmentalPreference, availability };
+    console.log(definitionData);
+    defineMethod.callPromise({ collectionName, definitionData })
+    // eslint-disable-next-line no-shadow
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', 'submit successfully', 'success');
         setError('');
         setRedirectToReferer(true);
-      }
-    });
+      });
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
@@ -110,21 +136,21 @@ const Signup = ({ location }) => {
             <Segment stacked>
               <Form.Input
                 label="First Name"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_FIRSTNAME}
-                name="first name"
-                type="first name"
+                id={COMPONENT_IDS.SIGN_UP_FORM_FIRSTNAME}
+                name="firstName"
+                // type="first name"
                 onChange={handleChange}
               />
               <Form.Input
                 label="Last Name"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_FIRSTNAME}
-                name="last name"
-                type="last name"
+                id={COMPONENT_IDS.SIGN_UP_FORM_LASTNAME}
+                name="lastName"
+                // type="last name"
                 onChange={handleChange}
               />
               <Form.Input
                 label="Email"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
+                id={COMPONENT_IDS.SIGN_UP_FORM_EMAIL}
                 icon="user"
                 iconPosition="left"
                 name="email"
@@ -133,81 +159,87 @@ const Signup = ({ location }) => {
                 onChange={handleChange}
               />
               <Form.Field>
+                <Divider hidden/>
                 <label>Gender</label>
               </Form.Field>
               <Form.Group widths={2}>
-                <Form.Field
+                <Form.Radio
                   label='Female'
-                  control='input'
-                  type='radio'
-                  name='genderRadios'
+                  value='Female'
+                  // control='input'
+                  // type='radio'
+                  name='gender'
+                  checked={gender === 'Female'}
+                  onChange={handleChange}
                 />
-                <Form.Field
+                <Form.Radio
                   label='Male'
-                  control='input'
-                  type='radio'
-                  name='genderRadios'
+                  value='Male'
+                  // control='input'
+                  // type='radio'
+                  name='gender'
+                  checked={gender === 'Male'}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group widths={2}>
-                <Form.Field
+                <Form.Radio
                   label='Other'
-                  control='input'
-                  type='radio'
-                  name='genderRadios'
+                  value='Other'
+                  // control='input'
+                  // type='radio'
+                  name='gender'
+                  checked={gender === 'Other'}
+                  onChange={handleChange}
                 />
-                <Form.Field
+                <Form.Radio
                   label='Prefer Not To Say'
-                  control='input'
-                  type='radio'
-                  name='genderRadios'
+                  value='Prefer Not To Say'
+                  // control='input'
+                  // type='radio'
+                  name='gender'
+                  checked={gender === 'Prefer Not To Say'}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Input
                 label="Primary Address"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_ADDRESS}
-                name="primary address"
-                type="primary address"
+                id={COMPONENT_IDS.SIGN_UP_FORM_ADDRESS}
+                name="address"
+                // type="primary address"
                 onChange={handleChange}
               />
               <Form.Input
                 label="City"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_CITY}
+                id={COMPONENT_IDS.SIGN_UP_FORM_CITY}
                 name="city"
-                type="city"
+                // type="city"
                 onChange={handleChange}
               />
               <Form.Input
                 label="State"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_STATE}
+                id={COMPONENT_IDS.SIGN_UP_FORM_STATE}
                 name="state"
-                type="state"
+                // type="state"
                 onChange={handleChange}
               />
               <Form.Input
                 label="Zip/Postal Code"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_ZIP}
+                id={COMPONENT_IDS.SIGN_UP_FORM_ZIP}
                 name="zip"
-                type="zip"
+                // type="zip"
                 onChange={handleChange}
               />
               <Form.Input
                 label="Phone Number"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_PHONE}
+                id={COMPONENT_IDS.SIGN_UP_FORM_PHONE}
                 name="phone"
-                type="phone"
-                onChange={handleChange}
-              />
-              <Form.Input
-                label="Nickname"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_USERNAME}
-                name="nickname"
-                type="nickname"
+                // type="phone"
                 onChange={handleChange}
               />
               <Form.Input
                 label="Password"
-                // id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
+                id={COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}
                 icon="lock"
                 iconPosition="left"
                 name="password"
@@ -215,118 +247,402 @@ const Signup = ({ location }) => {
                 type="password"
                 onChange={handleChange}
               />
-              <Grid columns='equal'>
-                <Form.Field>
-                  <Divider hidden/>
-                  <label>Interests</label>
-                </Form.Field>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Animal Welfare/Rescue'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Child/Family Support'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='COVID-19 Recovery'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Crisis/Disaster Relief'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Education'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Environment'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Elderly/Senior Care'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Food Banks'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Hosing'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Homelessness/Poverty'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Special Needs'/></Grid.Column>
-                </Grid.Row>
-              </Grid>
-              <Grid columns='equal'>
-                <Form.Field>
-                  <Divider hidden/>
-                  <label>Special Skills (optional)</label>
-                </Form.Field>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Agriculture'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Construction'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Education'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Engineering'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Event Planning'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Sales/Marketing'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Technology'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Graphic/Web Design'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='CPR (Certification Required)'/></Grid.Column>
-                  <Grid.Column><Checkbox label='First Aid (Certification Required)'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid.Column><Checkbox label='Nursing (CNA/RNA Certified)'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Other'/></Grid.Column>
-                </Grid.Row>
-              </Grid>
+
+              <Form.Field>
+                <Divider hidden/>
+                <label>Interests</label>
+              </Form.Field>
+              <Form.Group grouped>
+                <Grid columns={2}>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Animal Welfare/Rescue'
+                        value='Animal Welfare/Rescue'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Child/Family Support'
+                        value='Child/Family Support'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='COVID-19 Recovery'
+                        value='COVID-19 Recovery'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Crisis/Disaster Relief'
+                        value='Crisis/Disaster Relief'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Education'
+                        value='Education'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Environment'
+                        value='Environment'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Elderly/Senior Care'
+                        value='Elderly/Senior Care'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Food Banks'
+                        value='Food Banks'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Hosing'
+                        value='Hosing'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Homelessness/Poverty'
+                        value='Homelessness/Poverty'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Special Needs'
+                        value='Special Needs'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='interests'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Form.Group>
+
+              <Form.Field>
+                <Divider hidden/>
+                <label>Special Skills (optional)</label>
+              </Form.Field>
+              <Form.Group grouped>
+                <Grid columns={2}>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Agriculture'
+                        value='Agriculture'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Construction'
+                        value='Construction'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Education'
+                        value='Education'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Engineering'
+                        value='Engineering'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Event Planning'
+                        value='Event Planning'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Sales/Marketing'
+                        value='Sales/Marketing'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Technology'
+                        value='Technology'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Graphic/Web Design'
+                        value='Graphic/Web Design'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='CPR (Certification Required)'
+                        value='CPR (Certification Required)'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='First Aid (Certification Required)'
+                        value='First Aid (Certification Required)'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Nursing (CNA/RNA Certified)'
+                        value='Nursing (CNA/RNA Certified)'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Other'
+                        value='Other'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='skills'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Form.Group>
               <Form.Field>
                 <Divider hidden/>
                 <label>Environmental Preference</label>
               </Form.Field>
               <Form.Group widths={2}>
-                <Form.Field
+                <Form.Radio
                   label='Indoor'
-                  control='input'
-                  type='radio'
-                  name='envirRadios'
+                  value='Indoor'
+                  // control='input'
+                  // type='radio'
+                  name='environmentalPreference'
+                  checked={environmentalPreference === 'Indoor'}
+                  onChange={handleChange}
                 />
-                <Form.Field
+                <Form.Radio
                   label='Outdoor'
-                  control='input'
-                  type='radio'
-                  name='envirRadios'
+                  value='Outdoor'
+                  // control='input'
+                  // type='radio'
+                  name='environmentalPreference'
+                  checked={environmentalPreference === 'Outdoor'}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Form.Group widths={2}>
-                <Form.Field
+                <Form.Radio
                   label='Both'
-                  control='input'
-                  type='radio'
-                  name='envirRadios'
+                  value='Both'
+                  // control='input'
+                  // type='radio'
+                  name='environmentalPreference'
+                  checked={environmentalPreference === 'Both'}
+                  onChange={handleChange}
                 />
-                <Form.Field
+                <Form.Radio
                   label='No Preference'
-                  control='input'
-                  type='radio'
-                  name='envirRadios'
+                  value='No Preference'
+                  // control='input'
+                  // type='radio'
+                  name='environmentalPreference'
+                  checked={environmentalPreference === 'No Preference'}
+                  onChange={handleChange}
                 />
               </Form.Group>
-              <Grid columns='equal'>
-                <Form.Field>
-                  <Divider hidden/>
-                  <label>Availability</label>
-                </Form.Field>
-                <Grid.Row columns='equal'>
-                  <Grid.Column><Checkbox label='One-time'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Once a month'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  <Grid.Column><Checkbox label='Once a week'/></Grid.Column>
-                  <Grid.Column><Checkbox label='1-3 times a week'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  <Grid.Column><Checkbox label='More than 3 times a week'/></Grid.Column>
-                  <Grid.Column><Checkbox label='Weekends only'/></Grid.Column>
-                </Grid.Row>
-                <Grid.Row columns='equal'>
-                  <Grid.Column><Checkbox label='Weekdays only'/></Grid.Column>
-                </Grid.Row>
-              </Grid>
+              <Form.Field>
+                <Divider hidden/>
+                <label>Availability</label>
+              </Form.Field>
+              <Form.Group>
+                <Grid columns={2}>
+                  <Grid.Row columns={2}>
+                    <Grid.Column>
+                      <Form.Field
+                        label='One-time'
+                        value='One-time'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Once a month'
+                        value='Once a month'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Once a week'
+                        value='Once a week'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='1-3 times a week'
+                        value='1-3 times a week'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='More than 3 times a week'
+                        value='More than 3 times a week'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Weekends only'
+                        value='Weekends only'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Form.Field
+                        label='Weekdays only'
+                        value='Weekdays only'
+                        control={Checkbox}
+                        // type='checkbox'
+                        name='availability'
+                        onChange={handleChange}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Form.Group>
               <Divider hidden/>
               <Form.Button id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT} content="Submit" />
             </Segment>
