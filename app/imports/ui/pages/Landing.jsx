@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Header, Image, Button, Container, Divider, Card, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { volunteerCategories } from '../../api/organization/OrgCollection';
 
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url}>
@@ -48,7 +49,7 @@ CategoryItem.propTypes = {
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
-  <Grid id={PAGE_IDS.LANDING} textAlign='center' container>
+  <Grid id={PAGE_IDS.LANDING} textAlign='centered' container>
 
     <Grid.Row>
       <Image size='large' src='/images/VA-logo-v5-web.svg'/>
@@ -79,8 +80,8 @@ const Landing = () => (
         <Grid columns={4}>
           <Grid.Row>
             <Image src="/images/org-logos-01-150x150.png"/>
-            <Image src="/images/org-logos-02-150x150.png"/>
-            <Image src="/images/org-logos-03-150x150.png"/>
+            <Image src='/images/org-logos-02-150x150.png'/>
+            <Image as='a' href='#/organization-profile' src='/images/org-logos-03-150x150.png'/>
             <Image src="/images/org-logos-04-150x150.png"/>
           </Grid.Row>
           <Grid.Row>
@@ -161,61 +162,15 @@ const Landing = () => (
     <Grid.Row>
       <Header as='h2'>Browse Opportunities By Category</Header>
       <Card.Group centered>
-        <CategoryItem category={{
-          url: '#category-animal-welfare-rescue',
-          icon: 'paw',
-          name: 'Animal Welfare/Rescue',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-child-family-support',
-          icon: 'child',
-          name: 'Child/Family Support',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-covid-19-recovery',
-          icon: 'certificate',
-          name: 'COVID-19 Recovery',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-crisis-disaster-relief',
-          icon: 'bell',
-          name: 'Crisis/Disaster Relief',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-education',
-          icon: 'apple',
-          name: 'Education',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-environment',
-          icon: 'leaf',
-          name: 'Environment',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-elderly-senior-care',
-          icon: 'users',
-          name: 'Elderly/Senior Care',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-food-insecurity',
-          icon: 'leaf',
-          name: 'Food Insecurity',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-housing',
-          icon: 'home',
-          name: 'Housing',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-homelessness-poverty',
-          icon: 'bed',
-          name: 'Homelessness/Poverty',
-        }}/>
-        <CategoryItem category={{
-          url: '#category-special-needs',
-          icon: 'wheelchair',
-          name: 'Special Needs',
-        }}/>
+        {Object.getOwnPropertyNames(volunteerCategories).map((item) => {
+          const cat = volunteerCategories[item];
+          return <Card key={cat.name} raised>
+            <Card.Content>
+              <Card.Header><Icon name={cat.icon}/>{cat.name}</Card.Header>
+            </Card.Content>
+          </Card>;
+        })}
+
       </Card.Group>
     </Grid.Row>
 

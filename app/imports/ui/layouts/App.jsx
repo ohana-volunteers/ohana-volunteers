@@ -19,6 +19,7 @@ import ManageDatabase from '../pages/ManageDatabase';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import VolunteerProfile from '../pages/VolunteerProfile';
 import AboutUs from '../pages/AboutUs';
+import OrganizationProfile from '../pages/OrganizationProfile';
 import { ROLE } from '../../api/role/Role';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
@@ -35,6 +36,7 @@ class App extends React.Component {
             <Route path="/signin" component={Signin}/>
             <Route path="/signup" component={Signup}/>
             <Route path="/signout" component={Signout}/>
+            <Route path="/organization-profile" component={OrganizationProfile}/>
             <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>
             <ProtectedRoute path="/list" component={ListStuff}/>
             <ProtectedRoute path="/add" component={AddStuff}/>
