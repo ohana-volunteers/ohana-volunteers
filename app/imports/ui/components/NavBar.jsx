@@ -11,7 +11,7 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => {
   const menuStyle = { marginBottom: '25px', paddingBottom: '2rem', paddingTop: '2rem', backgroundColor: '#FFFFFF' };
-  const input = { width: '30rem' };
+  const input = { width: '20rem' };
   const [open, setOpen] = React.useState(false);
   return (
     <Menu secondary style={menuStyle} attached="top" borderless>
