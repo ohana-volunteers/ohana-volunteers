@@ -15,6 +15,7 @@ import ListHours from '../pages/ListHours';
 import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
+import organizations from '../pages/Organizations';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import ManageDatabase from '../pages/ManageDatabase';
@@ -47,6 +48,7 @@ class App extends React.Component {
             <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
             <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+              <Route path="/organizations" component={organizations}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>
           <Footer/>

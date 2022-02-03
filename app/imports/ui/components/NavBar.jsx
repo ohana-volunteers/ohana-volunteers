@@ -19,7 +19,7 @@ const NavBar = ({ currentUser }) => {
       <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/notfound" key='library'>Organization Library</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/organizations" key='library'>Organization Library</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
       {currentUser === '' ? (
         [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,
