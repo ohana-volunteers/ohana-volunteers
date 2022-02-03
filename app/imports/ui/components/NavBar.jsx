@@ -7,8 +7,8 @@ import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
 import NavBarMessages from './NavBarMessages';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
-/** The NavBars appears at the top of every page where items change depending on role of the user. Rendered by the App Layout component. */
-const NavBars = ({ currentUser }) => {
+/** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
+const NavBar = ({ currentUser }) => {
   const menuStyle = { marginBottom: '25px', paddingBottom: '2rem', paddingTop: '2rem', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
   return (
@@ -49,7 +49,7 @@ const NavBars = ({ currentUser }) => {
 };
 
 // Declare the types of all properties.
-NavBars.propTypes =
+NavBar.propTypes =
 {
   currentUser: PropTypes.string,
 };
@@ -60,7 +60,7 @@ const NavBarContainer = withTracker(() => {
   return {
     currentUser,
   };
-})(NavBars);
+})(NavBar);
 
 // Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter
 export default withRouter(NavBarContainer);
