@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, List, Image, Divider } from 'semantic-ui-react';
+import { Grid, Header, List, Image, Divider, Button } from 'semantic-ui-react';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 const testOrg = {
@@ -52,6 +52,10 @@ const OrganizationProfile = () => (
             <List.Item icon='phone' content={testOrg.contact.phone}/> : ''}
         </List>
       </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Button>Edit Profile</Button>
+      <br/>
     </Grid.Row>
   </Grid>
 );
