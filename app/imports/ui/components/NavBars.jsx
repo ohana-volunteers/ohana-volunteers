@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Dropdown, Image, Input, Icon, Modal, Button, Grid, Header } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
+import NavBarMessages from './NavBarMessages';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
-/** The NavBar appears at the top of every page. Rendered by the App Layout component. */
-const NavBar = ({ currentUser }) => {
+/** The NavBars appears at the top of every page where items change depending on role of the user. Rendered by the App Layout component. */
+const NavBars = ({ currentUser }) => {
   const menuStyle = { marginBottom: '25px', paddingBottom: '2rem', paddingTop: '2rem', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
-  const [open, setOpen] = React.useState(false);
   return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
@@ -39,32 +39,7 @@ const NavBar = ({ currentUser }) => {
           </Dropdown>
         </Menu.Item>,
         <Menu.Item key="messages" activeClassName="">
-          <Modal
-            closeIcon
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            open={open}
-            trigger={<Button basic circular id={COMPONENT_IDS.NAVBAR_MESSAGES}><Icon name="comments" color="black"/></Button>}
-            key='messages'>
-            <Modal.Header>Messages</Modal.Header>
-            <Grid container doubling centered verticalAlign='middle'>
-              <div className="modal-margin">
-                <Grid.Column textAlign='center'>
-                  <Icon name="inbox" size="big"/>
-                  <Header as='h3'>No Messages Available</Header>
-                </Grid.Column>
-              </div>
-            </Grid>
-            <Modal.Actions>
-              <Button
-                id={COMPONENT_IDS.NAVBAR_MESSAGES_COMPOSE}
-                content="Compose"
-                labelPosition='right'
-                color="blue"
-                icon="plus"
-                onClick={() => setOpen(false)}/>
-            </Modal.Actions>
-          </Modal>
+          <NavBarMessages/>
         </Menu.Item>]
       )}
     </Menu>
@@ -72,7 +47,7 @@ const NavBar = ({ currentUser }) => {
 };
 
 // Declare the types of all properties.
-NavBar.propTypes =
+NavBars.propTypes =
 {
   currentUser: PropTypes.string,
 };
@@ -83,7 +58,7 @@ const NavBarContainer = withTracker(() => {
   return {
     currentUser,
   };
-})(NavBar);
+})(NavBars);
 
 // Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter
 export default withRouter(NavBarContainer);
