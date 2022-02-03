@@ -30,6 +30,7 @@ const NavBars = ({ currentUser }) => {
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} activeClassName="" text="Verify More Hours" as={NavLink} exact to="/addhours"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} activeClassName="" text="Tracked Hours" as={NavLink} exact to="/listhours"/>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_OPPORTUNITY} activeClassName="" text="My Opportunity" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} activeClassName="" text="My Profile" as={NavLink} exact to="/my-profile"/>
