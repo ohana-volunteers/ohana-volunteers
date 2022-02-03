@@ -31,6 +31,7 @@ const NavBar = ({ currentUser }) => {
           <Image src='/images/VA-logo-circle-v5.svg' avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
+              <Dropdown.Item activeClassName="" text="Verify More Hours" as={NavLink} exact to="/addhours"/>
               <Dropdown.Item activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item activeClassName="" text="My Opportunity" as={NavLink} exact to="/notfound"/>
               <Dropdown.Item activeClassName="" text="My Profile" as={NavLink} exact to="/notfound"/>
