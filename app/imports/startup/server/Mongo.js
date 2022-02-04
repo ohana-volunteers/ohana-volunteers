@@ -1,17 +1,17 @@
 import { Meteor } from 'meteor/meteor';
-import { Stuffs } from '../../api/stuff/StuffCollection';
+import { Organizations } from '../../api/organization/OrgCollection';
 /* eslint-disable no-console */
 
 // Initialize the database with a default data document.
-function addData(data) {
+function addOrg(data) {
   console.log(`  Adding: ${data.name} (${data.owner})`);
-  Stuffs.define(data);
+  Organizations.define(data);
 }
 
-// Initialize the StuffsCollection if empty.
-if (Stuffs.count() === 0) {
+// Initialize the OrgCollection if empty.
+if (Organizations.count() === 0) {
   if (Meteor.settings.defaultData) {
-    console.log('Creating default data.');
-    Meteor.settings.defaultData.map(data => addData(data));
+    console.log('Creating default organization profiles.');
+    Meteor.settings.defaultOrganizations.map(data => addOrg(data));
   }
 }

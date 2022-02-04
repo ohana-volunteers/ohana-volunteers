@@ -5,11 +5,21 @@
     { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" }
   ],
 
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  "defaultOrganizations": [
+    {
+      "name": "Hawaii Foodbank",
+      "categories": ["Food Insecurity", "Homelessness/Poverty"],
+      "location": "2611 Kilihau St., Honolulu, HI 96819",
+      "website": "https://hawaiifoodbank.org",
+      "avatar": "/images/HawaiiFoodbank_Logo.png",
+      "contact": {
+        "name": "Volunteer Opportunities",
+        "email": "volunteer@hawaiifoodbank.org",
+        "phone": "808-954-7866"
+      },
+      "owner": "admin@foo.com",
+      "status": "published"
+    }
   ],
   "public": {
     "development": true

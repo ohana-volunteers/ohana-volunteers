@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Header, Image, Button, Container, Divider, Card, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { volunteerCategories } from '../../api/organization/OrgCollection';
+import { volunteerCategories } from '../../api/categories/VolunteerCategories';
 
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url}>

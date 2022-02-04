@@ -4,57 +4,12 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
+import { volunteerCategories } from '../categories/VolunteerCategories';
 
 export const orgPublicationStatus = ['hidden', 'published'];
 export const orgPublications = {
   orgs: 'Organizations', // only orgs marked as published
   orgsAdmin: 'OrganizationsAdmin', // All orgs, even ones not marked as 'published'
-};
-export const volunteerCategories = {
-  animal: {
-    name: 'Animal Welfare/Rescue',
-    icon: 'paw',
-  },
-  family: {
-    name: 'Child/Family Support',
-    icon: 'child',
-  },
-  covid: {
-    name: 'COVID-19 Recovery',
-    icon: 'certificate',
-  },
-  disaster: {
-    name: 'Crisis/Disaster Relief',
-    icon: 'bell',
-  },
-  education: {
-    name: 'Education',
-    icon: 'apple',
-  },
-  environment: {
-    name: 'Environment',
-    icon: 'leaf',
-  },
-  seniors: {
-    name: 'Elderly/Senior Care',
-    icon: 'users',
-  },
-  food: {
-    name: 'Food Insecurity',
-    icon: 'food',
-  },
-  housing: {
-    name: 'Housing',
-    icon: 'home',
-  },
-  homelessness: {
-    name: 'Homelessness/Poverty',
-    icon: 'bed',
-  },
-  special_needs: {
-    name: 'Special Needs',
-    icon: 'wheelchair',
-  },
 };
 
 class OrgCollection extends BaseCollection {
