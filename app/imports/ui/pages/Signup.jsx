@@ -9,12 +9,8 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField, BoolField } from 'uniforms-semantic';
 import RadioField from '../components/form-fields/RadioField';
 import MultiSelectField from '../components/form-fields/MultiSelectField';
-// import { Checkbox, Container, Form, Grid, Header, Message, Segment, Divider } from 'semantic-ui-react';
-// import { Accounts } from 'meteor/accounts-base';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-// import { UserProfiles } from '../../api/user/UserProfileCollection.js';
-// import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { signUpNewUserMethod } from '../../api/user/UserProfileCollection.methods';
 
 const formSchema = new SimpleSchema({
@@ -105,7 +101,7 @@ const Signup = ({ location }) => {
   };
 
   /* Display the signup form. Redirect to add page after successful registration and login. */
-  const { from } = location.state || { from: { pathname: '/' } };
+  const { from } = location.state || { from: { pathname: '/signin' } };
   // if correct authentication, redirect to from: page instead of signup screen
   if (redirectToReferer) {
     return <Redirect to={from} />;
@@ -118,7 +114,7 @@ const Signup = ({ location }) => {
           <Button.Group size='large' fluid>
             <Button positive as={Link} to='/signup'>Volunteer Sign Up</Button>
             <Button.Or />
-            <Button as={Link}to="/signin">Organization Sign Up</Button>
+            <Button as={Link} to="/org-signup">Organization Sign Up</Button>
           </Button.Group>
           <Header as="h5" textAlign="center">
               Sign up to be a volunteer

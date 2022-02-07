@@ -4,6 +4,7 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
+import { Users } from '../user/UserCollection';
 
 export const orgPublicationStatus = ['hidden', 'published'];
 export const orgPublications = {
@@ -60,6 +61,7 @@ export const volunteerCategories = {
 class OrgCollection extends BaseCollection {
   constructor() {
     super('Organizations', new SimpleSchema({
+      email: String,
       name: String, // Organization name
       categories: Array, // List of applicable categories
       'categories.$': {
@@ -101,6 +103,7 @@ class OrgCollection extends BaseCollection {
    * @param status the publication status of the item.
    * @return {never} the docID of the new document.
    */
+  /**
   define({ name, categories, location, website, avatar, contact, owner, status }) {
     return this._collection.insert({
       name,
@@ -112,6 +115,32 @@ class OrgCollection extends BaseCollection {
       owner,
       status,
     });
+  }
+   */
+    if (Meteor.isServer) {
+      const username = email;
+      const user = this.findOne({ email, name, categories, location, website, avatar, contact, owner, status });
+      if (!user) {
+        const role = ROLE.USER;
+        const profileID = this._collection.insert({ email, name, categories, location, website, avatar, contact, owner, status, userID: this.getFakeUserId(), role });
+        const userID = Users.define({ username, role, password });
+        console.log(profileID);
+        console.log(userID);
+        console.log(Meteor.user());
+        // this._collection.update(profileID, { $set: { userID } });
+        return profileID;
+      }
+      return user._id;
+    }
+    return undefined;
+  }
+
+  /**
+   * The subclass methods need a way to create a profile with a valid, though fake, userId.
+   * @returns {string}
+   */
+  getFakeUserId() {
+    return 'ABCDEFGHJKLMNPQRS';
   }
 
   /**
