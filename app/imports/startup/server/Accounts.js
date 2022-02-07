@@ -2,14 +2,17 @@ import { Meteor } from 'meteor/meteor';
 import { ROLE } from '../../api/role/Role';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
 import { UserProfiles } from '../../api/user/UserProfileCollection';
+import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
 
 /* eslint-disable no-console */
 
-function createUser(email, role, firstName, lastName, password) {
+function createUser(email, role, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability) {
   console.log(`  Creating user ${email} with role ${role}.`);
   if (role === ROLE.ADMIN) {
     AdminProfiles.define({ email, firstName, lastName, password });
-  } else { // everyone else is just a user.
+  } else if (role === ROLE.VOLUNTEER) { // if user signs up as a volunteer
+    VolunteerProfiles.define({ email, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability });
+  } else { // else sign up as standard user (might remove?)
     UserProfiles.define({ email, firstName, lastName, password });
   }
 }
@@ -18,7 +21,8 @@ function createUser(email, role, firstName, lastName, password) {
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultAccounts) {
     console.log('Creating the default user(s)');
-    Meteor.settings.defaultAccounts.map(({ email, password, role, firstName, lastName }) => createUser(email, role, firstName, lastName, password));
+    Meteor.settings.defaultAccounts.map(({ email, role, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills,
+      environmentalPreference, availability }) => createUser(email, role, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }

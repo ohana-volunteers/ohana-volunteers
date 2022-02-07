@@ -2,7 +2,8 @@
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP"
     },
-    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" }
+    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" },
+    { "email": "volunteer@foo.com", "password": "changeme", "role": "VOLUNTEER" , "firstName": "John", "lastName": "Foo", "gender": "male", "address": "2500 Campus Rd", "city": "Honolulu", "state": "HI", "zip": "96822", "phone": "(808) 123-4567", "interests": ["COVID-19 Recovery", "Education", "Housing"], "skills": ["Education", "Event Planning", "Sales", "Technology"], "environmentalPreference": "outdoors", "availability": ["Once a week"]  }
   ],
 
   "defaultOrganizations": [
