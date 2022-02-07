@@ -10,7 +10,7 @@ const iconTextStyle = { paddingLeft: '80px', fontsize: '30px'};
 const gridStyle = { paddingTop: '30px'};
 const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px'};
 /** A simple static component to render some text for the About Us page. */
-const Organizations = () => (
+const OrganizationLibrary = () => (
     <div>
     <Divider style={container1Style}>
         <Container textAlign='center'>
@@ -127,4 +127,4 @@ const Organizations = () => (
     </div>
 );
 
-export default Organizations;
+export default OrganizationLibrary;

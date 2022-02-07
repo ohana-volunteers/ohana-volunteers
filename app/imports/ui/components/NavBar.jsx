@@ -9,17 +9,17 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => {
-  const menuStyle = { marginBottom: '25px', paddingBottom: '2rem', paddingTop: '2rem', backgroundColor: '#FFFFFF' };
+  const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
   return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
-        <Image src="/images/VA-logo-circle-v5.svg" size="tiny"/>
+        <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/organizations" key='library'>Organization Library</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/organization-library" key='library'>Organization Library</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
       {currentUser === '' ? (
         [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,

@@ -1,8 +1,10 @@
 import React from 'react';
-import { Grid, Header, Image, Button, Container, Divider, Card, Icon } from 'semantic-ui-react';
+import { Grid, Header, Image, Button, Container, Divider, Card, Icon, Loader } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { volunteerCategories } from '../../api/organization/OrgCollection';
+import { volunteerCategories } from '../../api/categories/VolunteerCategories';
+import { Organizations } from '../../api/organization/OrgCollection';
 
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url}>
@@ -48,11 +50,11 @@ CategoryItem.propTypes = {
 };
 
 /** A simple static component to render some text for the landing page. */
-const Landing = () => (
-  <Grid id={PAGE_IDS.LANDING} textAlign='centered' container>
+const Landing = ({ orgs, ready }) => (
+  <Grid id={PAGE_IDS.LANDING} textAlign='center' container>
 
     <Grid.Row>
-      <Image size='large' src='/images/VA-logo-v5-web.svg'/>
+      <Image size='large' src='/images/va-logo/VA-logo-v5-web.svg'/>
     </Grid.Row>
 
     <Grid.Row>
@@ -76,41 +78,26 @@ const Landing = () => (
         </Button>
       </Grid.Column>
 
-      <Grid.Column stretched width={10} verticalAlign="top">
-        <Grid columns={4}>
-          <Grid.Row>
-            <Image src="/images/org-logos-01-150x150.png"/>
-            <Image src='/images/org-logos-02-150x150.png'/>
-            <Image as='a' href='#/organization-profile' src='/images/org-logos-03-150x150.png'/>
-            <Image src="/images/org-logos-04-150x150.png"/>
-          </Grid.Row>
-          <Grid.Row>
-            <Image src="/images/org-logos-05-150x150.png"/>
-            <Image src="/images/org-logos-06-150x150.png"/>
-            <Image src="/images/org-logos-07-150x150.png"/>
-            <Image src="/images/org-logos-08-150x150.png"/>
-          </Grid.Row>
-          <Grid.Row>
-            <Image src="/images/org-logos-09-150x150.png"/>
-            <Image src="/images/org-logos-10-150x150.png"/>
-            <Image src="/images/org-logos-11-150x150.png"/>
-            <Image src="/images/org-logos-12-150x150.png"/>
-          </Grid.Row>
-          <Grid.Row>
-            <Image src="/images/org-logos-13-150x150.png"/>
-            <Image src="/images/org-logos-14-150x150.png"/>
-            <Image src="/images/org-logos-15-150x150.png"/>
-            <Image src="/images/org-logos-16-150x150.png"/>
-          </Grid.Row>
-          <Grid.Row>
-            <Container textAlign='center'>
-              <Button>
-                View All Opportunities
-              </Button>
-            </Container>
-          </Grid.Row>
-        </Grid>
-      </Grid.Column>
+      {(ready) ? (
+        <Grid.Column stretched width={10} verticalAlign="top">
+          <Grid columns={4}>
+            {orgs.map((org) => (
+              <Image
+                key={org._id} as='a'
+                href={`#/organization-profile/${org._id}`}
+                src={org.logo_mini}
+              />))
+            }
+            <Grid.Row>
+              <Container textAlign='center'>
+                <Button href='#/organization-library'>
+                  View All Organizations
+                </Button>
+              </Container>
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
+      ) : <Loader active>Fetching Organizations...</Loader>}
     </Grid.Row>
 
     <Divider/>
@@ -121,7 +108,7 @@ const Landing = () => (
         <OpportunityItem opp={{
           url: '#opportunity-test-opportunity',
           date: 'March 4, 2022 9:30am - 11:30am',
-          img: '/images/VA-logo-circle-v5.svg',
+          img: '/images/va-logo/VA-logo-circle-v5.svg',
           organization: 'Kokua',
           address: '66-249 Kamehameha Highway',
           event: 'Kokua Learning Farm Community Workday',
@@ -130,7 +117,7 @@ const Landing = () => (
         <OpportunityItem opp={{
           url: '#opportunity-test-opportunity',
           date: 'January 21, 2022 8:30am - 12:00am',
-          img: '/images/org-logos-03-150x150.png',
+          img: '/images/hawaii-foodbank/org-logos-03-150x150.png',
           organization: 'Hawaii Foodbank',
           address: 'Waipio Point Access Road',
           event: 'Distribution Assistance',
@@ -139,7 +126,7 @@ const Landing = () => (
         <OpportunityItem opp={{
           url: '#opportunity-test-opportunity',
           date: 'December 9, 2021 9:00am - 12:00pm',
-          img: '/images/VA-logo-circle-v5.svg',
+          img: '/images/va-logo/VA-logo-circle-v5.svg',
           organization: 'Joshlyn Sand',
           address: '123 North Kuakini Street',
           event: 'Nuuanu Stream Clean-Up',
@@ -148,7 +135,7 @@ const Landing = () => (
         <OpportunityItem opp={{
           url: '#opportunity-test-opportunity',
           date: 'January 1, 2022 12:00pm - 2:00pm',
-          img: '/images/VA-logo-circle-v5.svg',
+          img: '/images/va-logo/VA-logo-circle-v5.svg',
           organization: 'Scott Wo',
           address: '921770b Kunia Road',
           event: 'Test Opportunity',
@@ -188,4 +175,22 @@ const Landing = () => (
   </Grid>
 );
 
-export default Landing;
+// Require an array of documents in the props.
+Landing.propTypes = {
+  orgs: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+// withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+export default withTracker(() => {
+  // Get access to documents.
+  const subscription = Organizations.subscribe();
+  // Determine if the subscription is ready
+  const ready = subscription.ready();
+  // Get the documents and sort them by name.
+  const orgs = Organizations.find({}, { sort: { name: 1 } }).fetch();
+  return {
+    orgs,
+    ready,
+  };
+})(Landing);

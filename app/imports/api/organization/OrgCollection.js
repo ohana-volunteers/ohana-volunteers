@@ -4,57 +4,12 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
+import { volunteerCategories } from '../categories/VolunteerCategories';
 
-export const orgPublicationStatus = ['hidden', 'published'];
-export const orgPublications = {
-  orgs: 'Organizations', // only orgs marked as published
-  orgsAdmin: 'OrganizationsAdmin', // All orgs, even ones not marked as 'published'
-};
-export const volunteerCategories = {
-  animal: {
-    name: 'Animal Welfare/Rescue',
-    icon: 'paw',
-  },
-  family: {
-    name: 'Child/Family Support',
-    icon: 'child',
-  },
-  covid: {
-    name: 'COVID-19 Recovery',
-    icon: 'certificate',
-  },
-  disaster: {
-    name: 'Crisis/Disaster Relief',
-    icon: 'bell',
-  },
-  education: {
-    name: 'Education',
-    icon: 'apple',
-  },
-  environment: {
-    name: 'Environment',
-    icon: 'leaf',
-  },
-  seniors: {
-    name: 'Elderly/Senior Care',
-    icon: 'users',
-  },
-  food: {
-    name: 'Food Insecurity',
-    icon: 'food',
-  },
-  housing: {
-    name: 'Housing',
-    icon: 'home',
-  },
-  homelessness: {
-    name: 'Homelessness/Poverty',
-    icon: 'bed',
-  },
-  special_needs: {
-    name: 'Special Needs',
-    icon: 'wheelchair',
-  },
+export const orgPublicationStatus = ['hidden', 'public'];
+export const organizationPublications = {
+  orgs: 'Organizations',
+  orgsAdmin: 'OrganizationsAdmin',
 };
 
 class OrgCollection extends BaseCollection {
@@ -67,11 +22,19 @@ class OrgCollection extends BaseCollection {
         allowedValues: Object.keys(volunteerCategories),
       },
       location: String, // Organization address
-      website: URL, // Organization website
-      avatar: String,
+      mailing_address: { // Organization mailing address
+        type: String,
+        optional: true,
+      },
+      website: String, // Organization website
+      logo: String,
+      logo_mini: String,
       contact: Object, // Organization contact info
-      'contact.name': String, // Name of person to contact
-      'contact.email': String, // Email of person to contact
+      'contact.name': { // Name of person to contact
+        type: String,
+        optional: true,
+      },
+      'contact.email': String, // Email of person to contact (required)
       'contact.address': {
         type: String,
         optional: true,
@@ -94,20 +57,24 @@ class OrgCollection extends BaseCollection {
    * @param name the name of the organization.
    * @param categories List of applicable categories.
    * @param location Organization address.
+   * @param mailing_address Organization mailing address.
    * @param website Organization website.
-   * @param avatar Organization logo/ profile pic.
+   * @param logo Organization logo/ profile pic.
+   * @param logo_mini Organization logo/ profile pic.
    * @param contact Organization contact info.
    * @param owner the owner of the item.
    * @param status the publication status of the item.
    * @return {never} the docID of the new document.
    */
-  define({ name, categories, location, website, avatar, contact, owner, status }) {
+  define({ name, categories, location, mailing_address, website, logo, logo_mini, contact, owner, status }) {
     return this._collection.insert({
       name,
       categories,
       location,
+      mailing_address,
       website,
-      avatar,
+      logo,
+      logo_mini,
       contact,
       owner,
       status,
@@ -120,19 +87,23 @@ class OrgCollection extends BaseCollection {
    * @param name the new name (optional).
    * @param categories List of applicable categories (optional).
    * @param location Organization address (optional).
+   * @param mailing_address Organization mailing address (optional).
    * @param website Organization website (optional).
-   * @param avatar Organization logo/ profile pic (optional).
+   * @param logo Organization logo/ profile pic (optional).
+   * @param logo_mini Organization logo/ profile pic (optional).
    * @param contact Organization contact info (optional).
    * @param status the publication status of the item (optional).
    * @return {never}
    */
-  update(docID, { name, categories, location, website, avatar, contact, status }) {
+  update(docID, { name, categories, location, mailing_address, website, logo, logo_mini, contact, status }) {
     const updateData = {};
     if (name) updateData.name = name;
     if (categories) updateData.categories = categories;
     if (location) updateData.location = location;
+    if (mailing_address) updateData.location = mailing_address;
     if (website) updateData.website = website;
-    if (avatar) updateData.avatar = avatar;
+    if (logo) updateData.logo = logo;
+    if (logo_mini) updateData.logo = logo_mini;
     if (contact) updateData.contact = contact;
     if (status) updateData.status = status;
     this._collection.update(docID, { $set: updateData });
@@ -152,19 +123,18 @@ class OrgCollection extends BaseCollection {
 
   /**
    * Default publication method for entities.
-   * It publishes the 'published' orgs for users, and all orgs for admin
    */
   publish() {
     if (Meteor.isServer) {
       // get the Collection instance.
       const instance = this;
-      /** This subscription publishes only the documents with status 'published' */
-      Meteor.publish(orgPublications.orgs, function publish() {
-        return instance._collection.find({ status: 'published' });
+      /** Publish only profiles marked as 'public' to all users */
+      Meteor.publish(organizationPublications.orgs, function publish() {
+        return instance._collection.find({ status: 'public' });
       });
 
-      /** This subscription publishes all documents, but only if the logged in user is Admin. */
-      Meteor.publish(orgPublications.orgsAdmin, function publish() {
+      /** Publish all profiles to admin */
+      Meteor.publish(organizationPublications.orgsAdmin, function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
         }
@@ -174,11 +144,11 @@ class OrgCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for normal user.
+   * Subscription method for organizations marked as public
    */
-  subscribeOrgs() {
+  subscribe() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(orgPublications.orgs);
+      return Meteor.subscribe(organizationPublications.orgs);
     }
     return null;
   }
@@ -187,9 +157,9 @@ class OrgCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeOrgsAdmin() {
+  subscribeAdmin() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(orgPublications.orgsAdmin);
+      return Meteor.subscribe(organizationPublications.orgsAdmin);
     }
     return null;
   }

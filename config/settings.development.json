@@ -5,11 +5,65 @@
     { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" }
   ],
 
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  "defaultOrganizations": [
+    {
+      "name": "Hawaii Foodbank",
+      "categories": ["food", "poverty"],
+      "location": "2611 Kilihau St., Honolulu, HI 96819",
+      "website": "https://hawaiifoodbank.org",
+      "logo": "/images/hawaii-foodbank/HawaiiFoodbank_Logo.png",
+      "logo_mini": "/images/hawaii-foodbank/org-logos-03-150x150.png",
+      "contact": {
+        "name": "Volunteer Opportunities",
+        "email": "volunteer@hawaiifoodbank.org",
+        "phone": "808-954-7866"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    },
+    {
+      "name": "Aloha Animal Sanctuary",
+      "categories": ["animal"],
+      "location": "47-119 Pulama Rd, Kaneohe, HI 96744",
+      "website": "https://www.alohasanctuary.org",
+      "logo": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
+      "logo_mini": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
+      "contact": {
+        "name": "Information",
+        "email": "info@alohasanctuary.org"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    },
+    {
+      "name": "Habitat for Humanity",
+      "categories": ["housing", "poverty"],
+      "location": "922 Austin Lane, #C-1 Honolulu, HI 96817",
+      "website": "https://www.honoluluhabitat.org",
+      "logo": "/images/habitat-for-humanity/HHH-logo-black.png",
+      "logo_mini": "/images/habitat-for-humanity/org-logos-02-150x150.png",
+      "contact": {
+        "email": "info@honoluluhabitat.org",
+        "phone": "(808) 538-7070"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    },
+    {
+      "name": "Hawaii Meals on Wheels",
+      "categories": ["food", "seniors"],
+      "location": "2728 Huapala St # 209, Honolulu, HI 96822",
+      "mailing_address": "P.O. Box 236099, Honolulu, Hawaii 96823",
+      "website": "https://hmow.org",
+      "logo": "/images/meals-on-wheels/hawaii-meals-on-wheels.png",
+      "logo_mini": "/images/meals-on-wheels/org-logos-04-150x150.png",
+      "contact": {
+        "email": "info@hmow.org",
+        "phone": "(808) 988-6747"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    }
   ],
   "public": {
     "development": true
