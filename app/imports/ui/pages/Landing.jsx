@@ -50,7 +50,7 @@ CategoryItem.propTypes = {
 };
 
 /** A simple static component to render some text for the landing page. */
-const Landing = ({ orgs, ready }) => ((ready) ? (
+const Landing = ({ orgs, ready }) => (
   <Grid id={PAGE_IDS.LANDING} textAlign='center' container>
 
     <Grid.Row>
@@ -78,24 +78,26 @@ const Landing = ({ orgs, ready }) => ((ready) ? (
         </Button>
       </Grid.Column>
 
-      <Grid.Column stretched width={10} verticalAlign="top">
-        <Grid columns={4}>
-          {orgs.map((org) => (
-            <Image
-              key={org._id} as='a'
-              href={`#/organization-profile/${org._id}`}
-              src={org.logo_mini}
-            />))
-          }
-          <Grid.Row>
-            <Container textAlign='center'>
-              <Button>
-                View All Opportunities
-              </Button>
-            </Container>
-          </Grid.Row>
-        </Grid>
-      </Grid.Column>
+      {(ready) ? (
+        <Grid.Column stretched width={10} verticalAlign="top">
+          <Grid columns={4}>
+            {orgs.map((org) => (
+              <Image
+                key={org._id} as='a'
+                href={`#/organization-profile/${org._id}`}
+                src={org.logo_mini}
+              />))
+            }
+            <Grid.Row>
+              <Container textAlign='center'>
+                <Button href='#/organization-library'>
+                  View All Organizations
+                </Button>
+              </Container>
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
+      ) : <Loader active>Fetching Organizations...</Loader>}
     </Grid.Row>
 
     <Divider/>
@@ -171,7 +173,7 @@ const Landing = ({ orgs, ready }) => ((ready) ? (
       <Button>Get Started</Button>
     </Grid.Row>
   </Grid>
-) : <Loader active>Getting data</Loader>);
+);
 
 // Require an array of documents in the props.
 Landing.propTypes = {

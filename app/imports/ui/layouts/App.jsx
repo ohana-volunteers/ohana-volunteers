@@ -11,7 +11,7 @@ import AddHours from '../pages/AddHours';
 import ListHours from '../pages/ListHours';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
-import organizations from '../pages/Organizations';
+import organizations from '../pages/OrganizationLibrary';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import ManageDatabase from '../pages/ManageDatabase';
@@ -40,7 +40,7 @@ class App extends React.Component {
             <ProtectedRoute path="/addHours" component={AddHours}/>
             <ProtectedRoute path="/listHours" component={ListHours}/>
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-            <Route path="/organizations" component={organizations}/>
+            <Route path="/organization-library" component={organizations}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>
           <Footer/>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Organizations } from '../../api/organization/OrgCollection';
+import { volunteerCategories } from '../../api/categories/VolunteerCategories';
 
 /** A simple static component to render some text for the landing page. */
 const OrganizationProfile = ({ doc, ready }) => ((ready) ? (
@@ -20,15 +21,20 @@ const OrganizationProfile = ({ doc, ready }) => ((ready) ? (
       <Grid.Column width={6} textAlign='left'>
         <List>
           <List.Item icon='marker' content={doc.location}/>
+          {(doc.mailing_address) ?
+            <List.Item icon='mail outline' content={doc.mailing_address}/> : ''}
           <List.Item
             icon='linkify'
             content={<a href={doc.website}>{doc.website}</a>}
           />
-          <List.Item icon='tag' content={doc.categories.join(', ')}/>
+          <List.Item icon='tag' content={
+            doc.categories.map(key => volunteerCategories[key].name).join(', ')
+          }/>
         </List>
         <Header as='h3'>Contact info:</Header>
         <List>
-          <List.Item icon='user' content={doc.contact.name}/>
+          {(doc.contact.name) ?
+            <List.Item icon='user' content={doc.contact.name}/> : ''}
           <List.Item
             icon='mail'
             content={<a href={`mailto:${doc.contact.email}`}>{doc.contact.email}</a>}

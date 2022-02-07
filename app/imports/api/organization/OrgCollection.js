@@ -22,12 +22,19 @@ class OrgCollection extends BaseCollection {
         allowedValues: Object.keys(volunteerCategories),
       },
       location: String, // Organization address
+      mailing_address: { // Organization mailing address
+        type: String,
+        optional: true,
+      },
       website: String, // Organization website
       logo: String,
       logo_mini: String,
       contact: Object, // Organization contact info
-      'contact.name': String, // Name of person to contact
-      'contact.email': String, // Email of person to contact
+      'contact.name': { // Name of person to contact
+        type: String,
+        optional: true,
+      },
+      'contact.email': String, // Email of person to contact (required)
       'contact.address': {
         type: String,
         optional: true,
@@ -50,6 +57,7 @@ class OrgCollection extends BaseCollection {
    * @param name the name of the organization.
    * @param categories List of applicable categories.
    * @param location Organization address.
+   * @param mailing_address Organization mailing address.
    * @param website Organization website.
    * @param logo Organization logo/ profile pic.
    * @param logo_mini Organization logo/ profile pic.
@@ -58,11 +66,12 @@ class OrgCollection extends BaseCollection {
    * @param status the publication status of the item.
    * @return {never} the docID of the new document.
    */
-  define({ name, categories, location, website, logo, logo_mini, contact, owner, status }) {
+  define({ name, categories, location, mailing_address, website, logo, logo_mini, contact, owner, status }) {
     return this._collection.insert({
       name,
       categories,
       location,
+      mailing_address,
       website,
       logo,
       logo_mini,
@@ -78,6 +87,7 @@ class OrgCollection extends BaseCollection {
    * @param name the new name (optional).
    * @param categories List of applicable categories (optional).
    * @param location Organization address (optional).
+   * @param mailing_address Organization mailing address (optional).
    * @param website Organization website (optional).
    * @param logo Organization logo/ profile pic (optional).
    * @param logo_mini Organization logo/ profile pic (optional).
@@ -85,11 +95,12 @@ class OrgCollection extends BaseCollection {
    * @param status the publication status of the item (optional).
    * @return {never}
    */
-  update(docID, { name, categories, location, website, logo, logo_mini, contact, status }) {
+  update(docID, { name, categories, location, mailing_address, website, logo, logo_mini, contact, status }) {
     const updateData = {};
     if (name) updateData.name = name;
     if (categories) updateData.categories = categories;
     if (location) updateData.location = location;
+    if (mailing_address) updateData.location = mailing_address;
     if (website) updateData.website = website;
     if (logo) updateData.logo = logo;
     if (logo_mini) updateData.logo = logo_mini;
