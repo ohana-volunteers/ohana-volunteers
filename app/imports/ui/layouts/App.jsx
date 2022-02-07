@@ -7,12 +7,8 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
-import AddStuff from '../pages/AddStuff';
 import AddHours from '../pages/AddHours';
 import ListHours from '../pages/ListHours';
-import EditStuff from '../pages/EditStuff';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import organizations from '../pages/Organizations';
@@ -39,16 +35,12 @@ class App extends React.Component {
             <Route path="/signin" component={Signin}/>
             <Route path="/signup" component={Signup}/>
             <Route path="/signout" component={Signout}/>
-            <Route path="/organization-profile" component={OrganizationProfile}/>
+            <Route path="/organization-profile/:_id" component={OrganizationProfile}/>
             <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>
-            <ProtectedRoute path="/list" component={ListStuff}/>
-            <ProtectedRoute path="/add" component={AddStuff}/>
             <ProtectedRoute path="/addHours" component={AddHours}/>
             <ProtectedRoute path="/listHours" component={ListHours}/>
-            <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-            <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-              <Route path="/organizations" component={organizations}/>
+            <Route path="/organizations" component={organizations}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>
           <Footer/>

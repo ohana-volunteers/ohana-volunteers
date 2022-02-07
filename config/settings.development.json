@@ -8,17 +8,18 @@
   "defaultOrganizations": [
     {
       "name": "Hawaii Foodbank",
-      "categories": ["Food Insecurity", "Homelessness/Poverty"],
+      "categories": ["food", "homelessness"],
       "location": "2611 Kilihau St., Honolulu, HI 96819",
       "website": "https://hawaiifoodbank.org",
-      "avatar": "/images/HawaiiFoodbank_Logo.png",
+      "logo": "/images/hawaii-foodbank/HawaiiFoodbank_Logo.png",
+      "logo_mini": "/images/hawaii-foodbank/org-logos-03-150x150.png",
       "contact": {
         "name": "Volunteer Opportunities",
         "email": "volunteer@hawaiifoodbank.org",
         "phone": "808-954-7866"
       },
       "owner": "admin@foo.com",
-      "status": "published"
+      "status": "public"
     }
   ],
   "public": {

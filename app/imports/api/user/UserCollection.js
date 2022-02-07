@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { Stuffs } from '../stuff/StuffCollection';
+import { Organizations } from '../organization/OrgCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -89,13 +89,13 @@ class UserCollection {
   }
 
   /**
-   * Returns true if user is referenced by other "public" entities. Specifically user owns Stuff.
+   * Returns true if user is referenced by other "public" entities. Specifically user owns Profiles.
    * Used to determine if user can be deleted.
    * @param user
    * @return {boolean}
    */
   isReferenced(user) {
-    return Stuffs.find({ owner: user }).fetch().length > 0;
+    return Organizations.find({ owner: user }).fetch().length > 0;
   }
 
   /**

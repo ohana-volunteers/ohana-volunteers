@@ -10,7 +10,7 @@ function addOrg(data) {
 
 // Initialize the OrgCollection if empty.
 if (Organizations.count() === 0) {
-  if (Meteor.settings.defaultData) {
+  if (Meteor.settings.defaultOrganizations) {
     console.log('Creating default organization profiles.');
     Meteor.settings.defaultOrganizations.map(data => addOrg(data));
   }
