@@ -13,6 +13,7 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import organizations from '../pages/OrganizationLibrary';
 import Signup from '../pages/Signup';
+import OrganizationSignup from '../pages/OrganizationSignup';
 import Signout from '../pages/Signout';
 import ManageDatabase from '../pages/ManageDatabase';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
@@ -34,6 +35,7 @@ class App extends React.Component {
             <Route path="/about-us" component={AboutUs}/>
             <Route path="/signin" component={Signin}/>
             <Route path="/signup" component={Signup}/>
+            <Route path="/org-signup" component={OrganizationSignup}/>
             <Route path="/signout" component={Signout}/>
             <Route path="/organization-profile/:_id" component={OrganizationProfile}/>
             <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>
