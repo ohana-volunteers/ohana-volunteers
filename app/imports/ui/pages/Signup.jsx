@@ -116,9 +116,9 @@ const Signup = ({ location }) => {
       <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
         <Grid.Column>
           <Button.Group size='large' fluid>
-            <Button positive ><Link to="/signup">Volunteer Sign Up</Link></Button>
+            <Button positive as={Link} to='/signup'>Volunteer Sign Up</Button>
             <Button.Or />
-            <Button><Link to="/signin">Organization Sign Up</Link></Button>
+            <Button as={Link}to="/signin">Organization Sign Up</Button>
           </Button.Group>
           <Header as="h5" textAlign="center">
               Sign up to be a volunteer
