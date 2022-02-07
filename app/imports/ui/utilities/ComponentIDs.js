@@ -34,6 +34,7 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_PASSWORD: 'sign-up-form-password',
   SIGN_UP_FORM_FIRST_NAME: 'sign-up-form-first-name',
   SIGN_UP_FORM_LAST_NAME: 'sign-up-form-last-name',
+  SIGN_UP_FORM_GENDER: 'sign-up-form-gender',
   SIGN_UP_FORM_ADDRESS: 'sign-up-form-address',
   SIGN_UP_FORM_CITY: 'sign-up-form-city',
   SIGN_UP_FORM_STATE: 'sign-up-form-state',
@@ -41,5 +42,8 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_PHONE: 'sign-up-form-phone',
   SIGN_UP_FORM_INTERESTS: 'sign-up-form-interests',
   SIGN_UP_FORM_SKILLS: 'sign-up-form-skills',
+  SIGN_UP_FORM_ENVIRONMENT: 'sign-up-form-environmental-preference',
+  SIGN_UP_FORM_AVAILABILITY: 'sign-up-form-availability',
+  SIGN_UP_FORM_TERM: 'sign-up-form-term',
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
 };

@@ -49,7 +49,7 @@ CategoryItem.propTypes = {
 
 /** A simple static component to render some text for the landing page. */
 const Landing = () => (
-  <Grid id={PAGE_IDS.LANDING} textAlign='centered' container>
+  <Grid id={PAGE_IDS.LANDING} textAlign='center' container>
 
     <Grid.Row>
       <Image size='large' src='/images/VA-logo-v5-web.svg'/>
