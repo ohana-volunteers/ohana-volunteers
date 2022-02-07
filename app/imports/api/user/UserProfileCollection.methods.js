@@ -15,6 +15,7 @@ export const signUpNewUserMethod = new ValidatedMethod({
   },
 });
 
+/**
 export const signUpNewOrganizationMethod = new ValidatedMethod({
   name: 'Organizations.SignupNewOrganization',
   mixins: [CallPromiseMixin],
@@ -25,3 +26,5 @@ export const signUpNewOrganizationMethod = new ValidatedMethod({
     }
   },
 });
+
+ */
