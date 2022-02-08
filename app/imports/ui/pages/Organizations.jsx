@@ -9,6 +9,11 @@ const iconStyle = { paddingLeft: '115px'};
 const iconTextStyle = { paddingLeft: '80px', fontsize: '30px'};
 const gridStyle = { paddingTop: '30px'};
 const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px'};
+const imageStyle = { marginLeft: '400px'};
+const image2Style = { marginLeft: '200px'};
+const image3Style = { marginLeft: '20px'};
+const image4Style = { marginLeft: '-150px'};
+const imageGridStyle = { paddingTop: '120px', paddingBottom: '120px'};
 /** A simple static component to render some text for the About Us page. */
 const Organizations = () => (
     <div>
@@ -18,67 +23,67 @@ const Organizations = () => (
             <Item.Description style={textStyle}> Browse the organizations we work with </Item.Description>
         </Container>
     </Divider>
-        <Grid centered columns={4}>
+        <Grid centered columns={4} style={imageGridStyle}>
             <Grid.Column>
-                <Image src='/images/org-logos-01-150x150.png' />
+                <Image src='/images/org-logos-01-150x150.png' size='small' style={imageStyle} />
             </Grid.Column>
             <Grid.Column>
-                <Image src='/images/org-logos-02-150x150.png' />
+                <Image src='/images/org-logos-02-150x150.png' size='small'style={image2Style} />
             </Grid.Column>
             <Grid.Column>
-                <Image src='/images/org-logos-03-150x150.png' />
+                <Image src='/images/org-logos-03-150x150.png' size='small' style={image3Style} />
             </Grid.Column>
             <Grid.Column>
-                <Image src='/images/org-logos-04-150x150.png' />
+                <Image src='/images/org-logos-04-150x150.png' size='small' style={image4Style} />
             </Grid.Column>
 
             <Grid.Row centered columns={4}>
                 <Grid.Column>
-                    <Image src='/images/org-logos-05-150x150.png' />
+                    <Image src='/images/org-logos-05-150x150.png' style={imageStyle} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-06-150x150.png' />
+                    <Image src='/images/org-logos-06-150x150.png' style={image2Style} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-07-150x150.png' />
+                    <Image src='/images/org-logos-07-150x150.png' style={image3Style} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-08-150x150.png' />
+                    <Image src='/images/org-logos-08-150x150.png' style={image4Style} />
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row centered columns={4}>
                 <Grid.Column>
-                    <Image src='/images/org-logos-09-150x150.png' />
+                    <Image src='/images/org-logos-09-150x150.png' style={imageStyle} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-10-150x150.png' />
+                    <Image src='/images/org-logos-10-150x150.png' style={image2Style} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-11-150x150.png' />
+                    <Image src='/images/org-logos-11-150x150.png' style={image3Style} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-12-150x150.png' />
+                    <Image src='/images/org-logos-12-150x150.png' style={image4Style}/>
                 </Grid.Column>
             </Grid.Row>
 
             <Grid.Row centered columns={4}>
                 <Grid.Column>
-                    <Image src='/images/org-logos-13-150x150.png' />
+                    <Image src='/images/org-logos-13-150x150.png' style={imageStyle} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-14-150x150.png' />
+                    <Image src='/images/org-logos-14-150x150.png' style={image2Style} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-15-150x150.png' />
+                    <Image src='/images/org-logos-15-150x150.png' style={image3Style} />
                 </Grid.Column>
                 <Grid.Column>
-                    <Image src='/images/org-logos-16-150x150.png' />
+                    <Image src='/images/org-logos-16-150x150.png' style={image4Style} />
                 </Grid.Column>
             </Grid.Row>
         </Grid>
 
-        <Image src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid />
+        <Image src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid size='massive' centered />
 
         <Item.Header as="h1" style={textStyle2}> Join over 20 organizations already finding the help they need with Volunteer Ally. </Item.Header>
 
