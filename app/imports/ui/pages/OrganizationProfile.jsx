@@ -1,14 +1,16 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Grid, Header, List, Image, Divider, Button, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Organizations } from '../../api/organization/OrgCollection';
-import { volunteerCategories } from '../../api/categories/VolunteerCategories';
+import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
-/** A simple static component to render some text for the landing page. */
-const OrganizationProfile = ({ doc, ready }) => ((ready) ? (
+/** Organization Profile page that displays info from the Organizations Collection. */
+const OrganizationProfile = ({ doc, currentUser, ready }) => ((ready) ? (
   <Grid id={PAGE_IDS.ORGANIZATION_PROFILE} textAlign='center' divided container>
     <Grid.Row>
       <Header as='h1'>{doc.name}</Header>
@@ -47,7 +49,9 @@ const OrganizationProfile = ({ doc, ready }) => ((ready) ? (
       </Grid.Column>
     </Grid.Row>
     <Grid.Row>
-      <Button>Edit Profile</Button>
+      {/* Only display the edit button if logged in as owner */}
+      {(doc.owner === currentUser) ?
+        <Button id={COMPONENT_IDS.ORGANIZATION_PROFILE_EDIT} href={`/edit-organization-profile/:${doc._id}`}>Edit Profile</Button> : ''}
       <br/>
     </Grid.Row>
   </Grid>
@@ -55,6 +59,7 @@ const OrganizationProfile = ({ doc, ready }) => ((ready) ? (
 
 OrganizationProfile.propTypes = {
   doc: PropTypes.object,
+  currentUser: PropTypes.string,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -66,8 +71,11 @@ export default withTracker(() => {
   const ready = subscription.ready();
   // Get the document
   const doc = (ready) ? Organizations.findDoc(documentId) : undefined;
+  // Get the current user
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
   return {
     doc,
+    currentUser,
     ready,
   };
 })(OrganizationProfile);
