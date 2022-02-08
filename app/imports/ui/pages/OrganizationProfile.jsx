@@ -51,7 +51,7 @@ const OrganizationProfile = ({ doc, currentUser, ready }) => ((ready) ? (
     <Grid.Row>
       {/* Only display the edit button if logged in as owner */}
       {(doc.owner === currentUser) ?
-        <Button id={COMPONENT_IDS.ORGANIZATION_PROFILE_EDIT} href={`/edit-organization-profile/:${doc._id}`}>Edit Profile</Button> : ''}
+        <Button id={COMPONENT_IDS.ORGANIZATION_PROFILE_EDIT} href={`#/edit-organization-profile/${doc._id}`}>Edit Profile</Button> : ''}
       <br/>
     </Grid.Row>
   </Grid>
