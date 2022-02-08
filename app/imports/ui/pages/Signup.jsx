@@ -11,7 +11,8 @@ import RadioField from '../components/form-fields/RadioField';
 import MultiSelectField from '../components/form-fields/MultiSelectField';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { signUpNewUserMethod } from '../../api/user/UserProfileCollection.methods';
+// import { signUpNewUserMethod } from '../../api/user/UserProfileCollection.methods';
+import { signUpNewVolunteerMethod } from '../../api/user/VolunteerProfileCollection.methods';
 
 const formSchema = new SimpleSchema({
   firstName: String,
@@ -68,10 +69,10 @@ const formSchema = new SimpleSchema({
   },
   'availability.$': {
     type: String,
-    allowedValues: ['One-time', 'once a week', 'EMore than 3 times a week', 'Weekdays only',
+    allowedValues: ['One-time', 'Once a week', 'More than 3 times a week', 'Weekdays only',
       'Once a month', '1-3 times a week', 'Weekends only'],
   },
-  acceptTermsOfUse: { type: 'boolean', label: 'I agree to the Terms & Conditions and Privacy Policy.', },
+  acceptTermsOfUse: { type: 'boolean', label: 'I agree to the Terms & Conditions and Privacy Policy.' },
 });
 
 const bridge = new SimpleSchema2Bridge(formSchema);
@@ -83,7 +84,7 @@ const Signup = ({ location }) => {
   const [redirectToReferer, setRedirectToReferer] = useState(false);
   const submit = (data, formRef) => {
     console.log(data);
-    signUpNewUserMethod.callPromise(data)
+    signUpNewVolunteerMethod.callPromise(data)
       .catch(error => {
         swal('Error', error.message, 'error');
         console.error(error);

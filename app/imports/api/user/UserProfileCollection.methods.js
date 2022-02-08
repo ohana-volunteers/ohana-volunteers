@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { UserProfiles } from './UserProfileCollection';
-import { Organizations } from '../organization/OrgCollection';
+// import { Organizations } from '../organization/OrgCollection';
 
 export const signUpNewUserMethod = new ValidatedMethod({
   name: 'UserProfiles.SignupNewUser',

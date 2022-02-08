@@ -10,22 +10,50 @@ class VolunteerProfileCollection extends BaseProfileCollection {
       email: String,
       firstName: String,
       lastName: String,
-      gender: String,
+      gender: {
+        type: String,
+        allowedValues: ['Female', 'Male', 'Other', 'Prefer Not to Say'],
+      },
       address: String,
       city: String,
       state: String,
       zip: String,
       phone: String,
-      interests: Array,
-      'interests.$': String,
-      skills: Array,
+      interests: {
+        type: Array,
+        optional: false,
+      },
+      'interests.$': {
+        type: String,
+        allowedValues: ['Animal Welfare/Rescue', 'COVID-19 Recovery', 'Education', 'Elderly/Senior Care',
+          'Housing', 'Special Needs', 'Child/Family Support', 'Crisis/Disaster Relief', 'Environment', 'Food Banks',
+          'Homelessness/Poverty'],
+      },
+      skills: {
+        type: Array,
+        optional: true,
+      },
       'skills.$': {
         type: String,
         optional: true,
+        allowedValues: ['Agriculture', 'Education', 'Event Planning', 'Technology',
+          'CPR (Certification Required)', 'Nursing (CNA/RNA Certified)', 'Construction', 'Engineering', 'Sales/Marketing',
+          'Graphic/Web Design', 'First Aid (Certification Required)', 'Other'],
       },
-      environmentalPreference: String,
-      availability: Array,
-      'availability.$': String,
+      environmentalPreference: {
+        type: String,
+        allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
+      },
+      availability: {
+        type: Array,
+        optional: false,
+      },
+      'availability.$': {
+        type: String,
+        allowedValues: ['One-time', 'Once a week', 'More than 3 times a week', 'Weekdays only',
+          'Once a month', '1-3 times a week', 'Weekends only'],
+      },
+      acceptTermsOfUse: 'boolean',
     }));
   }
 
@@ -45,14 +73,15 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param skills Set of Skills.
    * @param environmentalPreference Set of preferences.
    * @param availability Set of availabilities.
+   * @param acceptTermsOfUse Check if users accepted TOU.
    */
-  define({ email, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability }) {
+  define({ email, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, acceptTermsOfUse }) {
     if (Meteor.isServer) {
       const username = email;
       const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.VOLUNTEER;
-        const profileID = this._collection.insert({ email, firstName, lastName, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, userID: this.getFakeUserId(), role });
+        const profileID = this._collection.insert({ email, firstName, lastName, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, acceptTermsOfUse, userID: this.getFakeUserId(), role });
         const userID = Users.define({ username, role, password });
         this._collection.update(profileID, { $set: { userID } });
         return profileID;
@@ -135,7 +164,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER, ROLE.VOLUNTEER]);
   }
 
   /**
