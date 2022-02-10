@@ -146,7 +146,7 @@
       "organization": "Kokua",
       "address": "66-249 Kamehameha Highway",
       "event": "Kokua Learning Farm Community Workday",
-      "categories": "Education, Environment"
+      "categories": ["education", "environment"]
     },
     {
       "url": "#opportunity-test-opportunity",
@@ -155,7 +155,25 @@
       "organization": "Hawaii Foodbank",
       "address": "Waipio Point Access Road",
       "event": "Distribution Assistance",
-      "categories": "COVID-19 Recovery"
+      "categories": ["covid"]
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": "December 9, 2021 9:00am - 12:00pm",
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "Joshlyn Sand",
+      "address": "123 North Kuakini Street",
+      "event": "Nuuanu Stream Clean-Up",
+      "categories": ["environment"]
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": "January 1, 2022 12:00pm - 2:00pm",
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "Scott Wo",
+      "address": "921770b Kunia Road",
+      "event": "Test Opportunity",
+      "categories": ["environment"]
     }
   ],
   "public": {

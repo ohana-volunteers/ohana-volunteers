@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-import { _ } from 'meteor/underscore';
+// import { _ } from 'meteor/underscore';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
@@ -113,11 +113,8 @@ class OpportunityCollection extends BaseCollection {
       const instance = this;
       /** This subscription publishes all documents  */
       Meteor.publish(OpportunityPublications.opportunity, function publish() {
-        if (this.userId) {
-          // const username = Meteor.users.findOne(this.userId).username;
-          return instance._collection.find();
-        }
-        return this.ready();
+        return instance._collection.find();
+        // return this.ready();
       });
 
       /** This subscription publishes all documents regardless of user, but only if the logged in user is the organization. */
