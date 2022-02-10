@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Card, Button, Image, List, Icon, Loader, Container } from 'semantic-ui-react';
+import { Grid, Header, Card, Button, Image, List, Loader, Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
+import VolunteerProfileDetails from '../components/VolunteerProfleDetails';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
@@ -39,65 +40,7 @@ const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
         </Grid>
       </Card.Content>
       <Card.Content>
-        <Grid stackable container>
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <Card>
-                <Card.Content>
-                  <Card.Header>Contact Info</Card.Header>
-                </Card.Content>
-                <Card.Content>
-                  <List size="big">
-                    <List.Item><b><Icon name="mail"/>Email:</b> {doc.email}</List.Item>
-                    <List.Item><b><Icon name="phone"/>Phone:</b> {doc.phone}</List.Item>
-                  </List>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Card>
-                <Card.Content>
-                  <Card.Header>Interests</Card.Header>
-                </Card.Content>
-                <Card.Content>
-                  <List bulleted size="big" items={doc.interests}/>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Card>
-                <Card.Content>
-                  <Card.Header>Special Skills</Card.Header>
-                </Card.Content>
-                <Card.Content>
-                  <List bulleted size="big" items={doc.skills}/>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Card>
-                <Card.Content>
-                  <Card.Header>Environmental Preference</Card.Header>
-                </Card.Content>
-                <Card.Content>
-                  <List as="ul" size="big">
-                    <List.Item as="li">{doc.environmentalPreference}</List.Item>
-                  </List>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <Card>
-                <Card.Content>
-                  <Card.Header>Availability</Card.Header>
-                </Card.Content>
-                <Card.Content>
-                  <List bulleted size="big" items={doc.availability}/>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <VolunteerProfileDetails doc={ doc }/>
       </Card.Content>
     </Card>
   </Container>
