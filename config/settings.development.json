@@ -146,7 +146,9 @@
       "organization": "Kokua",
       "address": "66-249 Kamehameha Highway",
       "event": "Kokua Learning Farm Community Workday",
-      "categories": ["education", "environment"]
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Adults"
     },
     {
       "url": "#opportunity-test-opportunity",
@@ -155,7 +157,9 @@
       "organization": "Hawaii Foodbank",
       "address": "Waipio Point Access Road",
       "event": "Distribution Assistance",
-      "categories": ["covid"]
+      "categories": ["covid"],
+      "environment": "Outdoor",
+      "age": "Family-Friendly"
     },
     {
       "url": "#opportunity-test-opportunity",
@@ -164,7 +168,9 @@
       "organization": "Joshlyn Sand",
       "address": "123 North Kuakini Street",
       "event": "Nuuanu Stream Clean-Up",
-      "categories": ["environment"]
+      "categories": ["environment"],
+      "environment": "Both",
+      "age": "Teens"
     },
     {
       "url": "#opportunity-test-opportunity",
@@ -173,7 +179,9 @@
       "organization": "Scott Wo",
       "address": "921770b Kunia Road",
       "event": "Test Opportunity",
-      "categories": ["environment"]
+      "categories": ["environment"],
+      "environment": "No Preference",
+      "age": "Seniors"
     }
   ],
   "public": {
