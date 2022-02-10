@@ -111,17 +111,26 @@ class OpportunityCollection extends BaseCollection {
     if (Meteor.isServer) {
       // get the OpportunityCollection instance.
       const instance = this;
-      /** This subscription publishes only the documents associated with the logged in user */
-      Meteor.publish(OpportunityPublications.Event, function publish() {
+      /** This subscription publishes all documents  */
+      Meteor.publish(OpportunityPublications.opportunity, function publish() {
         if (this.userId) {
+          // const username = Meteor.users.findOne(this.userId).username;
+          return instance._collection.find();
+        }
+        return this.ready();
+      });
+
+      /** This subscription publishes all documents regardless of user, but only if the logged in user is the organization. */
+      Meteor.publish(OpportunityPublications.opportunityOrg, function publish() {
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.USER)) {
           const username = Meteor.users.findOne(this.userId).username;
-          return instance._collection.find({ owner: username });
+          return instance._collection.find({ organization: username });
         }
         return this.ready();
       });
 
       /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-      Meteor.publish(EventPublications.EventAdmin, function publish() {
+      Meteor.publish(OpportunityPublications.opportunityAdmin, function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
         }
@@ -131,11 +140,21 @@ class OpportunityCollection extends BaseCollection {
   }
 
   /**
-   * Subscription method for Event owned by the current user.
+   * Subscription method for Opportunity owned by the current user.
    */
-  subscribeEvent() {
+  subscribeOpportunity() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(EventPublications.Event);
+      return Meteor.subscribe(OpportunityPublications.opportunity);
+    }
+    return null;
+  }
+
+  /**
+   * Subscription method for organization users.
+   */
+  subscribeOpportunityOrg() {
+    if (Meteor.isClient) {
+      return Meteor.subscribe(OpportunityPublications.opportunityOrg);
     }
     return null;
   }
@@ -144,9 +163,9 @@ class OpportunityCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeEventAdmin() {
+  subscribeOpportunityAdmin() {
     if (Meteor.isClient) {
-      return Meteor.subscribe(EventPublications.EventAdmin);
+      return Meteor.subscribe(OpportunityPublications.opportunityAdmin);
     }
     return null;
   }
@@ -168,15 +187,18 @@ class OpportunityCollection extends BaseCollection {
    */
   dumpOne(docID) {
     const doc = this.findDoc(docID);
-    const name = doc.name;
-    const quantity = doc.quantity;
-    const condition = doc.condition;
-    const owner = doc.owner;
-    return { name, quantity, condition, owner };
+    const url = doc.url;
+    const date = doc.date;
+    const img = doc.img;
+    const organization = doc.organization;
+    const address = doc.address;
+    const event = doc.event;
+    const categories = doc.categories;
+    return { url, date, img, organization, address, event, categories };
   }
 }
 
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Events = new OpportunityCollection();
+export const Opportunities = new OpportunityCollection();
