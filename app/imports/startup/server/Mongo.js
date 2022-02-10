@@ -20,7 +20,6 @@ if (Organizations.count() === 0) {
 // Initialize the database with a default data document.
 function addOpp(data) {
   console.log(`  Adding: ${data.event} (${data.organization})`);
-  console.log(data);
   Opportunities.define(data);
 }
 

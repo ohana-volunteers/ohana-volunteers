@@ -27,6 +27,14 @@ class OpportunityCollection extends BaseCollection {
         type: String,
         allowedValues: Object.keys(volunteerCategories),
       },
+      environment: {
+        type: String,
+        allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
+      },
+      age: {
+        type: String,
+        allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
+      },
     }));
   }
 
@@ -39,9 +47,11 @@ class OpportunityCollection extends BaseCollection {
    * @param address  the address of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
+   * @param environment  the environment of the item.
+   * @param age  the age group of the item.
    * @return {String} the docID of the new document.
    */
-  define({ url, date, img, organization, address, event, categories }) {
+  define({ url, date, img, organization, address, event, categories, environment, age }) {
     const docID = this._collection.insert({
       url,
       date,
@@ -50,6 +60,8 @@ class OpportunityCollection extends BaseCollection {
       address,
       event,
       categories,
+      environment,
+      age,
     });
     return docID;
   }
@@ -64,8 +76,10 @@ class OpportunityCollection extends BaseCollection {
    * @param address  the address of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
+   * @param environment  the environment of the item.
+   * @param age  the age group of the item.
    */
-  update(docID, { url, date, img, organization, address, event, categories }) {
+  update(docID, { url, date, img, organization, address, event, categories, environment, age }) {
     const updateData = {};
     if (url) {
       updateData.url = url;
@@ -87,6 +101,12 @@ class OpportunityCollection extends BaseCollection {
     }
     if (categories) {
       updateData.categories = categories;
+    }
+    if (environment) {
+      updateData.environment = environment;
+    }
+    if (age) {
+      updateData.age = age;
     }
     this._collection.update(docID, { $set: updateData });
   }
@@ -191,7 +211,9 @@ class OpportunityCollection extends BaseCollection {
     const address = doc.address;
     const event = doc.event;
     const categories = doc.categories;
-    return { url, date, img, organization, address, event, categories };
+    const environment = doc.environment;
+    const age = doc.age;
+    return { url, date, img, organization, address, event, categories, environment, age };
   }
 }
 

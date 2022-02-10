@@ -30,6 +30,8 @@ OpportunityItem.propTypes = {
     address: PropTypes.string,
     event: PropTypes.string,
     categories: PropTypes.array,
+    environment: PropTypes.string,
+    age: PropTypes.string,
   }).isRequired,
 };
 
