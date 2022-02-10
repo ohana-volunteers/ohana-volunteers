@@ -1,4 +1,5 @@
 export const COMPONENT_IDS = {
+  OPPORTUNITY_ITEM: 'opportunity_item',
   NAVBAR_ADD_HOURS: 'navbar-add-hours',
   NAVBAR_LIST_HOURS: 'navbar-list-hours',
   NAVBAR_CURRENT_USER: 'navbar-current-user',
