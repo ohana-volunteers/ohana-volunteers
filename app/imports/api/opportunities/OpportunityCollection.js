@@ -70,7 +70,7 @@ class OpportunityCollection extends BaseCollection {
     if (url) {
       updateData.url = url;
     }
-    if (_.isDate(date)) {
+    if (date) {
       updateData.date = date;
     }
     if (img) {
