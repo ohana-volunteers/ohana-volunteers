@@ -45,6 +45,7 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
   VOLUNTEER_PROFILE_EDIT: 'volunteer-profile-edit',
   ORGANIZATION_PROFILE_EDIT: 'organization-profile-edit',
+  LIST_HOURS_EDIT: 'list-hours-edit',
   // ORG_SIGN_UP_FORM_EMAIL: 'org-sign-up-form-email',
   // ORG_SIGN_UP_FORM_PASSWORD: 'org-sign-up-form-password',
   // ORG_SIGN_UP_FORM_NAME: 'org-sign-up-form-name',
