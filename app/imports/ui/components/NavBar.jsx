@@ -26,7 +26,7 @@ const NavBar = ({ currentUser }) => {
           <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
       ) : (
         [<Menu.Item key="user">
-          <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" avatar/>
+          <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} activeClassName="" text="Verify More Hours" as={NavLink} exact to="/addhours"/>
