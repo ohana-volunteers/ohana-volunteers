@@ -2,8 +2,8 @@ import React from 'react';
 import { Image, Card } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { volunteerCategories } from '../../api/categories/VolunteerCategories';
-import {COMPONENT_IDS} from '../utilities/ComponentIDs';
+import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM}>

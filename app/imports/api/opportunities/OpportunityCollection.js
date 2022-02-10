@@ -5,7 +5,7 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
-import { volunteerCategories } from '../categories/VolunteerCategories';
+import { volunteerCategories } from '../utilities/VolunteerCategories';
 
 export const OpportunityPublications = {
   opportunity: 'Opportunity',
