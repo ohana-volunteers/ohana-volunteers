@@ -1,4 +1,5 @@
 export const COMPONENT_IDS = {
+  OPPORTUNITY_ITEM: 'opportunity_item',
   NAVBAR_ADD_HOURS: 'navbar-add-hours',
   NAVBAR_LIST_HOURS: 'navbar-list-hours',
   NAVBAR_CURRENT_USER: 'navbar-current-user',
@@ -43,6 +44,7 @@ export const COMPONENT_IDS = {
   SIGN_UP_FORM_TERM: 'sign-up-form-term',
   SIGN_UP_FORM_SUBMIT: 'sign-up-form-submit',
   VOLUNTEER_PROFILE_EDIT: 'volunteer-profile-edit',
+  ORGANIZATION_PROFILE_EDIT: 'organization-profile-edit',
   // ORG_SIGN_UP_FORM_EMAIL: 'org-sign-up-form-email',
   // ORG_SIGN_UP_FORM_PASSWORD: 'org-sign-up-form-password',
   // ORG_SIGN_UP_FORM_NAME: 'org-sign-up-form-name',

@@ -3,7 +3,7 @@ import { Grid, Header, Image, Button, Container, Divider, Card, Icon, Loader } f
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { volunteerCategories } from '../../api/categories/VolunteerCategories';
+import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { Organizations } from '../../api/organization/OrgCollection';
 
 const OpportunityItem = ({ opp }) => (
