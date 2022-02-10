@@ -32,7 +32,7 @@ class HoursCollection extends BaseCollection {
    * @param verifiedOn the date the item was verified on
    * @param isVerified if the item was verified by the organization.
    */
-  define(eventID, organization, date, hours, verifiedOn, isVerified) {
+  define({ eventID, organization, date, hours, verifiedOn, isVerified }) {
     const docID = this._collection.insert({
       eventID,
       organization,
