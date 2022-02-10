@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container, Grid, Header, Message, Form, Segment, Checkbox } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import { AutoForm, ErrorsField, SubmitField, TextField, BoolField } from 'uniforms-semantic';
 import { Link, Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -9,6 +10,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { signUpNewOrganizationMethod } from '../../api/organization/OrgCollection.methods';
 import { Organizations } from '../../api/organization/OrgCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { useParams } from 'react-router';
 
 // Create a bridge schema from the organization profile schema
 const bridge = new SimpleSchema2Bridge(Organizations.getSchema());
@@ -20,6 +22,13 @@ const bridge = new SimpleSchema2Bridge(Organizations.getSchema());
  */
 const OrganizationSignup = ({ location }) => {
   const [redirectToReferer, setRedirectToReferer] = useState(false);
+  const [agreedTerms, setAgreedTerms] = useState(false);
+
+  const onAgreedTerms = () => {
+    setAgreedTerms(!agreedTerms);
+    console.log(`agreed to terms: ${agreedTerms}`);
+  };
+
   const submit = (data, formRef) => {
     console.log(data);
     signUpNewOrganizationMethod.callPromise(data)
@@ -46,7 +55,6 @@ const OrganizationSignup = ({ location }) => {
     return <Redirect to={from} />;
   }
   let fRef = null;
-  let agreedTerms = false;
   return (
     <Container id={PAGE_IDS.ORG_SIGN_UP}>
       <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
@@ -65,9 +73,11 @@ const OrganizationSignup = ({ location }) => {
             <Segment>
               <TextField label='Organization Name' name='name'/>
               <Form.Field>
-                <Checkbox label='I agree to the Terms and Conditions' />
+                <Checkbox onChange={onAgreedTerms} label='I agree to the Terms and Conditions' />
               </Form.Field>
-              <SubmitField value='Sign up' disabled/>
+              {(agreedTerms) ?
+                <SubmitField value='Sign up'/> :
+                <SubmitField value='Sign up' disabled/>}
             </Segment>
           </AutoForm>
           <Message>
