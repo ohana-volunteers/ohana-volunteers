@@ -6,14 +6,14 @@ import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
 
 /* eslint-disable no-console */
 
-function createUser(email, role, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse) {
-  console.log(`  Creating user ${email} with role ${role}.`);
-  if (role === ROLE.ADMIN) {
-    AdminProfiles.define({ email, firstName, lastName, password });
-  } else if (role === ROLE.VOLUNTEER) { // if user signs up as a volunteer
-    VolunteerProfiles.define({ email, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse });
+function createUser(data) {
+  console.log(`  Creating user ${data.email} with role ${data.role}.`);
+  if (data.role === ROLE.ADMIN) {
+    AdminProfiles.define(data);
+  } else if (data.role === ROLE.VOLUNTEER) { // if user signs up as a volunteer
+    VolunteerProfiles.define(data);
   } else { // else sign up as standard user (might remove?)
-    UserProfiles.define({ email, firstName, lastName, password });
+    UserProfiles.define(data);
   }
 }
 
@@ -21,10 +21,7 @@ function createUser(email, role, firstName, lastName, gender, description, addre
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultAccounts) {
     console.log('Creating the default user(s)');
-    Meteor.settings.defaultAccounts.map((
-      { email, role, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills,
-        environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse },
-    ) => createUser(email, role, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse));
+    Meteor.settings.defaultAccounts.map((data) => createUser(data));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }

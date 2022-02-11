@@ -8,7 +8,7 @@ const VolunteerProfileDetails = ({ doc }) => (
     <Grid.Column width={5}>
       <Card>
         <Card.Content>
-          <Card.Header>Contact Info</Card.Header>
+          <Card.Header>Contact Info <Icon name="address book outline"/></Card.Header>
         </Card.Content>
         <Card.Content>
           <List size="big">
@@ -21,7 +21,7 @@ const VolunteerProfileDetails = ({ doc }) => (
     <Grid.Column width={5}>
       <Card>
         <Card.Content>
-          <Card.Header>Interests</Card.Header>
+          <Card.Header>Interests <Icon name="handshake outline"/></Card.Header>
         </Card.Content>
         <Card.Content>
           <List bulleted size="big" items={doc.interests}/>
@@ -31,7 +31,7 @@ const VolunteerProfileDetails = ({ doc }) => (
     <Grid.Column width={5}>
       <Card>
         <Card.Content>
-          <Card.Header>Special Skills</Card.Header>
+          <Card.Header>Special Skills <Icon name="heart outline"/></Card.Header>
         </Card.Content>
         <Card.Content>
           <List bulleted size="big" items={doc.skills}/>
@@ -41,7 +41,7 @@ const VolunteerProfileDetails = ({ doc }) => (
     <Grid.Column width={5}>
       <Card>
         <Card.Content>
-          <Card.Header>Environmental Preference</Card.Header>
+          <Card.Header>Environmental Preference <Icon name="map outline"/></Card.Header>
         </Card.Content>
         <Card.Content>
           <List as="ul" size="big">
@@ -53,7 +53,7 @@ const VolunteerProfileDetails = ({ doc }) => (
     <Grid.Column width={5}>
       <Card>
         <Card.Content>
-          <Card.Header>Availability</Card.Header>
+          <Card.Header>Availability <Icon name="calendar outline"/></Card.Header>
         </Card.Content>
         <Card.Content>
           <List bulleted size="big" items={doc.availability}/>
