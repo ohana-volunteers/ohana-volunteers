@@ -93,8 +93,26 @@ class VolunteerProfileCollection extends BaseProfileCollection {
       const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.VOLUNTEER;
-        const profileID = this._collection.insert({ email, firstName, lastName,
-          gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse, userID: this.getFakeUserId(), role });
+        const profileID = this._collection.insert({
+          email,
+          firstName,
+          lastName,
+          gender,
+          description,
+          address,
+          city,
+          state,
+          zip,
+          phone,
+          interests,
+          skills,
+          environmentalPreference,
+          availability,
+          totalHours,
+          eventsParticipated,
+          acceptTermsOfUse,
+          userID: this.getFakeUserId(),
+          role });
         const userID = Users.define({ username, role, password });
         this._collection.update(profileID, { $set: { userID } });
         return profileID;
@@ -125,48 +143,20 @@ class VolunteerProfileCollection extends BaseProfileCollection {
   update(docID, { firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated }) {
     this.assertDefined(docID);
     const updateData = {};
-    if (firstName) {
-      updateData.firstName = firstName;
-    }
-    if (lastName) {
-      updateData.lastName = lastName;
-    }
-    if (gender) {
-      updateData.gender = gender;
-    }
-    if (description) {
-      updateData.description = description;
-    }
-    if (address) {
-      updateData.address = address;
-    }
-    if (city) {
-      updateData.city = city;
-    }
-    if (state) {
-      updateData.zip = zip;
-    }
-    if (phone) {
-      updateData.phone = phone;
-    }
-    if (interests) {
-      updateData.interests = interests;
-    }
-    if (skills) {
-      updateData.skills = skills;
-    }
-    if (environmentalPreference) {
-      updateData.environmentalPreference = environmentalPreference;
-    }
-    if (availability) {
-      updateData.availability = availability;
-    }
-    if (totalHours) {
-      updateData.totalHours = totalHours;
-    }
-    if (eventsParticipated) {
-      updateData.eventsParticipated = eventsParticipated;
-    }
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+    if (gender) updateData.gender = gender;
+    if (description) updateData.description = description;
+    if (address) updateData.address = address;
+    if (city) updateData.city = city;
+    if (state) updateData.zip = zip;
+    if (phone) updateData.phone = phone;
+    if (interests) updateData.interests = interests;
+    if (skills) updateData.skills = skills;
+    if (environmentalPreference) updateData.environmentalPreference = environmentalPreference;
+    if (availability) updateData.availability = availability;
+    if (totalHours) updateData.totalHours = totalHours;
+    if (eventsParticipated) updateData.eventsParticipated = eventsParticipated;
     this._collection.update(docID, { $set: updateData });
   }
 

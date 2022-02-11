@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
-import VolunteerProfileDetails from '../components/VolunteerProfleDetails';
+import VolunteerProfileDetails from '../components/VolunteerProfileDetails';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
