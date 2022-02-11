@@ -13,15 +13,16 @@ const ListHours = ({ ready, hours }) => ((ready) ? (
     <Table celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>event-ID</Table.HeaderCell>
+          <Table.HeaderCell>Event Name</Table.HeaderCell>
           <Table.HeaderCell>Organization</Table.HeaderCell>
           <Table.HeaderCell>Date</Table.HeaderCell>
           <Table.HeaderCell>Hours</Table.HeaderCell>
           <Table.HeaderCell>Verified On</Table.HeaderCell>
+          <Table.HeaderCell>Edit</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {hours.map((hour) => <HoursItem key={hours._id} hour={hour} />)}
+        {hours.map((hour) => <HoursItem key={hour._id} Hours={hour} />)}
       </Table.Body>
     </Table>
   </Container>

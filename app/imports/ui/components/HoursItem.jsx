@@ -13,7 +13,7 @@ const HoursItem = ({ Hours }) => (
     <Table.Cell>{Hours.hours}</Table.Cell>
     <Table.Cell>{Hours.verifiedOn}</Table.Cell>
     <Table.Cell>
-      <Link className={COMPONENT_IDS.LIST_HOURS_EDIT} to={`/edit/${Hours._id}`}>Edit</Link>
+      <Link className={COMPONENT_IDS.LIST_HOURS_EDIT} to={`/editHours/${Hours._id}`}>Edit</Link>
     </Table.Cell>
   </Table.Row>
 );
