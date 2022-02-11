@@ -3,7 +3,6 @@ import { Grid, Header, Card, Button, Image, List, Loader, Container } from 'sema
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
-// import { useParams } from 'react-router';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
@@ -14,23 +13,24 @@ import VolunteerProfileDetails from '../components/VolunteerProfleDetails';
 const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
     <Card fluid>
-      <Image className="volunteer-bg-banner" src='/images/volunteer_bg_sample.jpeg'/>
+      {/* image is a default temporary background image until issue #34 is complete.
+      Citation: https://unsplash.com/photos/apax4M-4kFI */}
+      <Image className="volunteer-bg-banner" src='/images/default-bg.jpeg'/>
       <Card.Content>
         <Grid container row={1}>
           <Grid.Row columns={2}>
             <Grid.Column width={12}>
               <Card.Header as="h1">
-                <Image circular size="small" src="https://react.semantic-ui.com/images/avatar/large/matthew.png"/> {doc.firstName} {doc.lastName}
+                {/* image is a default temporary avatar until issue #34 is complete. */}
+                <Image circular size="small" src="/images/va-logo/VA-logo-circle-v5.svg"/> {doc.firstName} {doc.lastName}
               </Card.Header>
-              <Card.Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                xcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Card.Description>
+              <Card.Description>{doc.description}</Card.Description>
             </Grid.Column>
             <Grid.Column width={4}>
               <Header as="h2">Stats:</Header>
               <List size="massive">
-                <List.Item><b>Recorded Hours:</b> 36</List.Item>
-                <List.Item><b>Events Participated:</b> 3</List.Item>
+                <List.Item><b>Recorded Hours:</b> {doc.totalHours}</List.Item>
+                <List.Item><b>Events Participated:</b> {doc.eventsParticipated}</List.Item>
               </List>
               {(doc.owner === currentUser) ?
                 <Button primary size="big" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT}>Edit</Button> : ''}

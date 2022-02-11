@@ -45,13 +45,13 @@ const formSchema = new SimpleSchema({
   },
   skills: {
     type: Array,
-    label: 'Special Skills(optional)',
+    label: 'Special Skills (optional)',
     optional: true,
     uniforms: { checkboxes: true },
   },
   'skills.$': {
     type: String,
-    allowedValues: ['Agriculture', 'education', 'Event Planning', 'Technology',
+    allowedValues: ['Agriculture', 'Education', 'Event Planning', 'Technology',
       'CPR (Certification Required)', 'Nursing (CNA/RNA Certified)', 'Construction', 'Engineering', 'Sales/Marketing',
       'Graphic/Web Design', 'First Aid (Certification Required)', 'Other'],
   },
