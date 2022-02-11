@@ -32,7 +32,7 @@ class HoursCollection extends BaseCollection {
    * @param verifiedOn the date the item was verified on
    * @param isVerified if the item was verified by the organization.
    */
-  define(eventID, organization, date, hours, verifiedOn, isVerified) {
+  define({ eventID, organization, date, hours, verifiedOn, isVerified }) {
     const docID = this._collection.insert({
       eventID,
       organization,
@@ -115,7 +115,7 @@ class HoursCollection extends BaseCollection {
   /**
    * Subscription method for Hours owned by the current user.
    */
-  subscribeOpportunity() {
+  subscribeHours() {
     if (Meteor.isClient) {
       return Meteor.subscribe(HoursPublications.hours);
     }
@@ -125,7 +125,7 @@ class HoursCollection extends BaseCollection {
   /**
    * Subscription method for organization users.
    */
-  subscribeOpportunityOrg() {
+  subscribeHoursOrg() {
     if (Meteor.isClient) {
       return Meteor.subscribe(HoursPublications.hoursOrg);
     }
@@ -136,7 +136,7 @@ class HoursCollection extends BaseCollection {
    * Subscription method for admin users.
    * It subscribes to the entire collection.
    */
-  subscribeOpportunityAdmin() {
+  subscribeHoursAdmin() {
     if (Meteor.isClient) {
       return Meteor.subscribe(HoursPublications.hoursAdmin);
     }
