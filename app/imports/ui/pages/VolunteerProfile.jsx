@@ -3,6 +3,7 @@ import { Grid, Header, Card, Button, Image, List, Loader, Container } from 'sema
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
@@ -33,7 +34,7 @@ const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
                 <List.Item><b>Events Participated:</b> {doc.eventsParticipated}</List.Item>
               </List>
               {(doc.owner === currentUser) ?
-                <Button primary size="big" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT}>Edit</Button> : ''}
+                <Button primary size="big" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT} as={NavLink} exact to="/edit-my-profile">Edit</Button> : ''}
             </Grid.Column>
 
           </Grid.Row>
