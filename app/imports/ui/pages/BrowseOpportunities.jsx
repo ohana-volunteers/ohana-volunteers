@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Grid, Header, Divider, Card, Segment, Loader } from 'semantic-ui-react';
+import { Grid, Header, Divider, Card, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
-import { AutoForm, ErrorsField, SubmitField, SelectField } from 'uniforms-semantic';
+import { AutoForm, ErrorsField, SubmitField, SelectField, DateField } from 'uniforms-semantic';
 import RadioField from '../components/form-fields/RadioField';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import OpportunityItem from '../components/OpportunityItem';
@@ -16,17 +16,24 @@ const searchForm = new SimpleSchema({
     allowedValues: ['Latest', 'A-Z'],
     defaultValue: 'A-Z',
   },
+  time: {
+    label: 'Start From',
+    type: Date,
+    defaultValue: new Date(),
+  },
   age: {
     label: 'Age Group',
     type: String,
-    allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors', 'All'],
+    allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
     uniforms: { checkboxes: true },
+    optional: true,
   },
   environmentalPreference: {
     label: 'Environment',
     type: String,
     allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
     uniforms: { checkboxes: true },
+    optional: true,
   },
 });
 
@@ -37,18 +44,21 @@ const BrowseOpportunities = ({ opps, ready }) => {
   const [datas, setDatas] = useState('');
   const submit = (data, formRef) => {
     setDatas(data);
-    formRef.assign();
-    // formRef.reset();
+    formRef.reset();
   };
-  const { age, environmentalPreference } = datas;
-  const order = datas.orderBy === 'Latest' ? { sort: { date: 1 } } : { sort: { organization: 1 } };
+  const { time } = datas;
+  const order = datas.orderBy === 'Latest' ? { sort: { date: -1 } } : { sort: { organization: 1 } };
+  const age = datas.age ? datas.age : { $in: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'] };
+  const envir = datas.environmentalPreference ?
+    datas.environmentalPreference : { $in: ['Indoor', 'Outdoor', 'Both', 'No Preference'] };
   const sortOpps = Opportunities.find({
     $and: [
-      { environment: environmentalPreference },
+      // { $text: { $search: 'hawaii' } },
+      { environment: envir },
       { age: age },
+      { 'date.start': { $gte: time } },
     ],
   }, order);
-  console.log(sortOpps);
   const count = sortOpps.count();
   let fRef = null;
   return (
@@ -67,9 +77,10 @@ const BrowseOpportunities = ({ opps, ready }) => {
           <AutoForm ref={ref => {
             fRef = ref;
           }} schema={bridge} onSubmit={data => submit(data, fRef)} >
-            <Segment>
+            <Segment style={{ overflow: 'auto', maxHeight: 500 }}>
               <Header as="h2" textAlign="center">Volunteer Opportunities</Header>
               <SelectField id='orderBy' name='orderBy' showInlineError={true} placeholder={'Order By...'}/>
+              <DateField id='time' name='time' showInlineError={true}/>
               <RadioField id='age' name='age' showInlineError={true} />
               <RadioField id='environment' name='environmentalPreference' showInlineError={true}/>
               <SubmitField id='submit' value='Submit' label='Search'/>
@@ -79,7 +90,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
         </Grid.Column>
 
         <Grid.Column textAlign="center">
-          <Segment>
+          <Segment style={{ overflow: 'auto', maxHeight: 500 }} padded>
             <Grid.Row>
               <Header as='h2' >Showing results</Header>
               {(datas === '') ?
@@ -95,7 +106,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
         </Grid.Column>
 
         <Grid.Column>
-          <Segment>Hello this is the map</Segment>
+          <Segment>Hello this is the map (may just delete)</Segment>
         </Grid.Column>
       </Grid.Row>
 

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-// import { _ } from 'meteor/underscore';
+import { _ } from 'meteor/underscore';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
@@ -39,7 +39,7 @@ class OpportunityCollection extends BaseCollection {
       },
       age: {
         type: String,
-        allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors', 'All'],
+        allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
       },
     }));
   }
@@ -69,6 +69,7 @@ class OpportunityCollection extends BaseCollection {
       environment,
       age,
     });
+    // this._collection.createIndex({ '$**': 'text' });
     return docID;
   }
 

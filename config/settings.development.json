@@ -184,8 +184,8 @@
     {
       "url": "#opportunity-test-opportunity",
       "date": {
-        "start": "2022-01-01 12:00:00",
-        "end": "2022-01-01 14:00:00"
+        "start": "2022-02-01 12:00:00",
+        "end": "2022-02-01 14:00:00"
       },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Scott Wo",
@@ -198,16 +198,30 @@
     {
       "url": "#opportunity-test-opportunity",
       "date": {
-        "start": "2022-02-04 09:30:00",
-        "end": "2022-02-04 11:30:00"
+        "start": "2022-01-04 09:30:00",
+        "end": "2022-01-04 11:30:00"
       },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
-      "organization": "organization#1",
+      "organization": "a-organization#1",
       "address": "address#1",
       "event": "event#1",
       "categories": ["education", "environment"],
       "environment": "Indoor",
       "age": "Adults"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-03-04 09:30:00",
+        "end": "2022-03-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "b-organization#2",
+      "address": "address#2",
+      "event": "event#2",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Teens"
     }
   ],
   "public": {
