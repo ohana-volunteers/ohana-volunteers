@@ -16,18 +16,21 @@ const searchForm = new SimpleSchema({
     type: String,
     allowedValues: ['Latest', 'A-Z'],
     defaultValue: 'A-Z',
+    optional: true,
   },
   age: {
     label: 'Age Group',
     type: String,
     allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
     uniforms: { checkboxes: true },
+    optional: true,
   },
   environmentalPreference: {
     label: 'Environment',
     type: String,
     allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
     uniforms: { checkboxes: true },
+    optional: true,
   },
 });
 
@@ -35,6 +38,7 @@ const bridge = new SimpleSchema2Bridge(searchForm);
 
 /** A simple static component to render some text for the landing page. */
 const BrowseOpportunities = ({ opps, ready }) => {
+  console.log(opps);
   const [datas, setDatas] = useState('');
   // const [beReady, setBeReady] = useState(false);
   // setBeReady(ready);
@@ -43,13 +47,24 @@ const BrowseOpportunities = ({ opps, ready }) => {
     formRef.assign();
     // formRef.reset();
   };
-  const { age, environmentalPreference } = datas;
-  const sortOpps = Opportunities.find({
+  const { orderBy, age, environmentalPreference } = datas;
+  let sortOpps;
+  sortOpps = opps.find({
     $and: [
       { environment: environmentalPreference },
       { age: age },
     ],
-  });
+  }, { sort: { organization: 1 } });
+
+  if (orderBy === 'Latest') {
+    sortOpps = Opportunities.find({
+      $and: [
+        { environment: environmentalPreference },
+        { age: age },
+      ],
+    }, { sort: { date: 1 } });
+  }
+
   const count = sortOpps.count();
   let fRef = null;
   return (
@@ -107,6 +122,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
 // Require an array of Stuff documents in the props.
 BrowseOpportunities.propTypes = {
   opps: PropTypes.array.isRequired,
+  // opps2: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -117,7 +133,8 @@ export default withTracker(() => {
   // Determine if the subscription is ready
   const ready = subscription.ready();
   // Get the Stuff documents and sort them by name.
-  const opps = Opportunities.find({}).fetch();
+  const opps = Opportunities.find({}, { sort: { organization: 1 } }).fetch();
+  // const opps2 = Opportunities.find({}, { sort: { date: 1 } }).fetch();
   return {
     opps,
     ready,

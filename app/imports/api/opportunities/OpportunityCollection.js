@@ -17,7 +17,13 @@ class OpportunityCollection extends BaseCollection {
   constructor() {
     super('Opportunities', new SimpleSchema({
       url: String,
-      date: String,
+      date: Object,
+      'date.start': {
+        type: Date,
+      },
+      'date.end': {
+        type: Date,
+      },
       img: String,
       organization: String,
       address: String,

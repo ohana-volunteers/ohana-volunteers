@@ -8,7 +8,11 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM}>
     <Card.Content extra>
-      <p>{opp.date}</p>
+      <p>
+        {opp.date.start.toISOString().slice(0, 10).concat('  ')}
+        From {opp.date.start.toISOString().slice(11, 16).concat('  ')}
+        To {opp.date.end.toISOString().slice(11, 16)}
+      </p>
     </Card.Content>
     <Card.Content>
       <Image size='tiny' src={opp.img} />
@@ -30,7 +34,7 @@ const OpportunityItem = ({ opp }) => (
 OpportunityItem.propTypes = {
   opp: PropTypes.shape({
     url: PropTypes.string,
-    date: PropTypes.string,
+    date: PropTypes.object,
     img: PropTypes.string,
     organization: PropTypes.string,
     address: PropTypes.string,
