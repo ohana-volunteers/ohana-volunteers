@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, ErrorsField, SubmitField, SelectField } from 'uniforms-semantic';
-// import swal from 'sweetalert';
 import RadioField from '../components/form-fields/RadioField';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import OpportunityItem from '../components/OpportunityItem';
@@ -16,21 +15,18 @@ const searchForm = new SimpleSchema({
     type: String,
     allowedValues: ['Latest', 'A-Z'],
     defaultValue: 'A-Z',
-    optional: true,
   },
   age: {
     label: 'Age Group',
     type: String,
-    allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
+    allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors', 'All'],
     uniforms: { checkboxes: true },
-    optional: true,
   },
   environmentalPreference: {
     label: 'Environment',
     type: String,
     allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
     uniforms: { checkboxes: true },
-    optional: true,
   },
 });
 
@@ -38,33 +34,21 @@ const bridge = new SimpleSchema2Bridge(searchForm);
 
 /** A simple static component to render some text for the landing page. */
 const BrowseOpportunities = ({ opps, ready }) => {
-  console.log(opps);
   const [datas, setDatas] = useState('');
-  // const [beReady, setBeReady] = useState(false);
-  // setBeReady(ready);
   const submit = (data, formRef) => {
     setDatas(data);
     formRef.assign();
     // formRef.reset();
   };
-  const { orderBy, age, environmentalPreference } = datas;
-  let sortOpps;
-  sortOpps = opps.find({
+  const { age, environmentalPreference } = datas;
+  const order = datas.orderBy === 'Latest' ? { sort: { date: 1 } } : { sort: { organization: 1 } };
+  const sortOpps = Opportunities.find({
     $and: [
       { environment: environmentalPreference },
       { age: age },
     ],
-  }, { sort: { organization: 1 } });
-
-  if (orderBy === 'Latest') {
-    sortOpps = Opportunities.find({
-      $and: [
-        { environment: environmentalPreference },
-        { age: age },
-      ],
-    }, { sort: { date: 1 } });
-  }
-
+  }, order);
+  console.log(sortOpps);
   const count = sortOpps.count();
   let fRef = null;
   return (
@@ -122,7 +106,6 @@ const BrowseOpportunities = ({ opps, ready }) => {
 // Require an array of Stuff documents in the props.
 BrowseOpportunities.propTypes = {
   opps: PropTypes.array.isRequired,
-  // opps2: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -132,9 +115,7 @@ export default withTracker(() => {
   const subscription = Opportunities.subscribeOpportunity();
   // Determine if the subscription is ready
   const ready = subscription.ready();
-  // Get the Stuff documents and sort them by name.
   const opps = Opportunities.find({}, { sort: { organization: 1 } }).fetch();
-  // const opps2 = Opportunities.find({}, { sort: { date: 1 } }).fetch();
   return {
     opps,
     ready,

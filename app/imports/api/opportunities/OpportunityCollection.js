@@ -39,7 +39,7 @@ class OpportunityCollection extends BaseCollection {
       },
       age: {
         type: String,
-        allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
+        allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors', 'All'],
       },
     }));
   }

@@ -194,6 +194,20 @@
       "categories": ["environment"],
       "environment": "No Preference",
       "age": "Seniors"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-02-04 09:30:00",
+        "end": "2022-02-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "organization#1",
+      "address": "address#1",
+      "event": "event#1",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Adults"
     }
   ],
   "public": {
