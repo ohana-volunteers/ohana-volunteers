@@ -6,11 +6,22 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import { AutoForm, ErrorsField, SubmitField, SelectField, DateField } from 'uniforms-semantic';
 import RadioField from '../components/form-fields/RadioField';
+import MultiSelectField from '../components/form-fields/MultiSelectField';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import OpportunityItem from '../components/OpportunityItem';
 import { Opportunities } from '../../api/opportunities/OpportunityCollection';
+import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 
 const searchForm = new SimpleSchema({
+  categories: {
+    label: 'Categories',
+    type: Array,
+    optional: true,
+  },
+  'categories.$': {
+    type: String,
+    allowedValues: Object.keys(volunteerCategories),
+  },
   orderBy: {
     type: String,
     allowedValues: ['Latest', 'A-Z'],
@@ -48,14 +59,17 @@ const BrowseOpportunities = ({ opps, ready }) => {
   };
   const { time } = datas;
   const order = datas.orderBy === 'Latest' ? { sort: { date: -1 } } : { sort: { organization: 1 } };
-  const age = datas.age ? datas.age : { $in: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'] };
+  const age = datas.age ? { age: datas.age } : {};
   const envir = datas.environmentalPreference ?
-    datas.environmentalPreference : { $in: ['Indoor', 'Outdoor', 'Both', 'No Preference'] };
+    { environment: datas.environmentalPreference } : {};
+  const cate = datas.categories ?
+    { categories: { $in: datas.categories } } : {};
   const sortOpps = Opportunities.find({
     $and: [
       // { $text: { $search: 'hawaii' } },
-      { environment: envir },
-      { age: age },
+      cate,
+      envir,
+      age,
       { 'date.start': { $gte: time } },
     ],
   }, order);
@@ -79,6 +93,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
           }} schema={bridge} onSubmit={data => submit(data, fRef)} >
             <Segment style={{ overflow: 'auto', maxHeight: 500 }}>
               <Header as="h2" textAlign="center">Volunteer Opportunities</Header>
+              <MultiSelectField id='categories' name='categories' showInlineError={true} placeholder={'Education'}/>
               <SelectField id='orderBy' name='orderBy' showInlineError={true} placeholder={'Order By...'}/>
               <DateField id='time' name='time' showInlineError={true}/>
               <RadioField id='age' name='age' showInlineError={true} />
