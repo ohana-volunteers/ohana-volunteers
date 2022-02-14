@@ -1,99 +1,125 @@
-import React from 'react';
-import { Grid, Header, Image, Button, Divider, Card } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Grid, Header, Divider, Card, Segment, Loader } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
+import { AutoForm, ErrorsField, SubmitField, SelectField } from 'uniforms-semantic';
+// import swal from 'sweetalert';
+import RadioField from '../components/form-fields/RadioField';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import OpportunityItem from '../components/OpportunityItem';
+import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 
-const OpportunityItem = ({ opp }) => (
-  <Card href={opp.url}>
-    <Card.Content extra>
-      <p>{opp.date}</p>
-    </Card.Content>
-    <Card.Content>
-      <Image size='tiny' src={opp.img}/>
-      <Card.Header>{opp.organization}</Card.Header>
-      <Card.Meta>{opp.address}</Card.Meta>
-      <Card.Description>{opp.event}</Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <p>Category: {opp.categories}</p>
-    </Card.Content>
-  </Card>
-);
+const searchForm = new SimpleSchema({
+  orderBy: {
+    type: String,
+    allowedValues: ['Latest', 'A-Z'],
+    defaultValue: 'A-Z',
+  },
+  age: {
+    label: 'Age Group',
+    type: String,
+    allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
+    uniforms: { checkboxes: true },
+  },
+  environmentalPreference: {
+    label: 'Environment',
+    type: String,
+    allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
+    uniforms: { checkboxes: true },
+  },
+});
 
-OpportunityItem.propTypes = {
-  opp: PropTypes.shape({
-    url: PropTypes.string,
-    date: PropTypes.string,
-    img: PropTypes.string,
-    organization: PropTypes.string,
-    address: PropTypes.string,
-    event: PropTypes.string,
-    categories: PropTypes.string,
-  }).isRequired,
-};
+const bridge = new SimpleSchema2Bridge(searchForm);
 
 /** A simple static component to render some text for the landing page. */
-const BrowseOpportunities = () => (
-  <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
-    <Grid.Row>
-      <Header as='h1'>Browse Opportunities</Header>
-    </Grid.Row>
+const BrowseOpportunities = ({ opps, ready }) => {
+  const [datas, setDatas] = useState('');
+  // const [beReady, setBeReady] = useState(false);
+  // setBeReady(ready);
+  const submit = (data, formRef) => {
+    setDatas(data);
+    formRef.assign();
+    // formRef.reset();
+  };
+  const { age, environmentalPreference } = datas;
+  const sortOpps = Opportunities.find({
+    $and: [
+      { environment: environmentalPreference },
+      { age: age },
+    ],
+  });
+  const count = sortOpps.count();
+  let fRef = null;
+  return (
+    <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
+      <Grid.Row centered>
+        <Header as="h1" size="huge">Browse Opportunities</Header>
+      </Grid.Row>
+      <Divider/>
 
-    <Divider/>
+      <Grid.Row>
+        <Header as='h1'>Search Results</Header>
+      </Grid.Row>
 
-    <Grid.Row>
-      <Header as='h2'>Search Results</Header>
-      <Card.Group centered>
-        <OpportunityItem opp={{
-          url: '#opportunity-test-opportunity',
-          date: 'March 4, 2022 9:30am - 11:30am',
-          img: '/images/va-logo/VA-logo-circle-v5.svg',
-          organization: 'Kokua',
-          address: '66-249 Kamehameha Highway',
-          event: 'Kokua Learning Farm Community Workday',
-          categories: 'Education, Environment',
-        }}/>
-        <OpportunityItem opp={{
-          url: '#opportunity-test-opportunity',
-          date: 'January 21, 2022 8:30am - 12:00am',
-          img: '/images/hawaii-foodbank/org-logos-03-150x150.png',
-          organization: 'Hawaii Foodbank',
-          address: 'Waipio Point Access Road',
-          event: 'Distribution Assistance',
-          categories: 'COVID-19 Recovery',
-        }}/>
-        <OpportunityItem opp={{
-          url: '#opportunity-test-opportunity',
-          date: 'December 9, 2021 9:00am - 12:00pm',
-          img: '/images/va-logo/VA-logo-circle-v5.svg',
-          organization: 'Joshlyn Sand',
-          address: '123 North Kuakini Street',
-          event: 'Nuuanu Stream Clean-Up',
-          categories: 'Environment',
-        }}/>
-        <OpportunityItem opp={{
-          url: '#opportunity-test-opportunity',
-          date: 'January 1, 2022 12:00pm - 2:00pm',
-          img: '/images/va-logo/VA-logo-circle-v5.svg',
-          organization: 'Scott Wo',
-          address: '921770b Kunia Road',
-          event: 'Test Opportunity',
-          categories: 'Environment',
-        }}/>
-      </Card.Group>
-    </Grid.Row>
-    <Divider/>
+      <Grid.Row centered columns={3}>
+        <Grid.Column>
+          <AutoForm ref={ref => {
+            fRef = ref;
+          }} schema={bridge} onSubmit={data => submit(data, fRef)} >
+            <Segment>
+              <Header as="h2" textAlign="center">Volunteer Opportunities</Header>
+              <SelectField id='orderBy' name='orderBy' showInlineError={true} placeholder={'Order By...'}/>
+              <RadioField id='age' name='age' showInlineError={true} />
+              <RadioField id='environment' name='environmentalPreference' showInlineError={true}/>
+              <SubmitField id='submit' value='Submit' label='Search'/>
+              <ErrorsField />
+            </Segment>
+          </AutoForm>
+        </Grid.Column>
 
-    <Grid.Row>
-      <Header as='h1'>Ready to Get Started?</Header>
-    </Grid.Row>
-    <Grid.Row>
-      <p>Sign up now as a volunteer or organization</p>
-    </Grid.Row>
-    <Grid.Row>
-      <Button>Get Started</Button>
-    </Grid.Row>
-  </Grid>
-);
+        <Grid.Column textAlign="center">
+          <Segment>
+            <Grid.Row>
+              <Header as='h2' >Showing results</Header>
+              {(datas === '') ?
+                <Header as='h4' >Showing all results</Header> :
+                <Header as='h4' >Showing {count} results</Header> }
+              <Card.Group centered>
+                {(datas === '') ?
+                  opps.map((opp) => <OpportunityItem key={opp._id} opp={opp} />) :
+                  sortOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} />)}
+              </Card.Group>
+            </Grid.Row>
+          </Segment>
+        </Grid.Column>
 
-export default BrowseOpportunities;
+        <Grid.Column>
+          <Segment>Hello this is the map</Segment>
+        </Grid.Column>
+      </Grid.Row>
+
+    </Grid>
+  );
+};
+
+// Require an array of Stuff documents in the props.
+BrowseOpportunities.propTypes = {
+  opps: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+};
+
+// withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+export default withTracker(() => {
+  // Get access to Stuff documents.
+  const subscription = Opportunities.subscribeOpportunity();
+  // Determine if the subscription is ready
+  const ready = subscription.ready();
+  // Get the Stuff documents and sort them by name.
+  const opps = Opportunities.find({}).fetch();
+  return {
+    opps,
+    ready,
+  };
+})(BrowseOpportunities);

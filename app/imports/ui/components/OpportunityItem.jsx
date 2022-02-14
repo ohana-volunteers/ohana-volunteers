@@ -19,6 +19,12 @@ const OpportunityItem = ({ opp }) => (
     <Card.Content extra>
       <p>Category: {opp.categories.map(item => volunteerCategories[item].name.concat('  '))}</p>
     </Card.Content>
+    <Card.Content extra>
+      <p>Environment: {opp.environment}</p>
+    </Card.Content>
+    <Card.Content extra>
+      <p>Age Group: {opp.age}</p>
+    </Card.Content>
   </Card>
 );
 OpportunityItem.propTypes = {
