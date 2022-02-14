@@ -58,7 +58,7 @@ const formSchema = new SimpleSchema({
   environmentalPreference: {
     label: 'Environmental Preference',
     type: String,
-    allowedValues: ['Indoor', 'Outdoor', 'Both', 'Not Preference'],
+    allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
     uniforms: { checkboxes: true },
   },
   availability: {

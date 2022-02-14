@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
-// import { _ } from 'meteor/underscore';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
@@ -17,7 +16,13 @@ class OpportunityCollection extends BaseCollection {
   constructor() {
     super('Opportunities', new SimpleSchema({
       url: String,
-      date: String,
+      date: Object,
+      'date.start': {
+        type: Date,
+      },
+      'date.end': {
+        type: Date,
+      },
       img: String,
       organization: String,
       address: String,
@@ -63,6 +68,7 @@ class OpportunityCollection extends BaseCollection {
       environment,
       age,
     });
+    // this._collection.createIndex({ '$**': 'text' });
     return docID;
   }
 

@@ -157,7 +157,10 @@
   "defaultOpportunities": [
     {
       "url": "#opportunity-test-opportunity",
-      "date": "March 4, 2022 9:30am - 11:30am",
+      "date": {
+        "start": "2022-03-04 09:30:00",
+        "end": "2022-03-04 11:30:00"
+      },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Kokua",
       "address": "66-249 Kamehameha Highway",
@@ -168,7 +171,10 @@
     },
     {
       "url": "#opportunity-test-opportunity",
-      "date": "January 21, 2022 8:30am - 12:00am",
+      "date": {
+        "start": "2022-01-21 08:30:00",
+        "end": "2022-03-04 12:00:00"
+      },
       "img": "/images/hawaii-foodbank/org-logos-03-150x150.png",
       "organization": "Hawaii Foodbank",
       "address": "Waipio Point Access Road",
@@ -179,7 +185,10 @@
     },
     {
       "url": "#opportunity-test-opportunity",
-      "date": "December 9, 2021 9:00am - 12:00pm",
+      "date": {
+        "start": "2021-12-09 09:00:00",
+        "end": "2022-12-09 12:00:00"
+      },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Joshlyn Sand",
       "address": "123 North Kuakini Street",
@@ -190,7 +199,10 @@
     },
     {
       "url": "#opportunity-test-opportunity",
-      "date": "January 1, 2022 12:00pm - 2:00pm",
+      "date": {
+        "start": "2022-02-01 12:00:00",
+        "end": "2022-02-01 14:00:00"
+      },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Scott Wo",
       "address": "921770b Kunia Road",
@@ -198,6 +210,34 @@
       "categories": ["environment"],
       "environment": "No Preference",
       "age": "Seniors"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-01-04 09:30:00",
+        "end": "2022-01-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "a-organization#1",
+      "address": "address#1",
+      "event": "event#1",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Adults"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-03-04 09:30:00",
+        "end": "2022-03-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "b-organization#2",
+      "address": "address#2",
+      "event": "event#2",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Teens"
     }
   ],
 
