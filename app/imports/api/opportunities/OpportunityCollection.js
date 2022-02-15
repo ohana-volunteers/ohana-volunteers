@@ -6,6 +6,8 @@ import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
 import { volunteerCategories } from '../utilities/VolunteerCategories';
 
+export const OpportunityEnvironment = ['Indoor', 'Outdoor', 'Both', 'No Preference'];
+export const OpportunityAge = ['Adults', 'Family-Friendly', 'Teens', 'Seniors'];
 export const OpportunityPublications = {
   opportunity: 'Opportunity',
   opportunityOrg: 'OpportunityOrg',
@@ -34,11 +36,11 @@ class OpportunityCollection extends BaseCollection {
       },
       environment: {
         type: String,
-        allowedValues: ['Indoor', 'Outdoor', 'Both', 'No Preference'],
+        allowedValues: OpportunityEnvironment,
       },
       age: {
         type: String,
-        allowedValues: ['Adults', 'Family-Friendly', 'Teens', 'Seniors'],
+        allowedValues: OpportunityAge,
       },
     }));
   }
@@ -87,46 +89,16 @@ class OpportunityCollection extends BaseCollection {
    */
   update(docID, { url, date, img, organization, address, event, categories, environment, age }) {
     const updateData = {};
-    if (url) {
-      updateData.url = url;
-    }
-    if (date) {
-      updateData.date = date;
-    }
-    if (img) {
-      updateData.img = img;
-    }
-    if (organization) {
-      updateData.organization = organization;
-    }
-    if (address) {
-      updateData.address = address;
-    }
-    if (event) {
-      updateData.event = event;
-    }
-    if (categories) {
-      updateData.categories = categories;
-    }
-    if (environment) {
-      updateData.environment = environment;
-    }
-    if (age) {
-      updateData.age = age;
-    }
+    if (url) updateData.url = url;
+    if (date)updateData.date = date;
+    if (img) updateData.img = img;
+    if (organization) updateData.organization = organization;
+    if (address) updateData.address = address;
+    if (event) updateData.event = event;
+    if (categories) updateData.categories = categories;
+    if (environment) updateData.environment = environment;
+    if (age) updateData.age = age;
     this._collection.update(docID, { $set: updateData });
-  }
-
-  /**
-   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
-   * @param { String | Object } name A document or docID in this collection.
-   * @returns true
-   */
-  removeIt(name) {
-    const doc = this.findDoc(name);
-    check(doc, Object);
-    this._collection.remove(doc._id);
-    return true;
   }
 
   /**
@@ -137,13 +109,17 @@ class OpportunityCollection extends BaseCollection {
     if (Meteor.isServer) {
       // get the OpportunityCollection instance.
       const instance = this;
-      /** This subscription publishes all documents  */
+      /**
+       * This subscription publishes all documents for volunteer.
+       */
       Meteor.publish(OpportunityPublications.opportunity, function publish() {
         return instance._collection.find();
         // return this.ready();
       });
 
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the organization. */
+      /**
+       * This subscription publishes documents that belong to logged-in organization who can access define, update and removeIt.
+       */
       Meteor.publish(OpportunityPublications.opportunityOrg, function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.USER)) {
           const username = Meteor.users.findOne(this.userId).username;
@@ -152,7 +128,9 @@ class OpportunityCollection extends BaseCollection {
         return this.ready();
       });
 
-      /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
+      /**
+       *This subscription publishes all documents for Admin who can access define, update and removeIt.
+       */
       Meteor.publish(OpportunityPublications.opportunityAdmin, function publish() {
         if (this.userId && Roles.userIsInRole(this.userId, ROLE.ADMIN)) {
           return instance._collection.find();
