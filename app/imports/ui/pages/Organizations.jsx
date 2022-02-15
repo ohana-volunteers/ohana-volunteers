@@ -2,14 +2,17 @@ import React from 'react';
 import {Grid, Header, Card, Divider, Item, Icon, Button, Container, Image, DropdownDivider} from 'semantic-ui-react';
 
 const container1Style = { backgroundColor: 'blue', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px'};
-const textStyle = { color: 'white', marginTop: '150px'};
-const textStyle2 = { color: 'blue', textAlign: 'center', paddingTop: '50px'};
-const textStyle3 = { textAlign: 'center', paddingTop: '50px'};
+const textStyle = { color: 'white', marginTop: '150px', fontSize: '55px'};
+const textStyle2 = { color: 'blue', textAlign: 'center', marginTop: '100px'};
+const textStyle3 = { textAlign: 'center', paddingTop: '50px', marginTop: '50px'};
+const textStyle4 = { textAlign: 'center', paddingTop: '50px', marginTop: '25px'};
+const textStyle5 = {color: 'white'}
 const iconStyle = { paddingLeft: '115px'};
 const iconTextStyle = { paddingLeft: '80px', fontsize: '30px'};
-const gridStyle = { paddingTop: '30px'};
+const gridStyle = { marginTop: '100px'};
 const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px'};
-const imageStyle = { paddingTop: '100px'};
+const marginTop = { marginTop: '100px'};
+
 
 /** A simple static component to render some text for the About Us page. */
 const Organizations = () => (
@@ -17,11 +20,11 @@ const Organizations = () => (
     <Divider style={container1Style}>
         <Container textAlign='center'>
             <Item.Header as="h1" style={textStyle}> Organization Library </Item.Header>
-            <Item.Description style={textStyle}> Browse the organizations we work with </Item.Description>
+            <Item.Description style={textStyle5}> Browse the organizations we work with </Item.Description>
         </Container>
     </Divider>
 
-        <Grid container centered columns={4}>
+        <Grid container centered columns={4} style={marginTop}>
             <Grid.Column>
                 <Image src='/images/org-logos-01-150x150.png' size='small'/>
             </Grid.Column>
@@ -82,13 +85,13 @@ const Organizations = () => (
 
         </Grid>
 
-        <Image src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid size='massive'/>
+        <Image centered src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid size='massive' style={marginTop}/>
 
         <Item.Header as="h1" style={textStyle2}> Join over 20 organizations already finding the help they need with Volunteer Ally. </Item.Header>
 
         <Item.Description style={textStyle3}> There are thousands of active volunteers waiting for opportunities to work with qualified organizations. Make sure your organization is volunteer-ready with Volunteer Ally. Our system allows you to easily post your volunteer opportunities and have them easily found by qualified volunteers – all for free! </Item.Description>
 
-        <Item.Description style={textStyle3}> Here are some of the great features you’ll find with Volunteer Ally: </Item.Description>
+        <Item.Description style={textStyle4}> Here are some of the great features you’ll find with Volunteer Ally: </Item.Description>
 
         <Grid style={gridStyle}>
             <Grid.Column width={.2}>
@@ -131,4 +134,4 @@ const Organizations = () => (
     </div>
 );
 
-export default Organizations;
+export default organizations;
