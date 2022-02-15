@@ -1,7 +1,7 @@
+import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import { Button, Container, Grid, Header, Message, Form, Segment, Checkbox } from 'semantic-ui-react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { AutoForm, ErrorsField, SubmitField, TextField, BoolField } from 'uniforms-semantic';
+import { AutoForm, SubmitField, TextField } from 'uniforms-semantic';
 import { Link, Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 import PropTypes from 'prop-types';
@@ -9,8 +9,8 @@ import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { signUpNewOrganizationMethod } from '../../api/organization/OrgCollection.methods';
 import { Organizations } from '../../api/organization/OrgCollection';
-import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { useParams } from 'react-router';
+import MultiSelect from '../components/form-fields/MultiSelectField';
+import { getVolunteerCategoryNames } from '../../api/utilities/VolunteerCategories';
 
 // Create a bridge schema from the organization profile schema
 const bridge = new SimpleSchema2Bridge(Organizations.getSchema());
@@ -31,7 +31,9 @@ const OrganizationSignup = ({ location }) => {
 
   const submit = (data, formRef) => {
     console.log(data);
-    signUpNewOrganizationMethod.callPromise(data)
+    const newData = data;
+    newData.owner = Meteor.getUserID();
+    signUpNewOrganizationMethod.callPromise(newData)
       .catch(error => {
         swal('Error', error.message, 'error');
         console.error(error);
@@ -72,6 +74,13 @@ const OrganizationSignup = ({ location }) => {
           }} schema={bridge} onSubmit={data => submit(data, fRef)}>
             <Segment>
               <TextField label='Organization Name' name='name'/>
+              <MultiSelect placeholder='Select one or more categories' label='Categories' name='categories' allowedValues={getVolunteerCategoryNames()}/>
+              <TextField label='Organization Address' name='location'/>
+              <TextField label='Mailing Address' name='mailing_address' optional/>
+              <TextField label='Website URL' name='website' optional/>
+              <TextField label='Logo URL' name='logo' optional/>
+              <TextField label='Avatar URL' name='logo_mini' optional/>
+
               <Form.Field>
                 <Checkbox onChange={onAgreedTerms} label='I agree to the Terms and Conditions' />
               </Form.Field>

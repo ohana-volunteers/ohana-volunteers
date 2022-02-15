@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Organizations } from '../../api/organization/OrgCollection';
-import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Organization Profile page that displays info from the Organizations Collection. */
@@ -29,9 +28,7 @@ const OrganizationProfile = ({ doc, currentUser, ready }) => ((ready) ? (
             icon='linkify'
             content={<a href={doc.website}>{doc.website}</a>}
           />
-          <List.Item icon='tag' content={
-            doc.categories.map(key => volunteerCategories[key].name).join(', ')
-          }/>
+          <List.Item icon='tag' content={doc.categories.join(', ')}/>
         </List>
         <Header as='h3'>Contact info:</Header>
         <List>

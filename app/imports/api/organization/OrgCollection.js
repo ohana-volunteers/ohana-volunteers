@@ -4,7 +4,7 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
-import { volunteerCategories } from '../utilities/VolunteerCategories';
+import { getVolunteerCategoryNames } from '../utilities/VolunteerCategories';
 
 export const orgPublicationStatus = ['hidden', 'public'];
 export const organizationPublications = {
@@ -19,16 +19,25 @@ class OrgCollection extends BaseCollection {
       categories: Array, // List of applicable categories
       'categories.$': {
         type: String,
-        allowedValues: Object.keys(volunteerCategories),
+        allowedValues: getVolunteerCategoryNames(),
       },
       location: String, // Organization address
       mailing_address: { // Organization mailing address
         type: String,
         optional: true,
       },
-      website: String, // Organization website
-      logo: String,
-      logo_mini: String,
+      website: { // Organization website
+        type: String,
+        optional: true,
+      },
+      logo: { // Logo
+        type: String,
+        optional: true,
+      },
+      logo_mini: { // Small square version of logo
+        type: String,
+        optional: true,
+      },
       contact: Object, // Organization contact info
       'contact.name': { // Name of person to contact
         type: String,
