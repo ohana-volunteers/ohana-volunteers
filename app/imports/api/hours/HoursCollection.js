@@ -17,8 +17,14 @@ class HoursCollection extends BaseCollection {
       organizationID: String,
       date: Date,
       hours: Number,
-      verifiedOn: Date,
-      isVerified: Boolean,
+      verifiedOn: {
+        type: Date,
+        defaultValue: 'N/A',
+      },
+      isVerified: {
+        type: Boolean,
+        defaultValue: false,
+      },
     }));
   }
 
@@ -135,11 +141,11 @@ class HoursCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER, ROLE.VOLUNTEER]);
   }
 
   /**
-   * Returns an object represnting the definition of docID in a format appropriate to the restoreOne or define function.
+   * Returns an object representing the definition of docID in a format appropriate to the restoreOne or define function.
    * @param docID
    * @return {{ eventID: *, organization: *, date: *, hours: *, verifiedOn: *, isVerified: *}}
    */
