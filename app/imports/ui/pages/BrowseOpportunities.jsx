@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Divider, Card, Segment } from 'semantic-ui-react';
+import { Grid, Header, Divider, Card, Segment, Icon, Statistic, Reveal } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -11,6 +11,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import OpportunityItem from '../components/OpportunityItem';
 import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
+import CategoryItem from '../components/CategoryItem';
 
 const searchForm = new SimpleSchema({
   categories: {
@@ -120,8 +121,18 @@ const BrowseOpportunities = ({ opps, ready }) => {
           </Segment>
         </Grid.Column>
 
-        <Grid.Column>
-          <Segment>Hello this is the map (may just delete)</Segment>
+        <Grid.Column textAlign="center">
+          <Segment style={{ overflow: 'auto', maxHeight: 500 }} padded>
+            <Header as='h2' >Showing Categories / Map</Header>
+            <Divider/>
+            <Card.Group centered>
+              {Object.getOwnPropertyNames(volunteerCategories).map((item) => {
+                const cat = volunteerCategories[item];
+                const quality = Opportunities.find({ categories: { $regex: item } }).count();
+                return <CategoryItem key={cat.name} cat={cat} quality={quality}></CategoryItem>;
+              })}
+            </Card.Group>
+          </Segment>
         </Grid.Column>
       </Grid.Row>
 
