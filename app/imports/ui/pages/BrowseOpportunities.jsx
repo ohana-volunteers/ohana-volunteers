@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Divider, Card, Segment, Icon, Statistic, Reveal } from 'semantic-ui-react';
+import { Grid, Header, Divider, Card, Segment, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -76,7 +76,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
   }, order);
   const count = sortOpps.count();
   let fRef = null;
-  return (
+  return (ready) ? (
     <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
       <Grid.Row centered>
         <Header as="h1" size="huge">Browse Opportunities</Header>
@@ -137,7 +137,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
       </Grid.Row>
 
     </Grid>
-  );
+  ) : <Loader active>Getting data</Loader>;
 };
 
 // Require an array of Stuff documents in the props.
