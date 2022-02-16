@@ -1,31 +1,62 @@
 import React from 'react';
-import { Grid, Segment, Header, Input, Button } from 'semantic-ui-react';
+import { Grid, Segment, Header } from 'semantic-ui-react';
+import { AutoForm, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import swal from 'sweetalert';
+import { Meteor } from 'meteor/meteor';
+import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import SimpleSchema from 'simpl-schema';
+import { Hours } from '../../api/hours/HoursCollection';
+import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
-/** Renders the Page for adding a document. */
-const AddHours = () => (
-  <Grid id={PAGE_IDS.ADD_HOURS} container centered>
-    <Grid.Column>
-      <Header as="h2" textAlign="center">Hour Tracking Verification Request</Header>
-      <Segment padded>
-        <Grid columns={2} stackable textAlign='center'>
-          <Grid.Column>
-            <Grid.Row>
-              <Input label='Event ID:' placeholder='Enter Event ID Number' fluid={true}/>
-            </Grid.Row>
-            <Grid.Row>
-              <Input label='Hours:' placeholder='Enter Number of Hours' fluid={true}/>
-            </Grid.Row>
-          </Grid.Column>
-          <Grid.Column verticalAlign='middle'>
-            <Button fluid={true}>
-              Submit Verification Request
-            </Button>
-          </Grid.Column>
-        </Grid>
-      </Segment>
-    </Grid.Column>
-  </Grid>
-);
+// Create a schema to specify the structure of the data to appear in the form.
+const formSchema = new SimpleSchema({
+  eventID: String,
+  organization: String,
+  date: String,
+  hours: Number,
+});
 
-export default AddHours;
+const bridge = new SimpleSchema2Bridge(formSchema);
+
+/** Renders the Page for adding a document. */
+const AddStuff = () => {
+
+  // On submit, insert the data.
+  const submit = (data, formRef) => {
+    const { eventID, organization, date, hours } = data;
+    const owner = Meteor.user().username;
+    const collectionName = Hours.getCollectionName();
+    const definitionData = { eventID, organization, date, hours, owner };
+    defineMethod.callPromise({ collectionName, definitionData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => {
+        swal('Success', 'Item added successfully', 'success');
+        formRef.reset();
+      });
+  };
+
+  // Render the form. Use Uniforms: https://github.com/vazco/uniforms
+  let fRef = null;
+  return (
+    <Grid id={PAGE_IDS.ADD_HOURS} container centered>
+      <Grid.Column>
+        <Header as="h2" textAlign="center">Submit Verification Request</Header>
+        <AutoForm ref={ref => {
+          fRef = ref;
+        }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          <Segment>
+            <TextField name='eventID'/>
+            <TextField name='organization'/>
+            <TextField name='date'/>
+            <NumField name='hours'/>
+            <SubmitField value='Submit' />
+            <ErrorsField />
+          </Segment>
+        </AutoForm>
+      </Grid.Column>
+    </Grid>
+  );
+};
+
+export default AddStuff;
