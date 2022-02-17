@@ -1,20 +1,23 @@
 import { Meteor } from 'meteor/meteor';
+import SimpleSchema from 'simpl-schema';
 import React, { useState } from 'react';
-import { Button, Container, Grid, Header, Message, Form, Segment, Checkbox } from 'semantic-ui-react';
-import { AutoForm, SubmitField, TextField } from 'uniforms-semantic';
+import { Button, Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
+import { AutoForm, SubmitField, TextField, RadioField } from 'uniforms-semantic';
 import { Link, Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { signUpNewOrganizationMethod } from '../../api/organization/OrgCollection.methods';
-import { Organizations } from '../../api/organization/OrgCollection';
 import MultiSelect from '../components/form-fields/MultiSelectField';
 import { getVolunteerCategoryNames } from '../../api/utilities/VolunteerCategories';
-import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { userSchema, organizationProfileSchema } from '../../api/utilities/SchemaDefinitions';
 
 // Create a bridge schema from the organization profile schema
-const bridge = new SimpleSchema2Bridge(Organizations.getSchema());
+const bridge = new SimpleSchema2Bridge(new SimpleSchema({
+  userInfo: userSchema,
+  orgInfo: organizationProfileSchema,
+}));
 
 /**
  * Organization sign up page
@@ -31,10 +34,7 @@ const OrganizationSignup = ({ location }) => {
   };
 
   const submit = (data, formRef) => {
-    console.log(data);
-    const newData = data;
-    newData.owner = Meteor.getUserID();
-    signUpNewOrganizationMethod.callPromise(newData)
+    signUpNewOrganizationMethod.callPromise(data)
       .catch(error => {
         swal('Error', error.message, 'error');
         console.error(error);
@@ -67,9 +67,10 @@ const OrganizationSignup = ({ location }) => {
             <Button.Or />
             <Button positive as={Link} to="/org-signup">Organization Sign Up</Button>
           </Button.Group>
-          <Header as="h5" textAlign="center">
+          <Header as="h4" textAlign="center">
             Sign up as an organization
           </Header>
+          <Divider/>
           <AutoForm ref={ref => {
             fRef = ref;
           }} schema={bridge} onSubmit={data => submit(data, fRef)}>
@@ -77,22 +78,33 @@ const OrganizationSignup = ({ location }) => {
               Create new user account
             </Header>
             <Segment>
-              <Form.Group widths={'equal'}>
-                <TextField label='First Name'/>
-                <TextField label='Last Name'/>
-              </Form.Group>
+              <TextField name='userInfo.username'/>
+              <TextField type='password' name='userInfo.password'/>
             </Segment>
             <Header as="h5" textAlign="center">
               Create organization profile
             </Header>
             <Segment>
-              <TextField label='Organization Name' name='name'/>
-              <MultiSelect placeholder='Select one or more categories' label='Categories' name='categories' allowedValues={getVolunteerCategoryNames()}/>
-              <TextField label='Organization Address' name='location'/>
-              <TextField label='Mailing Address' name='mailing_address' optional/>
-              <TextField label='Website URL' name='website' optional/>
-              <TextField label='Logo URL' name='logo' optional/>
-              <TextField label='Avatar URL' name='logo_mini' optional/>
+              <TextField label='Organization Name' name='orgInfo.name'/>
+              <MultiSelect placeholder='Select one or more categories' label='Categories' name='orgInfo.categories' allowedValues={getVolunteerCategoryNames()}/>
+              <TextField label='Organization Address' name='orgInfo.location'/>
+              <TextField label='Mailing Address' name='orgInfo.mailing_address'/>
+              <TextField label='Website URL' name='orgInfo.website'/>
+              <TextField label='Logo URL' name='orgInfo.logo'/>
+              <TextField label='Avatar URL' name='orgInfo.logo_mini'/>
+
+              <Segment>
+                <Header as="h5" textAlign="center">
+                  Contact info
+                </Header>
+                <TextField name='orgInfo.contact.name'/>
+                <TextField name='orgInfo.contact.email'/>
+                <TextField name='orgInfo.contact.address'/>
+                <TextField name='orgInfo.contact.phone'/>
+              </Segment>
+
+              <RadioField label='Publish Organization Profile?' name='orgInfo.status' >
+              </RadioField>
 
               <Form.Field>
                 <Checkbox onChange={onAgreedTerms} label='I agree to the Terms and Conditions' />

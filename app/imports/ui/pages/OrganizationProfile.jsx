@@ -24,10 +24,11 @@ const OrganizationProfile = ({ doc, currentUser, ready }) => ((ready) ? (
           <List.Item icon='marker' content={doc.location}/>
           {(doc.mailing_address) ?
             <List.Item icon='mail outline' content={doc.mailing_address}/> : ''}
-          <List.Item
-            icon='linkify'
-            content={<a href={doc.website}>{doc.website}</a>}
-          />
+          {(doc.website) ?
+            <List.Item
+              icon='linkify'
+              content={<a href={doc.website}>{doc.website}</a>}
+            /> : ''}
           <List.Item icon='tag' content={doc.categories.join(', ')}/>
         </List>
         <Header as='h3'>Contact info:</Header>
