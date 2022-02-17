@@ -41,6 +41,7 @@ class BaseCollection {
    * @see {@link http://docs.meteor.com/api/collections.html#Mongo-Collection-update}
    * @param { Object } selector A MongoDB selector.
    * @param { Object } modifier A MongoDB modifier
+   * @return {String} the docID of the new document.
    */
   update(selector, modifier) {
     throw new Meteor.Error(`update(${selector}, ${modifier}) is not not defined in BaseCollection.`);

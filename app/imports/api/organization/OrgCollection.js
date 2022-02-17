@@ -15,8 +15,14 @@ export const organizationPublications = {
 class OrgCollection extends BaseCollection {
   constructor() {
     super('Organizations', new SimpleSchema({
-      name: String, // Organization name
-      categories: Array, // List of applicable categories
+      name: {
+        type: String,
+        optional: false,
+      },
+      categories: {
+        type: Array,
+        optional: false,
+      },
       'categories.$': {
         type: String,
         allowedValues: getVolunteerCategoryNames(),
@@ -38,21 +44,26 @@ class OrgCollection extends BaseCollection {
         type: String,
         optional: true,
       },
-      contact: Object, // Organization contact info
-      'contact.name': { // Name of person to contact
+      firstName: {
+        type: String,
+        optional: false,
+      },
+      lastName: {
+        type: String,
+        optional: false,
+      },
+      contact_email: {
+        type: String,
+        optional: false,
+      },
+      primary_contact_phone: {
         type: String,
         optional: true,
       },
-      'contact.email': String, // Email of person to contact (required)
-      'contact.address': {
+      owner: {
         type: String,
         optional: true,
       },
-      'contact.phone': {
-        type: String,
-        optional: true,
-      },
-      owner: String, // Organization owner user account
       status: {
         type: String,
         allowedValues: orgPublicationStatus,

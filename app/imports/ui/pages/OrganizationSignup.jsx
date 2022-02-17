@@ -11,6 +11,7 @@ import { signUpNewOrganizationMethod } from '../../api/organization/OrgCollectio
 import { Organizations } from '../../api/organization/OrgCollection';
 import MultiSelect from '../components/form-fields/MultiSelectField';
 import { getVolunteerCategoryNames } from '../../api/utilities/VolunteerCategories';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 // Create a bridge schema from the organization profile schema
 const bridge = new SimpleSchema2Bridge(Organizations.getSchema());
@@ -72,6 +73,18 @@ const OrganizationSignup = ({ location }) => {
           <AutoForm ref={ref => {
             fRef = ref;
           }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+            <Header as="h5" textAlign="center">
+              Create new user account
+            </Header>
+            <Segment>
+              <Form.Group widths={'equal'}>
+                <TextField label='First Name'/>
+                <TextField label='Last Name'/>
+              </Form.Group>
+            </Segment>
+            <Header as="h5" textAlign="center">
+              Create organization profile
+            </Header>
             <Segment>
               <TextField label='Organization Name' name='name'/>
               <MultiSelect placeholder='Select one or more categories' label='Categories' name='categories' allowedValues={getVolunteerCategoryNames()}/>
