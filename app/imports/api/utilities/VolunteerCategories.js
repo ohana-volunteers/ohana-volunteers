@@ -11,3 +11,5 @@ export const volunteerCategories = {
   poverty: { name: 'Homelessness/Poverty', icon: 'bed' },
   special_needs: { name: 'Special Needs', icon: 'wheelchair' },
 };
+
+export const getVolunteerCategoryNames = () => Object.getOwnPropertyNames(volunteerCategories).map(key => volunteerCategories[key].name);

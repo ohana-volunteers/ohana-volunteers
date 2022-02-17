@@ -4,9 +4,8 @@ import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
-import { volunteerCategories } from '../utilities/VolunteerCategories';
+import { organizationProfileSchema } from '../utilities/SchemaDefinitions';
 
-export const orgPublicationStatus = ['hidden', 'public'];
 export const organizationPublications = {
   orgs: 'Organizations',
   orgsAdmin: 'OrganizationsAdmin',
@@ -14,99 +13,23 @@ export const organizationPublications = {
 
 class OrgCollection extends BaseCollection {
   constructor() {
-    super('Organizations', new SimpleSchema({
-      name: String, // Organization name
-      categories: Array, // List of applicable categories
-      'categories.$': {
-        type: String,
-        allowedValues: Object.keys(volunteerCategories),
-      },
-      location: String, // Organization address
-      mailing_address: { // Organization mailing address
-        type: String,
-        optional: true,
-      },
-      website: String, // Organization website
-      logo: String,
-      logo_mini: String,
-      contact: Object, // Organization contact info
-      'contact.name': { // Name of person to contact
-        type: String,
-        optional: true,
-      },
-      'contact.email': String, // Email of person to contact (required)
-      'contact.address': {
-        type: String,
-        optional: true,
-      },
-      'contact.phone': {
-        type: String,
-        optional: true,
-      },
-      owner: String, // Organization owner user account
-      status: {
-        type: String,
-        allowedValues: orgPublicationStatus,
-        defaultValue: 'hidden',
-      },
-    }));
+    super('Organizations', new SimpleSchema(organizationProfileSchema));
   }
 
   /**
    * Defines a new Organization.
-   * @param name the name of the organization.
-   * @param categories List of applicable categories.
-   * @param location Organization address.
-   * @param mailing_address Organization mailing address.
-   * @param website Organization website.
-   * @param logo Organization logo/ profile pic.
-   * @param logo_mini Organization logo/ profile pic.
-   * @param contact Organization contact info.
-   * @param owner the owner of the item.
-   * @param status the publication status of the item.
-   * @return {never} the docID of the new document.
+   * @return {String} the docID of the new document.
    */
-  define({ name, categories, location, mailing_address, website, logo, logo_mini, contact, owner, status }) {
-    return this._collection.insert({
-      name,
-      categories,
-      location,
-      mailing_address,
-      website,
-      logo,
-      logo_mini,
-      contact,
-      owner,
-      status,
-    });
+  define(object) {
+    return this._collection.insert(object);
   }
 
   /**
    * Updates the given document.
-   * @param docID the id of the document to update.
-   * @param name the new name (optional).
-   * @param categories List of applicable categories (optional).
-   * @param location Organization address (optional).
-   * @param mailing_address Organization mailing address (optional).
-   * @param website Organization website (optional).
-   * @param logo Organization logo/ profile pic (optional).
-   * @param logo_mini Organization logo/ profile pic (optional).
-   * @param contact Organization contact info (optional).
-   * @param status the publication status of the item (optional).
    * @return {never}
    */
-  update(docID, { name, categories, location, mailing_address, website, logo, logo_mini, contact, status }) {
-    const updateData = {};
-    if (name) updateData.name = name;
-    if (categories) updateData.categories = categories;
-    if (location) updateData.location = location;
-    if (mailing_address) updateData.location = mailing_address;
-    if (website) updateData.website = website;
-    if (logo) updateData.logo = logo;
-    if (logo_mini) updateData.logo = logo_mini;
-    if (contact) updateData.contact = contact;
-    if (status) updateData.status = status;
-    this._collection.update(docID, { $set: updateData });
+  update(docID, object) {
+    this._collection.update(docID, { $set: object });
   }
 
   /**
