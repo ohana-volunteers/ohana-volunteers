@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Loader, Header, Segment } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import {
@@ -12,6 +12,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
+import { Redirect } from 'react-router-dom';
 import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
 import { updateMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -21,8 +22,9 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 const bridge = new SimpleSchema2Bridge(VolunteerProfiles._schema);
 
 /** Renders the Page for editing a profile of a volunteer. */
-const EditVolunteerProfile = ({ doc, ready }) => {
+const EditVolunteerProfile = ({ doc, ready, location }) => {
 
+  const [redirectToReferer, setRedirectToReferer] = useState(false);
   // On successful submit, insert the data.
   const submit = (data) => {
     const { firstName, lastName, description, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, _id } = data;
@@ -31,7 +33,13 @@ const EditVolunteerProfile = ({ doc, ready }) => {
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Profile updated successfully!', 'success'));
+    setRedirectToReferer(true);
   };
+
+  const { from } = location.state || { from: { pathname: '/my-profile' } };
+  if (redirectToReferer) {
+    return <Redirect to={from} />;
+  }
 
   return (ready) ? (
     <Grid id={PAGE_IDS.EDIT_VOLUNTEER_PROFILE} textAlign="center" verticalAlign="middle" container centered columns={1}>
@@ -64,6 +72,7 @@ const EditVolunteerProfile = ({ doc, ready }) => {
 // Require the presence of a Volunteer Profile in the props object. Uniforms adds 'model' to the props, which we use.
 EditVolunteerProfile.propTypes = {
   doc: PropTypes.object,
+  location: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
 
