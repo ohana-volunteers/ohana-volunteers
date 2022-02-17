@@ -42,6 +42,15 @@
   position: relative;
 }
 
+.ohana-bo-background {
+  background-image: url('images/BO.png');
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
 .App {
   text-align: center;
   background-color: white;
@@ -71,5 +80,5 @@
 
 .volunteer-bg-banner {
   max-width: 10rem;
-  max-height: 35rem;
+  max-height: 25rem;
 }

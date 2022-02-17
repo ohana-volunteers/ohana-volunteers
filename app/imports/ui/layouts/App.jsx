@@ -12,12 +12,14 @@ import ListHours from '../pages/ListHours';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import organizations from '../pages/OrganizationLibrary';
+import BrowseOpportunities from '../pages/BrowseOpportunities';
 import Signup from '../pages/Signup';
 import OrganizationSignup from '../pages/OrganizationSignup';
 import Signout from '../pages/Signout';
 import ManageDatabase from '../pages/ManageDatabase';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import VolunteerProfile from '../pages/VolunteerProfile';
+import EditVolunteerProfile from '../pages/EditVolunteerProfile';
 import AboutUs from '../pages/AboutUs';
 import OrganizationProfile from '../pages/OrganizationProfile';
 import { ROLE } from '../../api/role/Role';
@@ -39,10 +41,12 @@ class App extends React.Component {
             <Route path="/signout" component={Signout}/>
             <Route path="/organization-profile/:_id" component={OrganizationProfile}/>
             <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>
+            <ProtectedRoute path="/edit-my-profile" component={EditVolunteerProfile}/>
             <ProtectedRoute path="/addHours" component={AddHours}/>
             <ProtectedRoute path="/listHours" component={ListHours}/>
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
             <Route path="/organization-library" component={organizations}/>
+            <Route path="/browse-opportunities" component={BrowseOpportunities}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>
           <Footer/>

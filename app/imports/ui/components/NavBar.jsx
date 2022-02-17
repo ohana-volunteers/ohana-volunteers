@@ -18,7 +18,7 @@ const NavBar = ({ currentUser }) => {
       </Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/notfound" key='browse'>Browse Opportunities</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/browse-opportunities" key='browse'>Browse Opportunities</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/organization-library" key='library'>Organization Library</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
       {currentUser === '' ? (
@@ -26,7 +26,7 @@ const NavBar = ({ currentUser }) => {
           <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
       ) : (
         [<Menu.Item key="user">
-          <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" avatar/>
+          <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
               <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} activeClassName="" text="Verify More Hours" as={NavLink} exact to="/addhours"/>

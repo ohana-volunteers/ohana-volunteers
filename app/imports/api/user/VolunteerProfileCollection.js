@@ -10,6 +10,10 @@ class VolunteerProfileCollection extends BaseProfileCollection {
       email: String,
       firstName: String,
       lastName: String,
+      description: {
+        type: String,
+        defaultValue: 'I am a new user of Volunteer Ally!',
+      },
       gender: {
         type: String,
         allowedValues: ['Female', 'Male', 'Other', 'Prefer Not to Say'],
@@ -53,6 +57,14 @@ class VolunteerProfileCollection extends BaseProfileCollection {
         allowedValues: ['One-time', 'Once a week', 'More than 3 times a week', 'Weekdays only',
           'Once a month', '1-3 times a week', 'Weekends only'],
       },
+      totalHours: {
+        type: Number,
+        defaultValue: 0,
+      },
+      eventsParticipated: {
+        type: Number,
+        defaultValue: 0,
+      },
       acceptTermsOfUse: 'boolean',
     }));
   }
@@ -75,13 +87,32 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param availability Set of availabilities.
    * @param acceptTermsOfUse Check if users accepted TOU.
    */
-  define({ email, firstName, lastName, gender, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, acceptTermsOfUse }) {
+  define({ email, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse }) {
     if (Meteor.isServer) {
       const username = email;
       const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.VOLUNTEER;
-        const profileID = this._collection.insert({ email, firstName, lastName, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, acceptTermsOfUse, userID: this.getFakeUserId(), role });
+        const profileID = this._collection.insert({
+          email,
+          firstName,
+          lastName,
+          gender,
+          description,
+          address,
+          city,
+          state,
+          zip,
+          phone,
+          interests,
+          skills,
+          environmentalPreference,
+          availability,
+          totalHours,
+          eventsParticipated,
+          acceptTermsOfUse,
+          userID: this.getFakeUserId(),
+          role });
         const userID = Users.define({ username, role, password });
         this._collection.update(profileID, { $set: { userID } });
         return profileID;
@@ -97,6 +128,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param firstName new first name (optional).
    * @param lastName new last name (optional).
    * @param gender new gender (optional).
+   * @param description new description (optional).
    * @param address new address (optional).
    * @param city new city (optional).
    * @param zip new zip (optional).
@@ -105,43 +137,26 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param skills new skills (optional).
    * @param environmentalPreference new preferences (optional).
    * @param availability new availability (optional).
+   * @param totalHours update hours (optional).
+   * @param eventsParticipated update events participated (optional).
    */
-  update(docID, { firstName, lastName, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability }) {
+  update(docID, { firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated }) {
     this.assertDefined(docID);
     const updateData = {};
-    if (firstName) {
-      updateData.firstName = firstName;
-    }
-    if (lastName) {
-      updateData.lastName = lastName;
-    }
-    if (gender) {
-      updateData.gender = gender;
-    }
-    if (address) {
-      updateData.address = address;
-    }
-    if (city) {
-      updateData.city = city;
-    }
-    if (state) {
-      updateData.zip = zip;
-    }
-    if (phone) {
-      updateData.phone = phone;
-    }
-    if (interests) {
-      updateData.interests = interests;
-    }
-    if (skills) {
-      updateData.skills = skills;
-    }
-    if (environmentalPreference) {
-      updateData.environmentalPreference = environmentalPreference;
-    }
-    if (availability) {
-      updateData.availability = availability;
-    }
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+    if (gender) updateData.gender = gender;
+    if (description) updateData.description = description;
+    if (address) updateData.address = address;
+    if (city) updateData.city = city;
+    if (state) updateData.zip = zip;
+    if (phone) updateData.phone = phone;
+    if (interests) updateData.interests = interests;
+    if (skills) updateData.skills = skills;
+    if (environmentalPreference) updateData.environmentalPreference = environmentalPreference;
+    if (availability) updateData.availability = availability;
+    if (totalHours) updateData.totalHours = totalHours;
+    if (eventsParticipated) updateData.eventsParticipated = eventsParticipated;
     this._collection.update(docID, { $set: updateData });
   }
 
@@ -194,6 +209,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     const firstName = doc.firstName;
     const lastName = doc.lastName;
     const gender = doc.gender;
+    const description = doc.description;
     const address = doc.address;
     const city = doc.city;
     const state = doc.state;
@@ -203,7 +219,9 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     const skills = doc.skills;
     const environmentalPreference = doc.environmentalPreference;
     const availability = doc.availability;
-    return { email, firstName, lastName, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability };
+    const totalHours = doc.totalHours;
+    const eventsParticipated = doc.eventsParticipated;
+    return { email, firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated };
   }
 }
 

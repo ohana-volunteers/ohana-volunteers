@@ -7,10 +7,12 @@ export const PAGE_IDS = {
   PRIVACY_POLICY: 'privacy-policy',
   ABOUT_US: 'about-us',
   VOLUNTEER_PROFILE: 'volunteer-profile',
+  EDIT_VOLUNTEER_PROFILE: 'edit-volunteer-profile',
   NOT_FOUND: 'not-found',
   SIGN_IN: 'sigin-in',
   SIGN_OUT: 'sign-out',
   SIGN_UP: 'sign-up',
   ORG_SIGN_UP: 'org-sign-up',
   ORGANIZATION_PROFILE: 'organization-profile',
+  BROWSE_OPPORTUNITIES: 'BrowseOpportunities',
 };
