@@ -15,7 +15,7 @@ const marginTop = { marginTop: '100px'};
 
 
 /** A simple static component to render some text for the About Us page. */
-const Organizations = () => (
+const organizations = () => (
     <div>
     <Divider style={container1Style}>
         <Container textAlign='center'>
