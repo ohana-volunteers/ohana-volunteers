@@ -243,27 +243,27 @@
 
   "defaultHours": [
     {
-      "eventID": "1",
-      "organization": "Scott Wo",
+      "eventID": "Test Event",
+      "organizationID": "Scott Wo",
       "date": "January 1, 2022 12:00pm - 2:00pm",
       "hours": 2,
-      "verifiedOn": "Jan 2, 2022",
+      "verifiedOn": "January 2, 2022",
       "isVerified": true
     },
     {
-      "eventID": "2",
-      "organization": "Joshlyn Sand",
+      "eventID": "Nuuanu Stream Clean-Up",
+      "organizationID": "Joshlyn Sand",
       "date": "December 9, 2021 9:00am - 12:00pm",
       "hours": 3,
-      "verifiedOn": "Dec 10, 2021",
+      "verifiedOn": "December 10, 2021",
       "isVerified": true
     },
     {
-      "eventID": "3",
-      "organization": "Hawaii Foodbank",
+      "eventID": "Distribution Assistance",
+      "organizationID": "Hawaii Foodbank",
       "date": "January 21, 2022 8:30am - 12:00am",
       "hours": 3.5,
-      "verifiedOn": "Jan 22, 2022",
+      "verifiedOn": "January 22, 2022",
       "isVerified": true
     }
   ],

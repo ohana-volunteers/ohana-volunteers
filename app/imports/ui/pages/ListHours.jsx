@@ -9,7 +9,7 @@ import HoursItem from '../components/HoursItem';
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 const ListHours = ({ ready, hours }) => ((ready) ? (
   <Container id={PAGE_IDS.LIST_HOURS}>
-    <Header as="h2" textAlign="center">List Hours</Header>
+    <Header as="h2" textAlign="center">My Currently Tracked Hours</Header>
     <Table celled>
       <Table.Header>
         <Table.Row>
@@ -37,7 +37,7 @@ ListHours.propTypes = {
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 export default withTracker(() => {
   // Get access to Hours documents.
-  const subscription = Hours.subscribeHours();
+  const subscription = Hours.subscribeHoursAdmin();
   // Determine if the subscription is ready
   const ready = subscription.ready();
   // Get the Hours documents and sort them by name.

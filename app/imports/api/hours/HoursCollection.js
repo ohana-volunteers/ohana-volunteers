@@ -15,10 +15,10 @@ class HoursCollection extends BaseCollection {
     super('Hours', new SimpleSchema({
       eventID: String,
       organizationID: String,
-      date: Date,
+      date: String,
       hours: Number,
       verifiedOn: {
-        type: Date,
+        type: String,
         defaultValue: 'N/A',
       },
       isVerified: {
@@ -31,16 +31,16 @@ class HoursCollection extends BaseCollection {
   /**
    * Defines a new Hours item.
    * @param eventID the docID of the event item.
-   * @param organization the organization the item belongs to.
+   * @param organizationID the organization the item belongs to.
    * @param date the date of when the item was taken place.
    * @param hours the quantity of hours of the item.
    * @param verifiedOn the date the item was verified on
    * @param isVerified if the item was verified by the organization.
    */
-  define({ eventID, organization, date, hours, verifiedOn, isVerified = false }) {
+  define({ eventID, organizationID, date, hours, verifiedOn, isVerified = false }) {
     const docID = this._collection.insert({
       eventID,
-      organization,
+      organizationID,
       date,
       hours,
       verifiedOn,
@@ -152,12 +152,12 @@ class HoursCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const eventID = doc.eventID;
-    const organization = doc.organization;
+    const organizationID = doc.organizationID;
     const date = doc.date;
     const hours = doc.hours;
     const verifiedOn = doc.verifiedOn;
     const isVerified = doc.isVerified;
-    return { eventID, organization, date, hours, verifiedOn, isVerified };
+    return { eventID, organizationID, date, hours, verifiedOn, isVerified };
   }
 }
 

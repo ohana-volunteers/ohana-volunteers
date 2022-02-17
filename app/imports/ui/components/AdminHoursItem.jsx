@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const AdminHoursItem = ({ Hours }) => (
   <Table.Row>
     <Table.Cell>{Hours.eventID}</Table.Cell>
-    <Table.Cell>{Hours.organization}</Table.Cell>
+    <Table.Cell>{Hours.organizationID}</Table.Cell>
     <Table.Cell>{Hours.date}</Table.Cell>
     <Table.Cell>{Hours.hours}</Table.Cell>
     <Table.Cell>{Hours.verifiedOn}</Table.Cell>
@@ -17,7 +17,7 @@ const AdminHoursItem = ({ Hours }) => (
 AdminHoursItem.propTypes = {
   Hours: PropTypes.shape({
     eventID: PropTypes.string,
-    organization: PropTypes.string,
+    organizationID: PropTypes.string,
     date: PropTypes.string,
     hours: PropTypes.number,
     verifiedOn: PropTypes.string,
