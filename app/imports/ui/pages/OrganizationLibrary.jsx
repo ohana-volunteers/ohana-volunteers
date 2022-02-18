@@ -15,11 +15,15 @@ const marginTop = { marginTop: '100px'};
 
 
 /** A simple static component to render some text for the About Us page. */
+<<<<<<< HEAD
 <<<<<<< HEAD:app/imports/ui/pages/OrganizationLibrary.jsx
 const OrganizationLibrary = () => (
 =======
 const Organizations = () => (
 >>>>>>> parent of f75168a (Update Organizations.jsx):app/imports/ui/pages/Organizations.jsx
+=======
+const OrganizationLibrary = () => (
+>>>>>>> fd1ba9eebe987b442e7b0d0f802fe380137fbaeb
     <div>
     <Divider style={container1Style}>
         <Container textAlign='center'>
