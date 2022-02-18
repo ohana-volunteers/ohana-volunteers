@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Stuffs } from '../stuff/StuffCollection';
 import { AdminProfiles } from '../user/AdminProfileCollection';
 import { UserProfiles } from '../user/UserProfileCollection';
+import { Organizations } from '../organization/OrgCollection';
+import { VolunteerProfiles } from '../user/VolunteerProfileCollection';
+import { Opportunities } from '../opportunities/OpportunityCollection';
+import { Hours } from '../hours/HoursCollection';
 
 class MATRPClass {
   collections;
@@ -14,8 +17,11 @@ class MATRPClass {
     // list of all the MATRP collections
     this.collections = [
       AdminProfiles,
-      Stuffs,
       UserProfiles,
+      VolunteerProfiles,
+      Organizations,
+      Opportunities,
+      Hours,
     ];
     /*
      * A list of collection class instances in the order required for them to be sequentially loaded from a file.
@@ -23,7 +29,10 @@ class MATRPClass {
     this.collectionLoadSequence = [
       AdminProfiles,
       UserProfiles,
-      Stuffs,
+      VolunteerProfiles,
+      Organizations,
+      Opportunities,
+      Hours,
     ];
 
     /*

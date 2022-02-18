@@ -2,14 +2,270 @@
   "defaultAccounts": [
     { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP"
     },
-    { "email": "john@foo.com", "password": "changeme", "role": "USER" , "firstName": "John", "lastName": "Doe" }
+    { "email": "joe@foo.com",
+      "password": "changeme",
+      "role": "USER" ,
+      "firstName": "John",
+      "lastName": "Doe" },
+    {
+      "email": "john@foo.com",
+      "password": "changeme",
+      "role": "VOLUNTEER" ,
+      "firstName": "John",
+      "lastName": "Foo",
+      "gender": "Male",
+      "description": "I am an undergraduate student who likes to help the community in their spare time.",
+      "address": "2500 Campus Rd",
+      "city": "Honolulu",
+      "state": "HI",
+      "zip": "96822",
+      "phone": "(808) 123-4567",
+      "interests": ["COVID-19 Recovery", "Education", "Housing"],
+      "skills": ["Education", "Event Planning", "Sales/Marketing", "Technology"],
+      "environmentalPreference": "Outdoor",
+      "availability": ["Once a week"],
+      "totalHours": 16,
+      "eventsParticipated": 2,
+      "acceptTermsOfUse": true
+    },
+    {
+      "email": "tony@foo.com",
+      "password": "changeme",
+      "role": "VOLUNTEER" ,
+      "firstName": "Tony",
+      "lastName": "Henderson",
+      "description": "I like to get my hands dirty in the effort to help out the environment.",
+      "gender": "Other",
+      "address": "2500 Campus Ave",
+      "city": "Kapolei",
+      "state": "HI",
+      "zip": "98765",
+      "phone": "(808) 987-6543",
+      "interests": ["Housing", "Special Needs"],
+      "skills": ["Agriculture", "Graphic/Web Design"],
+      "environmentalPreference": "Both",
+      "availability": ["Once a week", "Weekdays only"],
+      "totalHours": 32,
+      "eventsParticipated": 4,
+      "acceptTermsOfUse": true
+    },
+    {
+      "email": "michael@foo.com",
+      "password": "changeme",
+      "role": "VOLUNTEER" ,
+      "firstName": "Michael",
+      "lastName": "Cezar",
+      "gender": "Other",
+      "description": "A computer science student hoping to engineer new designs and ideas that would benefit everyone in the community.",
+      "address": "1450 Ala Moana Blvd",
+      "city": "Honolulu",
+      "state": "HI",
+      "zip": "10101",
+      "phone": "(808) 101-10101",
+      "interests": ["Housing", "Special Needs"],
+      "skills": ["Technology", "CPR (Certification Required)"],
+      "environmentalPreference": "Indoor",
+      "availability": ["1-3 times a week"],
+      "totalHours": 4,
+      "eventsParticipated": 1,
+      "acceptTermsOfUse": true
+    },
+    {
+      "email": "alyssa@foo.com",
+      "password": "changeme",
+      "role": "VOLUNTEER" ,
+      "firstName": "Alyssa",
+      "lastName": "Hart",
+      "gender": "Female",
+      "description": "I am an undergraduate nursing student who enjoys working with animals and kids.",
+      "address": "98-1005 Moanalua Rd",
+      "city": "Aiea",
+      "state": "HI",
+      "zip": "20202",
+      "phone": "(808) 202-20202",
+      "interests": ["Food Banks", "Child/Family Support", "Animal Welfare/Rescue"],
+      "skills": ["First Aid (Certification Required)", "Nursing (CNA/RNA Certified)", "Event Planning" ],
+      "environmentalPreference": "No Preference",
+      "availability": ["Once a week", "Weekends only"],
+      "totalHours": 64,
+      "eventsParticipated": 5,
+      "acceptTermsOfUse": true
+    }
   ],
 
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  "defaultOrganizations": [
+    {
+      "name": "Hawaii Foodbank",
+      "categories": ["food", "poverty"],
+      "location": "2611 Kilihau St., Honolulu, HI 96819",
+      "website": "https://hawaiifoodbank.org",
+      "logo": "/images/hawaii-foodbank/HawaiiFoodbank_Logo.png",
+      "logo_mini": "/images/hawaii-foodbank/org-logos-03-150x150.png",
+      "contact": {
+        "name": "Volunteer Opportunities",
+        "email": "volunteer@hawaiifoodbank.org",
+        "phone": "808-954-7866"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    },
+    {
+      "name": "Aloha Animal Sanctuary",
+      "categories": ["animal"],
+      "location": "47-119 Pulama Rd, Kaneohe, HI 96744",
+      "website": "https://www.alohasanctuary.org",
+      "logo": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
+      "logo_mini": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
+      "contact": {
+        "name": "Information",
+        "email": "info@alohasanctuary.org"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    },
+    {
+      "name": "Habitat for Humanity",
+      "categories": ["housing", "poverty"],
+      "location": "922 Austin Lane, #C-1 Honolulu, HI 96817",
+      "website": "https://www.honoluluhabitat.org",
+      "logo": "/images/habitat-for-humanity/HHH-logo-black.png",
+      "logo_mini": "/images/habitat-for-humanity/org-logos-02-150x150.png",
+      "contact": {
+        "email": "info@honoluluhabitat.org",
+        "phone": "(808) 538-7070"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    },
+    {
+      "name": "Hawaii Meals on Wheels",
+      "categories": ["food", "seniors"],
+      "location": "2728 Huapala St # 209, Honolulu, HI 96822",
+      "mailing_address": "P.O. Box 236099, Honolulu, Hawaii 96823",
+      "website": "https://hmow.org",
+      "logo": "/images/meals-on-wheels/hawaii-meals-on-wheels.png",
+      "logo_mini": "/images/meals-on-wheels/org-logos-04-150x150.png",
+      "contact": {
+        "email": "info@hmow.org",
+        "phone": "(808) 988-6747"
+      },
+      "owner": "admin@foo.com",
+      "status": "public"
+    }
+  ],
+
+  "defaultOpportunities": [
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-03-04 09:30:00",
+        "end": "2022-03-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "Kokua",
+      "address": "66-249 Kamehameha Highway",
+      "event": "Kokua Learning Farm Community Workday",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Adults"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-01-21 08:30:00",
+        "end": "2022-03-04 12:00:00"
+      },
+      "img": "/images/hawaii-foodbank/org-logos-03-150x150.png",
+      "organization": "Hawaii Foodbank",
+      "address": "Waipio Point Access Road",
+      "event": "Distribution Assistance",
+      "categories": ["covid"],
+      "environment": "Outdoor",
+      "age": "Family-Friendly"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2021-12-09 09:00:00",
+        "end": "2022-12-09 12:00:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "Joshlyn Sand",
+      "address": "123 North Kuakini Street",
+      "event": "Nuuanu Stream Clean-Up",
+      "categories": ["environment"],
+      "environment": "Both",
+      "age": "Teens"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-02-01 12:00:00",
+        "end": "2022-02-01 14:00:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "Scott Wo",
+      "address": "921770b Kunia Road",
+      "event": "Test Opportunity",
+      "categories": ["environment"],
+      "environment": "No Preference",
+      "age": "Seniors"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-01-04 09:30:00",
+        "end": "2022-01-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "a-organization#1",
+      "address": "address#1",
+      "event": "event#1",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Adults"
+    },
+    {
+      "url": "#opportunity-test-opportunity",
+      "date": {
+        "start": "2022-03-04 09:30:00",
+        "end": "2022-03-04 11:30:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "b-organization#2",
+      "address": "address#2",
+      "event": "event#2",
+      "categories": ["education", "environment"],
+      "environment": "Indoor",
+      "age": "Teens"
+    }
+  ],
+
+  "defaultHours": [
+    {
+      "eventID": "Test Event",
+      "organizationID": "Scott Wo",
+      "date": "January 1, 2022 12:00pm - 2:00pm",
+      "hours": 2,
+      "verifiedOn": "January 2, 2022",
+      "isVerified": true
+    },
+    {
+      "eventID": "Nuuanu Stream Clean-Up",
+      "organizationID": "Joshlyn Sand",
+      "date": "December 9, 2021 9:00am - 12:00pm",
+      "hours": 3,
+      "verifiedOn": "December 10, 2021",
+      "isVerified": true
+    },
+    {
+      "eventID": "Distribution Assistance",
+      "organizationID": "Hawaii Foodbank",
+      "date": "January 21, 2022 8:30am - 12:00am",
+      "hours": 3.5,
+      "verifiedOn": "January 22, 2022",
+      "isVerified": true
+    }
   ],
   "public": {
     "development": true

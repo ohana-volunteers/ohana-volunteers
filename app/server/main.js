@@ -3,13 +3,6 @@ import '/imports/startup/server/Publications';
 import '/imports/startup/server/Mongo';
 // be sure to import the methods.
 import '../imports/api/base/BaseCollection.methods';
-
-/**
-Meteor.methods({
-  assignRole() {
-    const role = ROLE.USER;
-    Roles.createRole(role, { unlessExists: true });
-    Roles.addUsersToRoles(Meteor.user(), [role]);
-  },
-});
- */
+import '../imports/api/user/UserProfileCollection.methods';
+import '../imports/api/organization/OrgCollection.methods';
+import '../imports/api/user/VolunteerProfileCollection.methods';

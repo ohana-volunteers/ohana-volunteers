@@ -8,6 +8,7 @@ import { Users } from './UserCollection';
 const rolesToCollectionNames = {};
 rolesToCollectionNames[ROLE.ADMIN] = 'AdminProfileCollection';
 rolesToCollectionNames[ROLE.USER] = 'UserProfileCollection';
+rolesToCollectionNames[ROLE.VOLUNTEER] = 'VolunteerProfileCollection';
 
 class BaseProfileCollection extends BaseCollection {
   constructor(type, schema) {
@@ -130,7 +131,7 @@ class BaseProfileCollection extends BaseCollection {
       Meteor.users.remove({ _id: userID });
       return super.removeIt(profileID);
     }
-    throw new Meteor.Error(`User ${profile.email} owns Stuff.`);
+    throw new Meteor.Error(`User ${profile.email} is referenced.`);
   }
 
 }

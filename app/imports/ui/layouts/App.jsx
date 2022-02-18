@@ -1,25 +1,25 @@
-import React from 'react';
+mport React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import 'semantic-ui-css/semantic.css';
 import { Roles } from 'meteor/alanning:roles';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import NavBars from '../components/NavBars';
+import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
+import AddHours from '../pages/AddHours';
+import ListHours from '../pages/ListHours';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
-import OrganizationLibrary from '../pages/OrganizationLibrary';
+import organizations from '../pages/OrganizationLibrary';
 import BrowseOpportunities from '../pages/BrowseOpportunities';
 import Signup from '../pages/Signup';
+import OrganizationSignup from '../pages/OrganizationSignup';
 import Signout from '../pages/Signout';
 import ManageDatabase from '../pages/ManageDatabase';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import VolunteerProfile from '../pages/VolunteerProfile';
+import EditVolunteerProfile from '../pages/EditVolunteerProfile';
 import AboutUs from '../pages/AboutUs';
 import OrganizationProfile from '../pages/OrganizationProfile';
 import { ROLE } from '../../api/role/Role';
@@ -30,22 +30,23 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <NavBars/>
+          <NavBar/>
           <Switch>
             <Route exact path="/" component={Landing}/>
             <Route path="/privacy-policy" component={PrivacyPolicy}/>
             <Route path="/about-us" component={AboutUs}/>
             <Route path="/signin" component={Signin}/>
             <Route path="/signup" component={Signup}/>
+            <Route path="/org-signup" component={OrganizationSignup}/>
             <Route path="/signout" component={Signout}/>
-            <Route path="/organization-profile" component={OrganizationProfile}/>
+            <Route path="/organization-profile/:_id" component={OrganizationProfile}/>
             <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>
-            <ProtectedRoute path="/list" component={ListStuff}/>
-            <ProtectedRoute path="/add" component={AddStuff}/>
-            <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
-            <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+            <ProtectedRoute path="/edit-my-profile" component={EditVolunteerProfile}/>
+            <ProtectedRoute path="/addHours" component={AddHours}/>
+            <ProtectedRoute path="/listHours" component={ListHours}/>
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
-              <Route path="/OrganizationLibrary" component={OrganizationLibrary}/>
+            <Route path="/organization-library" component={organizations}/>
+            <Route path="/browse-opportunities" component={BrowseOpportunities}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>
           <Footer/>
@@ -105,3 +106,4 @@ AdminProtectedRoute.propTypes = {
 };
 
 export default App;
+

@@ -15,131 +15,125 @@ const marginTop = { marginTop: '100px'};
 
 
 /** A simple static component to render some text for the About Us page. */
-<<<<<<< HEAD
-<<<<<<< HEAD:app/imports/ui/pages/OrganizationLibrary.jsx
+
 const OrganizationLibrary = () => (
-=======
-const Organizations = () => (
->>>>>>> parent of f75168a (Update Organizations.jsx):app/imports/ui/pages/Organizations.jsx
-=======
-const OrganizationLibrary = () => (
->>>>>>> fd1ba9eebe987b442e7b0d0f802fe380137fbaeb
-    <div>
-    <Divider style={container1Style}>
-        <Container textAlign='center'>
-            <Item.Header as="h1" style={textStyle}> Organization Library </Item.Header>
-            <Item.Description style={textStyle5}> Browse the organizations we work with </Item.Description>
-        </Container>
-    </Divider>
 
-        <Grid container centered columns={4} style={marginTop}>
-            <Grid.Column>
-                <Image src='/images/org-logos-01-150x150.png' size='small'/>
-            </Grid.Column>
-            <Grid.Column>
-                <Image src='/images/org-logos-02-150x150.png' size='small'/>
-            </Grid.Column>
-            <Grid.Column>
-                <Image src='/images/org-logos-03-150x150.png' size='small' />
-            </Grid.Column>
-            <Grid.Column>
-                <Image src='/images/org-logos-04-150x150.png' size='small'/>
-            </Grid.Column>
+<div>
+<Divider style={container1Style}>
+    <Container textAlign='center'>
+    <Item.Header as="h1" style={textStyle}> Organization Library </Item.Header>
+<Item.Description style={textStyle5}> Browse the organizations we work with </Item.Description>
+</Container>
+</Divider>
 
-            <Grid.Row centered columns={4}>
-                <Grid.Column>
-                    <Image src='/images/org-logos-05-150x150.png'/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-06-150x150.png' />
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-07-150x150.png'/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-08-150x150.png'/>
-                </Grid.Column>
-            </Grid.Row>
+<Grid container centered columns={4} style={marginTop}>
+  <Grid.Column>
+    <Image src='/images/org-logos-01-150x150.png' size='small'/>
+  </Grid.Column>
+  <Grid.Column>
+    <Image src='/images/org-logos-02-150x150.png' size='small'/>
+  </Grid.Column>
+  <Grid.Column>
+    <Image src='/images/org-logos-03-150x150.png' size='small' />
+  </Grid.Column>
+  <Grid.Column>
+    <Image src='/images/org-logos-04-150x150.png' size='small'/>
+  </Grid.Column>
 
-            <Grid.Row centered columns={4}>
-                <Grid.Column>
-                    <Image src='/images/org-logos-09-150x150.png'/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-10-150x150.png'/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-11-150x150.png'/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-12-150x150.png'/>
-                </Grid.Column>
-            </Grid.Row>
+  <Grid.Row centered columns={4}>
+    <Grid.Column>
+      <Image src='/images/org-logos-05-150x150.png'/>
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-06-150x150.png' />
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-07-150x150.png'/>
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-08-150x150.png'/>
+    </Grid.Column>
+  </Grid.Row>
 
-            <Grid.Row centered columns={4}>
-                <Grid.Column>
-                    <Image src='/images/org-logos-13-150x150.png' />
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-14-150x150.png'/>
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-15-150x150.png' />
-                </Grid.Column>
-                <Grid.Column>
-                    <Image src='/images/org-logos-16-150x150.png' />
-                </Grid.Column>
-            </Grid.Row>
+  <Grid.Row centered columns={4}>
+    <Grid.Column>
+      <Image src='/images/org-logos-09-150x150.png'/>
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-10-150x150.png'/>
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-11-150x150.png'/>
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-12-150x150.png'/>
+    </Grid.Column>
+  </Grid.Row>
 
-        </Grid>
+  <Grid.Row centered columns={4}>
+    <Grid.Column>
+      <Image src='/images/org-logos-13-150x150.png' />
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-14-150x150.png'/>
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-15-150x150.png' />
+    </Grid.Column>
+    <Grid.Column>
+      <Image src='/images/org-logos-16-150x150.png' />
+    </Grid.Column>
+  </Grid.Row>
 
-        <Image centered src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid size='massive' style={marginTop}/>
+</Grid>
 
-        <Item.Header as="h1" style={textStyle2}> Join over 20 organizations already finding the help they need with Volunteer Ally. </Item.Header>
+<Image centered src='/images/elissa-garcia-MV1l4f_f1os-unsplash-2048x1365.jpg' fluid size='massive' style={marginTop}/>
 
-        <Item.Description style={textStyle3}> There are thousands of active volunteers waiting for opportunities to work with qualified organizations. Make sure your organization is volunteer-ready with Volunteer Ally. Our system allows you to easily post your volunteer opportunities and have them easily found by qualified volunteers – all for free! </Item.Description>
+<Item.Header as="h1" style={textStyle2}> Join over 20 organizations already finding the help they need with Volunteer Ally. </Item.Header>
 
-        <Item.Description style={textStyle4}> Here are some of the great features you’ll find with Volunteer Ally: </Item.Description>
+<Item.Description style={textStyle3}> There are thousands of active volunteers waiting for opportunities to work with qualified organizations. Make sure your organization is volunteer-ready with Volunteer Ally. Our system allows you to easily post your volunteer opportunities and have them easily found by qualified volunteers – all for free! </Item.Description>
 
-        <Grid style={gridStyle}>
-            <Grid.Column width={.2}>
-        <Icon name='check' size='big' style={iconStyle}/>
-            </Grid.Column>
-            <Grid.Column width={10}>
-                <Item.Description style={iconTextStyle}> Access to hundreds of volunteers with a wide range of skills and availability </Item.Description>
-            </Grid.Column>
-        </Grid>
+<Item.Description style={textStyle4}> Here are some of the great features you’ll find with Volunteer Ally: </Item.Description>
 
-        <Grid>
-            <Grid.Column width={.2}>
-                <Icon name='check' size='big' style={iconStyle}/>
-            </Grid.Column>
-            <Grid.Column width={10}>
-                <Item.Description style={iconTextStyle}> Direct opportunity RSVPs to your inbox </Item.Description>
-            </Grid.Column>
-        </Grid>
+<Grid style={gridStyle}>
+  <Grid.Column width={.2}>
+    <Icon name='check' size='big' style={iconStyle}/>
+  </Grid.Column>
+  <Grid.Column width={10}>
+    <Item.Description style={iconTextStyle}> Access to hundreds of volunteers with a wide range of skills and availability </Item.Description>
+  </Grid.Column>
+</Grid>
 
-        <Grid>
-            <Grid.Column width={.2}>
-                <Icon name='check' size='big' style={iconStyle}/>
-            </Grid.Column>
-            <Grid.Column width={10}>
-                <Item.Description style={iconTextStyle}> Database of volunteers and opportunities </Item.Description>
-            </Grid.Column>
-        </Grid>
+<Grid>
+  <Grid.Column width={.2}>
+    <Icon name='check' size='big' style={iconStyle}/>
+  </Grid.Column>
+  <Grid.Column width={10}>
+    <Item.Description style={iconTextStyle}> Direct opportunity RSVPs to your inbox </Item.Description>
+  </Grid.Column>
+</Grid>
 
-        <Grid>
-            <Grid.Column width={.2}>
-                <Icon name='check' size='big' style={iconStyle}/>
-            </Grid.Column>
-            <Grid.Column width={10}>
-                <Item.Description style={iconTextStyle}> Integration-ready </Item.Description>
-            </Grid.Column>
-        </Grid>
-        <Grid centered columns={1} style={gridStyle2}>
-        <Button size='huge' color='blue'>Sign Up Today</Button>
-        </Grid>
-    </div>
+<Grid>
+  <Grid.Column width={.2}>
+    <Icon name='check' size='big' style={iconStyle}/>
+  </Grid.Column>
+  <Grid.Column width={10}>
+    <Item.Description style={iconTextStyle}> Database of volunteers and opportunities </Item.Description>
+  </Grid.Column>
+</Grid>
+
+<Grid>
+  <Grid.Column width={.2}>
+    <Icon name='check' size='big' style={iconStyle}/>
+  </Grid.Column>
+  <Grid.Column width={10}>
+    <Item.Description style={iconTextStyle}> Integration-ready </Item.Description>
+  </Grid.Column>
+</Grid>
+<Grid centered columns={1} style={gridStyle2}>
+  <Button size='huge' color='blue'>Sign Up Today</Button>
+</Grid>
+</div>
 );
 
 export default OrganizationLibrary;

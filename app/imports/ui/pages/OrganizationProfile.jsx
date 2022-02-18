@@ -1,63 +1,79 @@
 import React from 'react';
-import { Grid, Header, List, Image, Divider, Button } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Grid, Header, List, Image, Divider, Button, Loader } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
 import { PAGE_IDS } from '../utilities/PageIDs';
+import { Organizations } from '../../api/organization/OrgCollection';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
-const testOrg = {
-  name: 'Hawaii Foodbank',
-  categories: ['Food Insecurity', 'Homelessness/Poverty'],
-  location: '2611 Kilihau St., Honolulu, HI 96819',
-  website: 'https://hawaiifoodbank.org',
-  avatar: '/images/HawaiiFoodbank_Logo.png',
-  contact: {
-    name: 'Volunteer Opportunities',
-    email: 'volunteer@hawaiifoodbank.org',
-    phone: '808-954-7866',
-  },
-  owner: 'admin@foo.com',
-  status: 'published',
-};
-
-/** A simple static component to render some text for the landing page. */
-const OrganizationProfile = () => (
-  <Grid id={PAGE_IDS.ORGANIZATION_PROFILE} textAlign='centered' divided container>
+/** Organization Profile page that displays info from the Organizations Collection. */
+const OrganizationProfile = ({ doc, currentUser, ready }) => ((ready) ? (
+  <Grid id={PAGE_IDS.ORGANIZATION_PROFILE} textAlign='center' divided container>
     <Grid.Row>
-      <br/>
-      <Header as='h1'>{testOrg.name}</Header>
-      <br/>
+      <Header as='h1'>{doc.name}</Header>
     </Grid.Row>
     <Divider/>
     <Grid.Row>
-      <Grid.Column verticalAlign='middle' textAlign='right' width={8}>
-        <Image fluid src={testOrg.avatar}/>
+      <Grid.Column verticalAlign='middle' textAlign='right' width={10}>
+        <Image centered src={doc.logo}/>
       </Grid.Column>
-      <Grid.Column width={8}>
+      <Grid.Column width={6} textAlign='left'>
         <List>
-          <List.Item icon='marker' content={testOrg.location}/>
-          <List.Item
-            icon='linkify'
-            content={<a href={testOrg.website}>{testOrg.website}</a>}
-          />
-          <List.Item icon='tag' content={testOrg.categories.join(', ')}/>
+          <List.Item icon='marker' content={doc.location}/>
+          {(doc.mailing_address) ?
+            <List.Item icon='mail outline' content={doc.mailing_address}/> : ''}
+          {(doc.website) ?
+            <List.Item
+              icon='linkify'
+              content={<a href={doc.website}>{doc.website}</a>}
+            /> : ''}
+          <List.Item icon='tag' content={doc.categories.join(', ')}/>
         </List>
         <Header as='h3'>Contact info:</Header>
         <List>
-          <List.Item icon='user' content={testOrg.contact.name}/>
+          {(doc.contact.name) ?
+            <List.Item icon='user' content={doc.contact.name}/> : ''}
           <List.Item
             icon='mail'
-            content={<a href={`mailto:${testOrg.contact.email}`}>{testOrg.contact.email}</a>}
+            content={<a href={`mailto:${doc.contact.email}`}>{doc.contact.email}</a>}
           />
-          {(testOrg.contact.address) ?
-            <List.Item icon='marker' content={testOrg.contact.address}/> : ''}
-          {(testOrg.contact.phone) ?
-            <List.Item icon='phone' content={testOrg.contact.phone}/> : ''}
+          {(doc.contact.address) ?
+            <List.Item icon='marker' content={doc.contact.address}/> : ''}
+          {(doc.contact.phone) ?
+            <List.Item icon='phone' content={doc.contact.phone}/> : ''}
         </List>
       </Grid.Column>
     </Grid.Row>
     <Grid.Row>
-      <Button>Edit Profile</Button>
+      {/* Only display the edit button if logged in as owner */}
+      {(doc.owner === currentUser) ?
+        <Button id={COMPONENT_IDS.ORGANIZATION_PROFILE_EDIT} href={`#/edit-organization-profile/${doc._id}`}>Edit Profile</Button> : ''}
       <br/>
     </Grid.Row>
   </Grid>
-);
+) : <Loader active>Getting data</Loader>);
 
-export default OrganizationProfile;
+OrganizationProfile.propTypes = {
+  doc: PropTypes.object,
+  currentUser: PropTypes.string,
+  ready: PropTypes.bool.isRequired,
+};
+
+export default withTracker(() => {
+  // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
+  const { _id } = useParams();
+  const documentId = _id;
+  const subscription = Organizations.subscribe();
+  const ready = subscription.ready();
+  // Get the document
+  const doc = (ready) ? Organizations.findDoc(documentId) : undefined;
+  // Get the current user
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  return {
+    doc,
+    currentUser,
+    ready,
+  };
+})(OrganizationProfile);
