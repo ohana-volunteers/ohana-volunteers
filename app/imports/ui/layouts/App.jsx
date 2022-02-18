@@ -1,4 +1,4 @@
-import React from 'react';
+mport React from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import 'semantic-ui-css/semantic.css';
@@ -106,3 +106,4 @@ AdminProtectedRoute.propTypes = {
 };
 
 export default App;
+
