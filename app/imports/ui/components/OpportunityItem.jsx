@@ -1,13 +1,13 @@
 import React from 'react';
-import { Image, Card } from 'semantic-ui-react';
+import { Image, Card, Label, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const OpportunityItem = ({ opp }) => (
-  <Card href={opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM}>
-    <Card.Content extra>
+  <Card href={opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
+    <Label color='blue' ribbon>
       <p>
         From {opp.date.start.toISOString().slice(0, 10).concat('  ')}
         {opp.date.start.toISOString().slice(11, 16).concat('  ')}
@@ -15,7 +15,7 @@ const OpportunityItem = ({ opp }) => (
         To {opp.date.end.toISOString().slice(0, 10).concat('  ')}
         {opp.date.end.toISOString().slice(11, 16)}
       </p>
-    </Card.Content>
+    </Label>
     <Card.Content>
       <Image size='tiny' src={opp.img} />
       <Card.Header>{opp.organization}</Card.Header>
@@ -23,13 +23,10 @@ const OpportunityItem = ({ opp }) => (
       <Card.Description>{opp.event}</Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <p>Category: {opp.categories.map(item => volunteerCategories[item].name.concat('  '))}</p>
+      {opp.categories.map(item => <Label key={item._id} size='tiny' color='blue'>{volunteerCategories[item].name}</Label>)}
     </Card.Content>
-    <Card.Content extra>
-      <p>Environment: {opp.environment}</p>
-    </Card.Content>
-    <Card.Content extra>
-      <p>Age Group: {opp.age}</p>
+    <Card.Content extra >
+      <p><Icon name='sun' />{opp.environment} | <Icon name='male' /> {opp.age}</p>
     </Card.Content>
   </Card>
 );

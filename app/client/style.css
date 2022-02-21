@@ -82,9 +82,12 @@
   max-width: 10rem;
   max-height: 25rem;
 }
-.browse-background{
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  background-color: #98C6EFFF;
-  color:white;
+
+.special-header {
+  padding-left: 10px!important;
+  padding-top: 15px!important;
+  color: white!important;
+  height: 70px;
+  border-radius: 10px;
+  background-color: #2185D0;
 }

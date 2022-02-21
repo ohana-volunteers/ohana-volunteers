@@ -14,8 +14,8 @@ const CategoryItem = ({ cat, quantity }) => (
     </Reveal.Content>
     <Reveal.Content hidden>
       <Card key={cat.name} raised color='blue' >
-        <Card.Content>
-          <Card.Header style={{ color: 'red' }}>{quantity} listings</Card.Header>
+        <Card.Content style={{ backgroundColor: '#2185D0' }}>
+          <Card.Header style={{ color: 'white' }}>{quantity} listings</Card.Header>
         </Card.Content>
       </Card>
     </Reveal.Content>
