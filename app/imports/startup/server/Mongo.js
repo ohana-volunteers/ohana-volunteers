@@ -46,7 +46,7 @@ function addHours(data) {
 
 if (Hours.count() === 0) {
   if (Meteor.settings.defaultHours) {
-    console.log('Creating default opportunites.');
+    console.log('Creating default opportunities.');
     Meteor.settings.defaultHours.map(data => addHours(data));
   }
 }

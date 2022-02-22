@@ -1,12 +1,11 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN", "firstName": "Admin", "lastName": "MATRP"
-    },
-    { "email": "joe@foo.com",
+    { "email": "admin@foo.com",
       "password": "changeme",
-      "role": "USER" ,
-      "firstName": "John",
-      "lastName": "Doe" },
+      "role": "ADMIN",
+      "firstName": "Admin",
+      "lastName": "MATRP"
+    },
     {
       "email": "john@foo.com",
       "password": "changeme",

@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ROLE } from '../../api/role/Role';
 import { AdminProfiles } from '../../api/user/AdminProfileCollection';
-import { UserProfiles } from '../../api/user/UserProfileCollection';
 import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
 
 /* eslint-disable no-console */
@@ -12,8 +11,6 @@ function createUser(data) {
     AdminProfiles.define(data);
   } else if (data.role === ROLE.VOLUNTEER) { // if user signs up as a volunteer
     VolunteerProfiles.define(data);
-  } else { // else sign up as standard user (might remove?)
-    UserProfiles.define(data);
   }
 }
 

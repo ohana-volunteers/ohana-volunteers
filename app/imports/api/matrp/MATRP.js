@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { AdminProfiles } from '../user/AdminProfileCollection';
-import { UserProfiles } from '../user/UserProfileCollection';
 import { Organizations } from '../organization/OrgCollection';
 import { VolunteerProfiles } from '../user/VolunteerProfileCollection';
 import { Opportunities } from '../opportunities/OpportunityCollection';
@@ -17,7 +16,6 @@ class MATRPClass {
     // list of all the MATRP collections
     this.collections = [
       AdminProfiles,
-      UserProfiles,
       VolunteerProfiles,
       Organizations,
       Opportunities,
@@ -28,7 +26,6 @@ class MATRPClass {
      */
     this.collectionLoadSequence = [
       AdminProfiles,
-      UserProfiles,
       VolunteerProfiles,
       Organizations,
       Opportunities,

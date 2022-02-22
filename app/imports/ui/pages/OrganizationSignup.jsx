@@ -1,4 +1,4 @@
-import { Meteor } from 'meteor/meteor';
+// import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import React, { useState } from 'react';
 import { Button, Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
