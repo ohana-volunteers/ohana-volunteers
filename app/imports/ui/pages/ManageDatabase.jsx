@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Header, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { AdminProfiles } from '../../api/user/AdminProfileCollection';
+import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import UploadFixture from '../components/UploadFixture';
 import DumpDbFixture from '../components/DumpDbFixture';
 import { PAGE_IDS } from '../utilities/PageIDs';

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
+import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import VolunteerProfileDetails from '../components/VolunteerProfileDetails';
 
 /** A simple component to render some text for the Volunteer Profile page. */

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ROLE } from '../../api/role/Role';
-import { AdminProfiles } from '../../api/user/AdminProfileCollection';
-import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
+import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
+import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 
 /* eslint-disable no-console */
 

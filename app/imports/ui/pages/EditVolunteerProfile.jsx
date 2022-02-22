@@ -13,7 +13,7 @@ import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Redirect } from 'react-router-dom';
-import { VolunteerProfiles } from '../../api/user/VolunteerProfileCollection';
+import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { updateMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MultiSelectField from '../components/form-fields/MultiSelectField';

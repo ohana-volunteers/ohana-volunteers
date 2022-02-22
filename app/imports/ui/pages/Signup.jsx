@@ -12,7 +12,7 @@ import MultiSelectField from '../components/form-fields/MultiSelectField';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 // import { signUpNewUserMethod } from '../../api/user/UserProfileCollection.methods';
-import { signUpNewVolunteerMethod } from '../../api/user/VolunteerProfileCollection.methods';
+import { signUpNewVolunteerMethod } from '../../api/user/volunteer/VolunteerProfileCollection.methods';
 
 const formSchema = new SimpleSchema({
   firstName: String,
