@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-// import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import { Link, Redirect } from 'react-router-dom';
-import { Container, Grid, Header, Message, Segment, Form, Button } from 'semantic-ui-react';
+import { Container, Grid, Header, Message, Segment, Form } from 'semantic-ui-react';
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField, BoolField } from 'uniforms-semantic';
@@ -112,11 +111,6 @@ const Signup = ({ location }) => {
     <Container id={PAGE_IDS.SIGN_UP}>
       <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
         <Grid.Column>
-          <Button.Group size='large' fluid>
-            <Button positive as={Link} to='/signup'>Volunteer Sign Up</Button>
-            <Button.Or />
-            <Button as={Link} to="/org-signup">Organization Sign Up</Button>
-          </Button.Group>
           <Header as="h5" textAlign="center">
               Sign up to be a volunteer
           </Header>

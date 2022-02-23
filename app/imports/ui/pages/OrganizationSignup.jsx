@@ -1,7 +1,7 @@
 // import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import React, { useState } from 'react';
-import { Button, Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
+import { Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
 import { AutoForm, SubmitField, TextField, RadioField } from 'uniforms-semantic';
 import { Link, Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -62,13 +62,8 @@ const OrganizationSignup = ({ location }) => {
     <Container id={PAGE_IDS.ORG_SIGN_UP}>
       <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
         <Grid.Column>
-          <Button.Group size='large' fluid>
-            <Button as={Link} to='/signup'>Volunteer Sign Up</Button>
-            <Button.Or />
-            <Button positive as={Link} to="/org-signup">Organization Sign Up</Button>
-          </Button.Group>
           <Header as="h4" textAlign="center">
-            Sign up as an organization
+            Sign up a new organization
           </Header>
           <Divider/>
           <AutoForm ref={ref => {
@@ -78,7 +73,7 @@ const OrganizationSignup = ({ location }) => {
               Create new user account
             </Header>
             <Segment>
-              <TextField name='userInfo.username'/>
+              <TextField label='User Email' name='userInfo.username'/>
               <TextField type='password' name='userInfo.password'/>
             </Segment>
             <Header as="h5" textAlign="center">

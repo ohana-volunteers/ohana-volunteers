@@ -37,7 +37,7 @@ class App extends React.Component {
             <Route path="/about-us" component={AboutUs}/>
             <Route path="/signin" component={Signin}/>
             <Route path="/signup" component={Signup}/>
-            <Route path="/org-signup" component={OrganizationSignup}/>
+            <AdminProtectedRoute path="/org-signup" component={OrganizationSignup}/>
             <Route path="/signout" component={Signout}/>
             <Route path="/organization-profile/:_id" component={OrganizationProfile}/>
             <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>

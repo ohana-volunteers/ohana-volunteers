@@ -11,39 +11,59 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 const NavBar = ({ currentUser }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
-  return (
-    <Menu secondary stackable style={menuStyle} attached="top" borderless>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} activeClassName="" exact to="/">
-        <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
-      </Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/browse-opportunities" key='browse'>Browse Opportunities</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/organization-library" key='library'>Organization Library</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
-      {currentUser === '' ? (
-        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
-      ) : (
-        [<Menu.Item key="user">
-          <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
+  const renderUserSection = () => {
+    if (currentUser === '') {
+      return (
+        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} exact to="/signup" key='signup'>Sign Up</Menu.Item>,
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]);
+    }
+    if (currentUser === 'admin@foo.com') {
+      return (
+        [<Menu.Item key="admin">
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} activeClassName="" text="Verify More Hours" as={NavLink} exact to="/addhours"/>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} activeClassName="" text="Tracked Hours" as={NavLink} exact to="/listhours"/>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} activeClassName="" text="Add Opportunity" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_OPPORTUNITY} activeClassName="" text="My Opportunity" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} activeClassName="" text="My Profile" as={NavLink} exact to="/my-profile"/>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} activeClassName="" text="My Organization Profile" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} activeClassName="" text="Account Settings" as={NavLink} exact to="/notfound"/>
-              <Dropdown.Item activeClassName="" id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout" />
+              <Dropdown.Item text="Sign up new organization" as={NavLink} exact to="/org-signup"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
             </Dropdown.Menu>
           </Dropdown>
         </Menu.Item>,
-        <Menu.Item key="messages" activeClassName="">
+        <Menu.Item key="messages">
           <NavBarMessages/>
-        </Menu.Item>]
-      )}
+        </Menu.Item>]);
+    }
+    return (
+      [<Menu.Item key="user">
+        <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
+        <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
+          <Dropdown.Menu>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} text="Verify More Hours" as={NavLink} exact to="/addhours"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} text="Tracked Hours" as={NavLink} exact to="/listhours"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/notfound"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_OPPORTUNITY} text="My Opportunity" as={NavLink} exact to="/notfound"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} text="My Organization Profile" as={NavLink} exact to="/notfound"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
+            <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu.Item>,
+      <Menu.Item key="messages">
+        <NavBarMessages/>
+      </Menu.Item>]);
+  };
+
+  return (
+    <Menu secondary stackable style={menuStyle} attached="top" borderless>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} exact to="/">
+        <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
+      </Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} exact to="/" key='home'>Home</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Browse Opportunities</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organization Library</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
+      {renderUserSection()}
     </Menu>
   );
 };
@@ -56,10 +76,9 @@ NavBar.propTypes =
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 const NavBarContainer = withTracker(() => {
-  const currentUser = Meteor.user() ? Meteor.user().username : '';
-  return {
-    currentUser,
-  };
+  let currentUser = '';
+  if (Meteor.user()) currentUser = Meteor.user().username;
+  return { currentUser };
 })(NavBar);
 
 // Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter
