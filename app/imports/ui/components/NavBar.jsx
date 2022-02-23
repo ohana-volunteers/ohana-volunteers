@@ -62,6 +62,7 @@ const NavBar = ({ currentUser }) => {
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} exact to="/" key='home'>Home</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Browse Opportunities</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organization Library</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_COMMNUITY_EVENT} as={NavLink} activeClassName="active" exact to="/event" key='event' >Community Events</Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
       {renderUserSection()}
     </Menu>

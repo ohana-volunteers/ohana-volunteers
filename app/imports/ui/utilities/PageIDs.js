@@ -15,4 +15,5 @@ export const PAGE_IDS = {
   ORG_SIGN_UP: 'org-sign-up',
   ORGANIZATION_PROFILE: 'organization-profile',
   BROWSE_OPPORTUNITIES: 'BrowseOpportunities',
+  COMMNUITY_EVENT: 'CommunityEvent',
 };
