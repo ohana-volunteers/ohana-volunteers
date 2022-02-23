@@ -12,9 +12,9 @@ class CommunityEvent extends React.Component {
   state = {
     events: [
       {
-        start: moment().format('Tuesday, March 1nd 2022'),
+        start: moment().toDate(),
         end: moment()
-          .add(1, 'days')
+          .add(2, 'days')
           .toDate(),
         title: 'Hawaii Foodbank',
       },
