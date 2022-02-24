@@ -1,11 +1,11 @@
 import React from 'react';
-import { Image, Card, Label, Icon } from 'semantic-ui-react';
+import { Image, Card, Label, Icon, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
-const OpportunityItem = ({ opp }) => (
+const OpportunityItem = ({ opp, user }) => (
   <Card href={opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
     <Label color='blue' ribbon>
       <p>
@@ -19,15 +19,27 @@ const OpportunityItem = ({ opp }) => (
     <Card.Content>
       <Image size='tiny' src={opp.img} />
       <Card.Header>{opp.organization}</Card.Header>
-      <Card.Meta>{opp.address}</Card.Meta>
+      <Card.Meta> <Icon name='map marker alternate'/>{opp.address}</Card.Meta>
       <Card.Description>{opp.event}</Card.Description>
     </Card.Content>
     <Card.Content extra>
       {opp.categories.map((item, index) => <Label key={index} size='tiny' color='blue'>{volunteerCategories[item].name}</Label>)}
     </Card.Content>
     <Card.Content extra >
-      <p><Icon name='sun' />{opp.environment} | <Icon name='male' /> {opp.age}</p>
+      <Icon name='sun' />{opp.environment} | <Icon name='male' /> {opp.age}
     </Card.Content>
+    {/* Only display the edit button if logged in as admin */}
+    {(user === 'admin@foo.com') ?
+      <Card.Content extra>
+        <Button basic color='blue'>
+          <Icon name='edit' />
+            Edit
+        </Button>
+        <Button basic color='red'>
+          <Icon name='trash' />
+            Delete
+        </Button>
+      </Card.Content> : ''}
   </Card>
 );
 OpportunityItem.propTypes = {
@@ -43,6 +55,7 @@ OpportunityItem.propTypes = {
     environment: PropTypes.string,
     age: PropTypes.string,
   }).isRequired,
+  user: PropTypes.string,
 };
 
 export default withRouter(OpportunityItem);

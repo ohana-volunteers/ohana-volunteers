@@ -13,6 +13,7 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import organizations from '../pages/OrganizationLibrary';
 import BrowseOpportunities from '../pages/BrowseOpportunities';
+import BrowseOpportunitiesAdmin from '../pages/BrowseOpportunitiesAdmin';
 import Signup from '../pages/Signup';
 import OrganizationSignup from '../pages/OrganizationSignup';
 import Signout from '../pages/Signout';
@@ -48,6 +49,7 @@ class App extends React.Component {
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
             <Route path="/organization-library" component={organizations}/>
             <Route path="/browse-opportunities" component={BrowseOpportunities}/>
+            <Route path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
             <Route path="/event" component={CommunityEvent}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>
