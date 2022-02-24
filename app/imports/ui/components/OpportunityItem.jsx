@@ -23,7 +23,7 @@ const OpportunityItem = ({ opp }) => (
       <Card.Description>{opp.event}</Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {opp.categories.map(item => <Label key={item._id} size='tiny' color='blue'>{volunteerCategories[item].name}</Label>)}
+      {opp.categories.map((item, index) => <Label key={index} size='tiny' color='blue'>{volunteerCategories[item].name}</Label>)}
     </Card.Content>
     <Card.Content extra >
       <p><Icon name='sun' />{opp.environment} | <Icon name='male' /> {opp.age}</p>
@@ -37,6 +37,7 @@ OpportunityItem.propTypes = {
     img: PropTypes.string,
     organization: PropTypes.string,
     address: PropTypes.string,
+    coordinates: PropTypes.object,
     event: PropTypes.string,
     categories: PropTypes.array,
     environment: PropTypes.string,

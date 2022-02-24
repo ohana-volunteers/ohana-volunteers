@@ -12,27 +12,7 @@ import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import CategoryItem from '../components/CategoryItem';
 import { searchForm } from '../../api/utilities/FilterScheme';
-
-const panes = [
-  // eslint-disable-next-line react/display-name
-  { menuItem: 'Showing Categories', render: () => <Tab.Pane>
-    <Card.Group centered color='blue'>
-      {Object.keys(volunteerCategories).map((item) => {
-        const cat = volunteerCategories[item];
-        const quantity = Opportunities.find({ categories: { $regex: item } }).count();
-        return <CategoryItem key={cat.name} cat={cat} quantity={quantity} />;
-      })}
-    </Card.Group>
-  </Tab.Pane> },
-  // eslint-disable-next-line react/display-name
-  { menuItem: 'Map', render: () => <Tab.Pane>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3714.7520839555564!2d-157.74397644993294!3d21.399664180
-      319743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c0014deef59ce9d%3A0x3f1c51918d598a31!2s123%20N%20Kaina
-      lu%20Dr%2C%20Kailua%2C%20HI%2096734!5e0!3m2!1sen!2sus!4v1645412196556!5m2!1sen!2sus"
-      width="280" height="500" allowFullScreen="" loading="lazy" />
-  </Tab.Pane> },
-];
+import MapView from '../components/MapView';
 
 const bridge = new SimpleSchema2Bridge(searchForm);
 const segmentStyle = { overflow: 'auto', maxHeight: 580 };
@@ -59,6 +39,22 @@ const BrowseOpportunities = ({ opps, ready }) => {
     ],
   }, order);
   const count = sortOpps.count();
+  const panes = [
+    // eslint-disable-next-line react/display-name
+    { menuItem: 'Showing Categories', render: () => <Tab.Pane>
+      <Card.Group centered color='blue'>
+        {Object.keys(volunteerCategories).map((item) => {
+          const cat = volunteerCategories[item];
+          const quantity = Opportunities.find({ categories: { $regex: item } }).count();
+          return <CategoryItem key={cat.name} cat={cat} quantity={quantity} />;
+        })}
+      </Card.Group>
+    </Tab.Pane> },
+    // eslint-disable-next-line react/display-name
+    { menuItem: 'Map', render: () => <Tab.Pane>
+      <MapView opps={sortOpps} />
+    </Tab.Pane> },
+  ];
   let fRef = null;
   return (ready) ? (
     <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
