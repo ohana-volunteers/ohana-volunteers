@@ -9,7 +9,7 @@ import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { removeItMethod } from '../../api/base/BaseCollection.methods';
 
 const OpportunityItem = ({ opp, user }) => (
-  <Card href={''} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
+  <Card href={(user === 'admin@foo.com') ? '' : opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
     <Label color='blue' ribbon >
       <p>
         From {opp.date.start.toISOString().slice(0, 10).concat('  ')}
