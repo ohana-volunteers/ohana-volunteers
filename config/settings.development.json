@@ -25,6 +25,8 @@
       "availability": ["Once a week"],
       "totalHours": 16,
       "eventsParticipated": 2,
+      "profilePicture": "/images/va-logo/VA-logo-circle-v5.svg",
+      "bannerPicture": "/images/default-bg.jpeg",
       "acceptTermsOfUse": true
     },
     {

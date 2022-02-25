@@ -9,6 +9,12 @@ import {
   TextField,
 } from 'uniforms-semantic';
 import { withTracker } from 'meteor/react-meteor-data';
+// import { FilePond, registerPlugin } from 'react-filepond';
+// import 'filepond/dist/filepond.min.css';
+// import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+// import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -17,19 +23,24 @@ import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileColl
 import { updateMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import MultiSelectField from '../components/form-fields/MultiSelectField';
+import ImageUploadField from '../components/form-fields/ImageUploadField';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 const bridge = new SimpleSchema2Bridge(VolunteerProfiles._schema);
 
+// registerPlugin(FilePondPluginFileEncode, FilePondPluginImagePreview, FilePondPluginFileValidateSize);
+
 /** Renders the Page for editing a profile of a volunteer. */
 const EditVolunteerProfile = ({ doc, ready, location }) => {
+
+  /* const [files, setFiles] = useState([]); */
 
   const [redirectToReferer, setRedirectToReferer] = useState(false);
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { firstName, lastName, description, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, _id } = data;
+    const { firstName, lastName, description, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, profilePicture, _id } = data;
     const collectionName = VolunteerProfiles.getCollectionName();
-    const updateData = { id: _id, firstName, lastName, description, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability };
+    const updateData = { id: _id, firstName, lastName, description, gender, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, profilePicture };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Profile updated successfully!', 'success'));
@@ -60,6 +71,7 @@ const EditVolunteerProfile = ({ doc, ready, location }) => {
             <MultiSelectField id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_SKILLS} name='skills'/>
             <RadioField id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_ENVIRONMENTAL_PREFERENCE} name='environmentalPreference'/>
             <MultiSelectField id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_AVAILABILITY} label='Availability' name='availability'/>
+            <ImageUploadField name='profilePicture' id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_PROFILE_PICTURE} label='Profile Picture'/>
             <SubmitField value='Submit' />
             <ErrorsField />
           </Segment>

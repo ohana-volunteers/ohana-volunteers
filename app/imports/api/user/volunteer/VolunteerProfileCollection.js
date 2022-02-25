@@ -65,6 +65,14 @@ class VolunteerProfileCollection extends BaseProfileCollection {
         type: Number,
         defaultValue: 0,
       },
+      profilePicture: {
+        type: String,
+        defaultValue: '/images/va-logo/VA-logo-circle-v5.svg',
+      },
+      bannerPicture: {
+        type: String,
+        defaultValue: '/images/default-bg.jpeg',
+      },
       acceptTermsOfUse: 'boolean',
     }));
   }
@@ -87,7 +95,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param availability Set of availabilities.
    * @param acceptTermsOfUse Check if users accepted TOU.
    */
-  define({ email, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, acceptTermsOfUse }) {
+  define({ email, firstName, lastName, gender, description, address, city, state, zip, phone, password, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, profilePicture, bannerPicture, acceptTermsOfUse }) {
     if (Meteor.isServer) {
       const username = email;
       const user = this.findOne({ email, firstName, lastName });
@@ -110,6 +118,8 @@ class VolunteerProfileCollection extends BaseProfileCollection {
           availability,
           totalHours,
           eventsParticipated,
+          profilePicture,
+          bannerPicture,
           acceptTermsOfUse,
           userID: this.getFakeUserId(),
           role });
@@ -140,7 +150,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param totalHours update hours (optional).
    * @param eventsParticipated update events participated (optional).
    */
-  update(docID, { firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated }) {
+  update(docID, { firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, profilePicture, bannerPicture }) {
     this.assertDefined(docID);
     const updateData = {};
     if (firstName) updateData.firstName = firstName;
@@ -157,6 +167,8 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     if (availability) updateData.availability = availability;
     if (totalHours) updateData.totalHours = totalHours;
     if (eventsParticipated) updateData.eventsParticipated = eventsParticipated;
+    if (profilePicture) updateData.profilePicture = profilePicture;
+    if (bannerPicture) updateData.bannerPicture = bannerPicture;
     this._collection.update(docID, { $set: updateData });
   }
 
@@ -221,7 +233,9 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     const availability = doc.availability;
     const totalHours = doc.totalHours;
     const eventsParticipated = doc.eventsParticipated;
-    return { email, firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated };
+    const profilePicture = doc.profilePicture;
+    const bannerPicture = doc.bannerPicture;
+    return { email, firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, profilePicture, bannerPicture };
   }
 }
 

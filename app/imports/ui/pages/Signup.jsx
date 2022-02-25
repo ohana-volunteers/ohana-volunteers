@@ -10,8 +10,8 @@ import RadioField from '../components/form-fields/RadioField';
 import MultiSelectField from '../components/form-fields/MultiSelectField';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
-// import { signUpNewUserMethod } from '../../api/user/UserProfileCollection.methods';
 import { signUpNewVolunteerMethod } from '../../api/user/volunteer/VolunteerProfileCollection.methods';
+import ImageUploadField from '../components/form-fields/ImageUploadField';
 
 const formSchema = new SimpleSchema({
   firstName: String,
@@ -71,6 +71,10 @@ const formSchema = new SimpleSchema({
     allowedValues: ['One-time', 'Once a week', 'More than 3 times a week', 'Weekdays only',
       'Once a month', '1-3 times a week', 'Weekends only'],
   },
+  profilePicture: {
+    type: String,
+    defaultValue: '/images/va-logo/VA-logo-circle-v5.svg',
+  },
   acceptTermsOfUse: { type: 'boolean', label: 'I agree to the Terms & Conditions and Privacy Policy.' },
 });
 
@@ -80,6 +84,7 @@ const bridge = new SimpleSchema2Bridge(formSchema);
  * Signup component is similar to signin component, but we create a new user instead.
  */
 const Signup = ({ location }) => {
+  /* const [files, setFiles] = useState([]); */
   const [redirectToReferer, setRedirectToReferer] = useState(false);
   const submit = (data, formRef) => {
     console.log(data);
@@ -135,6 +140,7 @@ const Signup = ({ location }) => {
               <MultiSelectField name='skills' id={COMPONENT_IDS.SIGN_UP_FORM_SKILLS}/>
               <RadioField name='environmentalPreference' id={COMPONENT_IDS.SIGN_UP_FORM_ENVIRONMENT}/>
               <MultiSelectField label='Availability' name='availability' id={COMPONENT_IDS.SIGN_UP_FORM_AVAILABILITY}/>
+              <ImageUploadField id={COMPONENT_IDS.SIGN_UP_FORM_PROFILE_PICTURE} name='profilePicture' label='Profile Picture'/>
               <BoolField name='acceptTermsOfUse' id={COMPONENT_IDS.SIGN_UP_FORM_TERM}/>
               <SubmitField value='Sign up' id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT}/>
               <ErrorsField />
