@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
@@ -109,6 +110,18 @@ class OpportunityCollection extends BaseCollection {
     if (environment) updateData.environment = environment;
     if (age) updateData.age = age;
     this._collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
+   * @param { String | Object } name A document or docID in this collection.
+   * @returns true
+   */
+  removeIt(name) {
+    const doc = this.findDoc(name);
+    check(doc, Object);
+    this._collection.remove(doc._id);
+    return true;
   }
 
   /**

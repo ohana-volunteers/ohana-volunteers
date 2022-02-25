@@ -49,7 +49,7 @@ class App extends React.Component {
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
             <Route path="/organization-library" component={organizations}/>
             <Route path="/browse-opportunities" component={BrowseOpportunities}/>
-            <Route path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
+            <ProtectedRoute path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
             <Route path="/event" component={CommunityEvent}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>

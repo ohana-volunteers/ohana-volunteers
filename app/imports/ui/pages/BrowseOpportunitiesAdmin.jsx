@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Grid, Header, Divider, Card, Loader, Segment } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
+import { Grid, Header, Divider, Card, Loader, Segment, Icon, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -8,17 +9,18 @@ import OpportunityItem from '../components/OpportunityItem';
 import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 
 const toDate = new Date();
+const headerStyle = { color: 'white', backgroundColor: '#2BCAF8', padding: 10 };
 
 const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser }) => ((ready) ? (
   <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES_ADMIN} textAlign='center' container>
     <Grid.Row centered>
-      <Header as="h1" size="huge" >Manage Opportunities</Header>
+      <Header as="h1" >Manage Opportunities</Header>
     </Grid.Row>
     <Divider/>
     <Grid.Row centered>
-      <Header as="h3" size="huge" >Active Opportunities</Header>
+      <Header as="h2" style={ headerStyle }><Icon name='calendar check outline'/>Active Opportunities ({activeOpps.length})</Header>
     </Grid.Row>
-    <Segment raised padded='very'>
+    <Segment vertical padded='very' className='line'>
       <Grid.Row>
         <Card.Group centered>
           {activeOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>)}
@@ -26,16 +28,18 @@ const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser 
       </Grid.Row>
     </Segment>
     <Grid.Row centered>
-      <Header as="h3" size="huge" >Expired Opportunities</Header>
+      <Header as="h2" style={ headerStyle }> <Icon name='empire'/>Expired Opportunities ({expiredOpps.length})</Header>
     </Grid.Row>
-    <Segment raised padded='very'>
+    <Segment vertical padded='very' className='line'>
       <Grid.Row>
         <Card.Group centered className='expired-card'>
           {expiredOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>)}
         </Card.Group>
       </Grid.Row>
     </Segment>
-    <Divider/>
+    <Grid.Row>
+      <Button as={NavLink} exact to='/browse-opportunities'>Browse Opportunities as Volunteers</Button>
+    </Grid.Row>
   </Grid>
 ) : <Loader active>Getting data</Loader>);
 // Require an array of Opportunity documents in the props.

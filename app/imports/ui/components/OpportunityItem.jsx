@@ -1,13 +1,16 @@
 import React from 'react';
+import swal from 'sweetalert';
 import { Image, Card, Label, Icon, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Opportunities } from '../../api/opportunities/OpportunityCollection';
+import { removeItMethod } from '../../api/base/BaseCollection.methods';
 
 const OpportunityItem = ({ opp, user }) => (
-  <Card href={opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
-    <Label color='blue' ribbon>
+  <Card href={''} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
+    <Label color='blue' ribbon >
       <p>
         From {opp.date.start.toISOString().slice(0, 10).concat('  ')}
         {opp.date.start.toISOString().slice(11, 16).concat('  ')}
@@ -31,11 +34,34 @@ const OpportunityItem = ({ opp, user }) => (
     {/* Only display the edit button if logged in as admin */}
     {(user === 'admin@foo.com') ?
       <Card.Content extra>
-        <Button basic color='blue'>
+        <Button basic color='green' size='tiny'>
+          <Icon name='linkify' />
+          View
+        </Button>
+        <Button basic color='blue' size='tiny'>
           <Icon name='edit' />
             Edit
         </Button>
-        <Button basic color='red'>
+        <Button basic color='red' size='tiny' onClick={() => {
+          swal({
+            text: 'Are you sure you want to delete this opportunity?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+          })
+            .then((willDelete) => {
+              if (willDelete) {
+                const collectionName = Opportunities.getCollectionName();
+                const instance = opp._id;
+                removeItMethod.callPromise({ collectionName, instance })
+                  .catch(error => swal('Error', error.message, 'error'))
+                  .then(() => {
+                    swal('Success', 'This opportunity has been deleted!', 'success');
+                  });
+              }
+            });
+        }
+        }>
           <Icon name='trash' />
             Delete
         </Button>
@@ -44,6 +70,7 @@ const OpportunityItem = ({ opp, user }) => (
 );
 OpportunityItem.propTypes = {
   opp: PropTypes.shape({
+    _id: PropTypes.string,
     url: PropTypes.string,
     date: PropTypes.object,
     img: PropTypes.string,
