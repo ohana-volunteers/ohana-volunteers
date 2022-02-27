@@ -165,6 +165,10 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Kokua",
       "address": "66-249 Kamehameha Highway",
+      "coordinates": {
+        "log": -158.1056343,
+        "lat": 21.5864533
+      },
       "event": "Kokua Learning Farm Community Workday",
       "categories": ["education", "environment"],
       "environment": "Indoor",
@@ -179,6 +183,10 @@
       "img": "/images/hawaii-foodbank/org-logos-03-150x150.png",
       "organization": "Hawaii Foodbank",
       "address": "Waipio Point Access Road",
+      "coordinates": {
+        "log": -157.988297,
+        "lat": 21.3661178
+      },
       "event": "Distribution Assistance",
       "categories": ["covid"],
       "environment": "Outdoor",
@@ -193,6 +201,10 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Joshlyn Sand",
       "address": "123 North Kuakini Street",
+      "coordinates": {
+        "log": -157.857039,
+        "lat": 21.319268
+      },
       "event": "Nuuanu Stream Clean-Up",
       "categories": ["environment"],
       "environment": "Both",
@@ -207,6 +219,10 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Scott Wo",
       "address": "921770b Kunia Road",
+      "coordinates": {
+        "log": -158.0608245,
+        "lat": 21.4561886
+      },
       "event": "Test Opportunity",
       "categories": ["environment"],
       "environment": "No Preference",
@@ -221,6 +237,10 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "a-organization#1",
       "address": "address#1",
+      "coordinates": {
+        "log": -158.0608245,
+        "lat": 21.4561886
+      },
       "event": "event#1",
       "categories": ["education", "environment"],
       "environment": "Indoor",
@@ -235,6 +255,10 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "b-organization#2",
       "address": "address#2",
+      "coordinates": {
+        "log": -158.0608245,
+        "lat": 21.4561886
+      },
       "event": "event#2",
       "categories": ["education", "environment"],
       "environment": "Indoor",

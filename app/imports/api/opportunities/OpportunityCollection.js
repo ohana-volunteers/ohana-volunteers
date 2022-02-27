@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
@@ -27,6 +28,13 @@ class OpportunityCollection extends BaseCollection {
       img: String,
       organization: String,
       address: String,
+      coordinates: Object,
+      'coordinates.log': {
+        type: Number,
+      },
+      'coordinates.lat': {
+        type: Number,
+      },
       event: String,
       categories: Array, // List of applicable categories
       'categories.$': {
@@ -51,19 +59,21 @@ class OpportunityCollection extends BaseCollection {
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
    * @param address  the address of the item.
+   * @param coordinates  the coordinates of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
    * @param age  the age group of the item.
    * @return {String} the docID of the new document.
    */
-  define({ url, date, img, organization, address, event, categories, environment, age }) {
+  define({ url, date, img, organization, address, coordinates, event, categories, environment, age }) {
     const docID = this._collection.insert({
       url,
       date,
       img,
       organization,
       address,
+      coordinates,
       event,
       categories,
       environment,
@@ -81,23 +91,37 @@ class OpportunityCollection extends BaseCollection {
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
    * @param address  the address of the item.
+   * @param coordinates  the coordinates of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
    * @param age  the age group of the item.
    */
-  update(docID, { url, date, img, organization, address, event, categories, environment, age }) {
+  update(docID, { url, date, img, organization, address, coordinates, event, categories, environment, age }) {
     const updateData = {};
     if (url) updateData.url = url;
     if (date)updateData.date = date;
     if (img) updateData.img = img;
     if (organization) updateData.organization = organization;
     if (address) updateData.address = address;
+    if (coordinates) updateData.coordinates = address;
     if (event) updateData.event = event;
     if (categories) updateData.categories = categories;
     if (environment) updateData.environment = environment;
     if (age) updateData.age = age;
     this._collection.update(docID, { $set: updateData });
+  }
+
+  /**
+   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
+   * @param { String | Object } name A document or docID in this collection.
+   * @returns true
+   */
+  removeIt(name) {
+    const doc = this.findDoc(name);
+    check(doc, Object);
+    this._collection.remove(doc._id);
+    return true;
   }
 
   /**
@@ -192,11 +216,12 @@ class OpportunityCollection extends BaseCollection {
     const img = doc.img;
     const organization = doc.organization;
     const address = doc.address;
+    const coordinates = doc.coordinates;
     const event = doc.event;
     const categories = doc.categories;
     const environment = doc.environment;
     const age = doc.age;
-    return { url, date, img, organization, address, event, categories, environment, age };
+    return { url, date, img, organization, address, coordinates, event, categories, environment, age };
   }
 }
 
