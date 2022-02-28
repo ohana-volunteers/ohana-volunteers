@@ -23,7 +23,7 @@ const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
             <Grid.Column width={12}>
               <Card.Header as="h1">
                 {/* image is a default temporary avatar until issue #34 is complete. */}
-                <Image circular size="small" src="/images/va-logo/VA-logo-circle-v5.svg"/> {doc.firstName} {doc.lastName}
+                <Image circular size="small" src={doc.profilePicture}/> {doc.firstName} {doc.lastName}
               </Card.Header>
               <Card.Description>{doc.description}</Card.Description>
             </Grid.Column>

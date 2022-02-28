@@ -10,7 +10,7 @@ import classnames from 'classnames';
 
 /* eslint react/prop-types: 0 */
 
-const ImageUploadField = ({ label, id, disabled, error, required, className, showInlineError, errorMessage, name, value, ...props }) => {
+const ImageUploadField = ({ label, id, disabled, error, required, className, showInlineError, errorMessage, name, onChange, value, ...props }) => {
 
   registerPlugin(
     FilePondPluginFileEncode,
@@ -35,13 +35,11 @@ const ImageUploadField = ({ label, id, disabled, error, required, className, sho
         files={[]}
         name={name}
         allowMultiple={false}
-        onupdatefiles={file => {
+        onupdatefiles={(file) => {
           // eslint-disable-next-line no-param-reassign
-          value = file[0].getFileEncodeBase64String();
-          console.log(value);
+          onChange(file[0].getFileEncodeBase64String());
         }}
         allowFileEncode={true}
-        value={value}
       />
       {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
     </div>
