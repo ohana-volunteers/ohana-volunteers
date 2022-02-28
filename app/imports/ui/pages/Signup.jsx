@@ -71,10 +71,7 @@ const formSchema = new SimpleSchema({
     allowedValues: ['One-time', 'Once a week', 'More than 3 times a week', 'Weekdays only',
       'Once a month', '1-3 times a week', 'Weekends only'],
   },
-  profilePicture: {
-    type: String,
-    defaultValue: '/images/va-logo/VA-logo-circle-v5.svg',
-  },
+  profilePicture: String,
   acceptTermsOfUse: { type: 'boolean', label: 'I agree to the Terms & Conditions and Privacy Policy.' },
 });
 
@@ -140,7 +137,7 @@ const Signup = ({ location }) => {
               <MultiSelectField name='skills' id={COMPONENT_IDS.SIGN_UP_FORM_SKILLS}/>
               <RadioField name='environmentalPreference' id={COMPONENT_IDS.SIGN_UP_FORM_ENVIRONMENT}/>
               <MultiSelectField label='Availability' name='availability' id={COMPONENT_IDS.SIGN_UP_FORM_AVAILABILITY}/>
-              <ImageUploadField id={COMPONENT_IDS.SIGN_UP_FORM_PROFILE_PICTURE} name='profilePicture' label='Profile Picture'/>
+              <ImageUploadField name='profilePicture' label='Profile Picture' id={COMPONENT_IDS.SIGN_UP_FORM_PROFILE_PICTURE}/>
               <BoolField name='acceptTermsOfUse' id={COMPONENT_IDS.SIGN_UP_FORM_TERM}/>
               <SubmitField value='Sign up' id={COMPONENT_IDS.SIGN_UP_FORM_SUBMIT}/>
               <ErrorsField />

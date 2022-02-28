@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
+import Buffer from 'buffer';
 import BaseProfileCollection from '../BaseProfileCollection';
 import { ROLE } from '../../role/Role';
 import { Users } from '../UserCollection';
@@ -66,7 +67,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
         defaultValue: 0,
       },
       profilePicture: {
-        type: String,
+        type: Buffer,
         defaultValue: '/images/va-logo/VA-logo-circle-v5.svg',
       },
       bannerPicture: {
