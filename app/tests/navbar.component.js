@@ -12,6 +12,10 @@ class NavBar {
     }
   }
 
+  async gotoPage(id) {
+    await t.click(`#${id}`);
+  }
+
   async gotoSigninPage() {
     await this.ensureLogout();
     await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN}`);
@@ -34,24 +38,6 @@ class NavBar {
   async gotoSignupPage() {
     await this.ensureLogout();
     await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP}`);
-  }
-
-  /** Go to the add stuff page. */
-  async gotoAddStuffPage() {
-    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_ADD_STUFF}`);
-  }
-
-  /** Go to the list stuff page. */
-  async gotoListStuffPage() {
-    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LIST_STUFF}`);
-  }
-
-  /** Go to the list stuff admin page. */
-  async gotoListStuffAdminPage() {
-    await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
-    await t.click(`#${COMPONENT_IDS.NAVBAR_LIST_STUFF_ADMIN}`);
   }
 
   /** Go to the manage database page. Must be adimin. */

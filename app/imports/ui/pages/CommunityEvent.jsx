@@ -30,7 +30,7 @@ class CommunityEvent extends React.Component {
 
   render() {
     return (
-      <div id={PAGE_IDS.COMMNUITY_EVENT} className="ohana-event-background">
+      <div id={PAGE_IDS.COMMUNITY_EVENT} className="ohana-event-background">
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}

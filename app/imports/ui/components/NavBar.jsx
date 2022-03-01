@@ -79,7 +79,6 @@ NavBar.propTypes =
 {
   role: PropTypes.string,
   currentUser: PropTypes.string,
-  ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker

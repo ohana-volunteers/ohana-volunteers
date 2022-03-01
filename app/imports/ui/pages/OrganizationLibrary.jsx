@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Divider, Item, Icon, Button, Container, Image } from 'semantic-ui-react';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const container1Style = { backgroundColor: 'blue', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
 const textStyle = { color: 'white', marginTop: '150px', fontSize: '55px' };
@@ -17,7 +18,7 @@ const marginTop = { marginTop: '100px' };
 
 const OrganizationLibrary = () => (
 
-  <div>
+  <Container id={PAGE_IDS.ORGANIZATION_LIBRARY}>
     <Divider style={container1Style}>
       <Container textAlign='center'>
         <Item.Header as="h1" style={textStyle}> Organization Library </Item.Header>
@@ -133,7 +134,7 @@ const OrganizationLibrary = () => (
     <Grid centered columns={1} style={gridStyle2}>
       <Button size='huge' color='blue'>Sign Up Today</Button>
     </Grid>
-  </div>
+  </Container>
 );
 
 export default OrganizationLibrary;
