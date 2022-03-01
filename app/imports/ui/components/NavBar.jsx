@@ -4,7 +4,6 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
-import NavBarMessages from './NavBarMessages';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
@@ -12,16 +11,9 @@ import { Organizations } from '../../api/user/organization/OrgProfileCollection'
 import { ROLE } from '../../api/role/Role';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
-const NavBar = ({ role, currentUser, ready }) => {
+const NavBar = ({ role, currentUser }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
-  if (currentUser && ready) {
-    console.log(`${currentUser} is logged in.`);
-    console.log(`Role: ${role}`);
-  } else {
-    console.log('No user is logged in.');
-  }
-
   return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} exact to="/">
@@ -107,7 +99,6 @@ const NavBarContainer = withTracker(() => {
   return {
     role,
     currentUser,
-    ready,
   };
 })(NavBar);
 

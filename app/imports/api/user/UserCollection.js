@@ -3,6 +3,8 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
 
+/* eslint-disable no-console */
+
 /**
  * Represents a user, which is someone who has a Meteor account.
  *
@@ -87,23 +89,12 @@ class UserCollection {
   }
 
   /**
-   * Returns true if user is referenced by other "public" entities. Specifically user owns Profiles.
-   * Used to determine if user can be deleted.
-   * @param user
-   * @return {boolean}
-   */
-  isReferenced(user) {
-    return false;
-  }
-
-  /**
    * Returns true if user is a defined userID or username.
    * @param user The user.
    * @returns { boolean } True if user is defined, false otherwise.
    */
   isDefined(user) {
-    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
-    return userDoc;
+    return (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
   }
 
   /**

@@ -1,5 +1,3 @@
-// import { Meteor } from 'meteor/meteor';
-import SimpleSchema from 'simpl-schema';
 import React, { useState } from 'react';
 import { Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
 import { AutoForm, SubmitField, TextField, RadioField } from 'uniforms-semantic';
@@ -27,13 +25,13 @@ const OrganizationSignup = ({ location }) => {
 
   const onAgreedTerms = () => {
     setAgreedTerms(!agreedTerms);
-    console.log(`agreed to terms: ${agreedTerms}`);
   };
 
   const submit = (data, formRef) => {
     signUpNewOrganizationMethod.callPromise(data)
       .catch(error => {
         swal('Error', error.message, 'error');
+        // eslint-disable-next-line no-console
         console.error(error);
       })
       .then(() => {
