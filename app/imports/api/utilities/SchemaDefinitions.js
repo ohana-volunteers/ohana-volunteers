@@ -1,8 +1,10 @@
 import SimpleSchema from 'simpl-schema';
 import { getVolunteerCategoryNames } from './VolunteerCategories';
 
-export const userSchema = new SimpleSchema({
-  username: {
+export const orgPublicationStatus = ['hidden', 'public'];
+
+export const organizationProfileSchema = new SimpleSchema({
+  email: {
     type: String,
     optional: false,
   },
@@ -10,11 +12,10 @@ export const userSchema = new SimpleSchema({
     type: String,
     optional: false,
   },
-});
-
-export const orgPublicationStatus = ['hidden', 'public'];
-
-export const organizationProfileSchema = new SimpleSchema({
+  role: {
+    type: String,
+    optional: false,
+  },
   name: {
     type: String,
     optional: false,
@@ -62,9 +63,5 @@ export const organizationProfileSchema = new SimpleSchema({
     type: String,
     allowedValues: orgPublicationStatus,
     defaultValue: 'hidden',
-  },
-  owner: {
-    type: String,
-    optional: true,
   },
 });

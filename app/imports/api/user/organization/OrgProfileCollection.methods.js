@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { Organizations } from './OrgCollection';
-import { ROLE } from '../role/Role';
-import { Users } from '../user/UserCollection';
+import { Organizations } from './OrgProfileCollection';
+import { ROLE } from '../../role/Role';
+import { Users } from '../UserCollection';
 
 export const signUpNewOrganizationMethod = new ValidatedMethod({
   name: 'Organizations.SignupNewOrganization',

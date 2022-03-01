@@ -2,7 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { Organizations } from '../organization/OrgCollection';
+
+/* eslint-disable no-console */
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -76,7 +77,6 @@ class UserCollection {
    * @throws { Meteor.Error } If the user does not have the role, or if user or role is not valid.
    */
   assertInRole(user, role) {
-    // console.log('assertInRole(%o, %o)', user, role);
     const userID = this.getID(user);
     const profile = this.getProfile(userID);
     if (Array.isArray(role)) {
@@ -89,23 +89,12 @@ class UserCollection {
   }
 
   /**
-   * Returns true if user is referenced by other "public" entities. Specifically user owns Profiles.
-   * Used to determine if user can be deleted.
-   * @param user
-   * @return {boolean}
-   */
-  isReferenced(user) {
-    return Organizations.find({ owner: user }).fetch().length > 0;
-  }
-
-  /**
    * Returns true if user is a defined userID or username.
    * @param user The user.
    * @returns { boolean } True if user is defined, false otherwise.
    */
   isDefined(user) {
-    const userDoc = (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
-    return userDoc;
+    return (Meteor.users.findOne({ _id: user })) || (Meteor.users.findOne({ username: user }));
   }
 
   /**

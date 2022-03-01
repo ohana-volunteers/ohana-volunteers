@@ -1,5 +1,3 @@
-// import { Meteor } from 'meteor/meteor';
-import SimpleSchema from 'simpl-schema';
 import React, { useState } from 'react';
 import { Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
 import { AutoForm, SubmitField, TextField, RadioField } from 'uniforms-semantic';
@@ -8,16 +6,13 @@ import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { signUpNewOrganizationMethod } from '../../api/organization/OrgCollection.methods';
+import { signUpNewOrganizationMethod } from '../../api/user/organization/OrgProfileCollection.methods';
 import MultiSelect from '../components/form-fields/MultiSelectField';
 import { getVolunteerCategoryNames } from '../../api/utilities/VolunteerCategories';
-import { userSchema, organizationProfileSchema } from '../../api/utilities/SchemaDefinitions';
+import { organizationProfileSchema } from '../../api/utilities/SchemaDefinitions';
 
 // Create a bridge schema from the organization profile schema
-const bridge = new SimpleSchema2Bridge(new SimpleSchema({
-  userInfo: userSchema,
-  orgInfo: organizationProfileSchema,
-}));
+const bridge = new SimpleSchema2Bridge(organizationProfileSchema);
 
 /**
  * Organization sign up page
@@ -30,13 +25,13 @@ const OrganizationSignup = ({ location }) => {
 
   const onAgreedTerms = () => {
     setAgreedTerms(!agreedTerms);
-    console.log(`agreed to terms: ${agreedTerms}`);
   };
 
   const submit = (data, formRef) => {
     signUpNewOrganizationMethod.callPromise(data)
       .catch(error => {
         swal('Error', error.message, 'error');
+        // eslint-disable-next-line no-console
         console.error(error);
       })
       .then(() => {
@@ -73,32 +68,32 @@ const OrganizationSignup = ({ location }) => {
               Create new user account
             </Header>
             <Segment>
-              <TextField label='User Email' name='userInfo.username'/>
-              <TextField type='password' name='userInfo.password'/>
+              <TextField type='email' name='email'/>
+              <TextField type='password' name='password'/>
             </Segment>
             <Header as="h5" textAlign="center">
               Create organization profile
             </Header>
             <Segment>
-              <TextField label='Organization Name' name='orgInfo.name'/>
-              <MultiSelect placeholder='Select one or more categories' label='Categories' name='orgInfo.categories' allowedValues={getVolunteerCategoryNames()}/>
-              <TextField label='Organization Address' name='orgInfo.location'/>
-              <TextField label='Mailing Address' name='orgInfo.mailing_address'/>
-              <TextField label='Website URL' name='orgInfo.website'/>
-              <TextField label='Logo URL' name='orgInfo.logo'/>
-              <TextField label='Avatar URL' name='orgInfo.logo_mini'/>
+              <TextField label='Organization Name' name='name'/>
+              <MultiSelect placeholder='Select one or more categories' label='Categories' name='categories' allowedValues={getVolunteerCategoryNames()}/>
+              <TextField label='Organization Address' name='location'/>
+              <TextField label='Mailing Address' name='mailing_address'/>
+              <TextField label='Website URL' name='website'/>
+              <TextField label='Logo URL' name='logo'/>
+              <TextField label='Avatar URL' name='logo_mini'/>
 
               <Segment>
                 <Header as="h5" textAlign="center">
                   Contact info
                 </Header>
-                <TextField name='orgInfo.contact.name'/>
-                <TextField name='orgInfo.contact.email'/>
-                <TextField name='orgInfo.contact.address'/>
-                <TextField name='orgInfo.contact.phone'/>
+                <TextField name='contact.name'/>
+                <TextField name='contact.email'/>
+                <TextField name='contact.address'/>
+                <TextField name='contact.phone'/>
               </Segment>
 
-              <RadioField label='Publish Organization Profile?' name='orgInfo.status' >
+              <RadioField label='Publish Organization Profile? (profile can be edited and published later)' name='status' >
               </RadioField>
 
               <Form.Field>

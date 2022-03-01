@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { AdminProfiles } from '../user/admin/AdminProfileCollection';
-import { Organizations } from '../organization/OrgCollection';
+import { Organizations } from '../user/organization/OrgProfileCollection';
 import { VolunteerProfiles } from '../user/volunteer/VolunteerProfileCollection';
 import { Opportunities } from '../opportunities/OpportunityCollection';
 import { Hours } from '../hours/HoursCollection';
