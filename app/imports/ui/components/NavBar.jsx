@@ -10,11 +10,15 @@ import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
-const NavBar = ({ currentUser }) => {
+const NavBar = ({ doc, currentUser, ready }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
-  console.log(AdminProfiles.getProfile(currentUser));
-  console.log(VolunteerProfiles.getProfile(currentUser));
+  if (currentUser && ready) {
+    console.log(`${currentUser} is logged in.`);
+    console.log(`Role: ${doc.role}`);
+  } else {
+    console.log('No user is logged in.');
+  }
   const renderUserSection = () => {
     if (currentUser === '') {
       return (
@@ -79,14 +83,27 @@ const NavBar = ({ currentUser }) => {
 // Declare the types of all properties.
 NavBar.propTypes =
 {
+  doc: PropTypes.object,
   currentUser: PropTypes.string,
+  ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 const NavBarContainer = withTracker(() => {
   let currentUser = '';
+  // Get the current user
   if (Meteor.user()) currentUser = Meteor.user().username;
-  return { currentUser };
+  const subscriptionAdmin = AdminProfiles.subscribe();
+  const subscriptionVolunteer = VolunteerProfiles.subscribe();
+  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready();
+  // Get the document
+  const doc = (ready) ? AdminProfiles.findOne({ email: currentUser })
+    || VolunteerProfiles.findOne({ email: currentUser }) : undefined;
+  return {
+    doc,
+    currentUser,
+    ready,
+  };
 })(NavBar);
 
 // Enable ReactRouter for this component. https://reacttraining.com/react-router/web/api/withRouter

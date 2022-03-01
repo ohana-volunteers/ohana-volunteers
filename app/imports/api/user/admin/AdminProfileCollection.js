@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import BaseProfileCollection from '../BaseProfileCollection';
 import { ROLE } from '../../role/Role';
@@ -18,16 +19,18 @@ class AdminProfileCollection extends BaseProfileCollection {
    */
   define({ email, firstName, lastName, password }) {
     if (Meteor.isServer) {
-      // console.log('define', email, firstName, lastName, password);
+      const profile = { email, firstName, lastName, password };
       const username = email;
       const user = this.findOne({ email, firstName, lastName });
       if (!user) {
         const role = ROLE.ADMIN;
         const profileID = this._collection.insert({ email, firstName, lastName, userID: this.getFakeUserId(), role });
-        const userID = Users.define({ username, role, password });
+        const userID = Users.define({ username, role, password, profile });
         this._collection.update(profileID, { $set: { userID } });
         return profileID;
       }
+      Roles.createRole(ROLE.ADMIN, { unlessExists: true });
+      Roles.addUsersToRoles(user._id, ROLE.ADMIN);
       return user._id;
     }
     return undefined;
