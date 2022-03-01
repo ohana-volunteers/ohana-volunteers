@@ -76,7 +76,6 @@ class UserCollection {
    * @throws { Meteor.Error } If the user does not have the role, or if user or role is not valid.
    */
   assertInRole(user, role) {
-    // console.log('assertInRole(%o, %o)', user, role);
     const userID = this.getID(user);
     const profile = this.getProfile(userID);
     if (Array.isArray(role)) {

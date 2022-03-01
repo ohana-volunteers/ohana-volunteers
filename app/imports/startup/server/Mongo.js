@@ -40,7 +40,7 @@ if (Opportunities.count() === 0) {
 // Initialize the database with a default data document.
 function addHours(data) {
   console.log(`  Adding: ${data.eventID} (${data.hours})`);
-  console.log(data);
+  // console.log(data);
   Hours.define(data);
 }
 

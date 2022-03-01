@@ -6,11 +6,15 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
 import NavBarMessages from './NavBarMessages';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
+import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
 const NavBar = ({ currentUser }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
   const input = { width: '20rem' };
+  console.log(AdminProfiles.getProfile(currentUser));
+  console.log(VolunteerProfiles.getProfile(currentUser));
   const renderUserSection = () => {
     if (currentUser === '') {
       return (
