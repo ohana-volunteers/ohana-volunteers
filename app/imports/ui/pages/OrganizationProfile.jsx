@@ -5,7 +5,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { Organizations } from '../../api/organization/OrgCollection';
+import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** Organization Profile page that displays info from the Organizations Collection. */

@@ -2,16 +2,17 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
 import { Roles } from 'meteor/alanning:roles';
-import BaseCollection from '../base/BaseCollection';
-import { ROLE } from '../role/Role';
-import { organizationProfileSchema } from '../utilities/SchemaDefinitions';
+import { Users } from '../UserCollection';
+import BaseCollection from '../../base/BaseCollection';
+import { ROLE } from '../../role/Role';
+import { organizationProfileSchema } from '../../utilities/SchemaDefinitions';
 
 export const organizationPublications = {
   orgs: 'Organizations',
   orgsAdmin: 'OrganizationsAdmin',
 };
 
-class OrgCollection extends BaseCollection {
+class OrgProfileCollection extends BaseCollection {
   constructor() {
     super('Organizations', new SimpleSchema(organizationProfileSchema));
   }
@@ -20,8 +21,22 @@ class OrgCollection extends BaseCollection {
    * Defines a new Organization.
    * @return {String} the docID of the new document.
    */
-  define(object) {
-    return this._collection.insert(object);
+  define(profile) {
+    if (Meteor.isServer) {
+      const profileID = this._collection.insert(profile);
+      const username = profile.email;
+      const password = profile.password;
+      const user = this.findOne(username);
+      // create new user if necessary
+      if (!user) {
+        const role = ROLE.ORGANIZATION;
+        const userID = Users.define({ username, role, password });
+        Roles.createRole(ROLE.ORGANIZATION, { unlessExists: true });
+        Roles.addUsersToRoles(userID, ROLE.ORGANIZATION);
+      }
+      return profileID;
+    }
+    return undefined;
   }
 
   /**
@@ -101,4 +116,4 @@ class OrgCollection extends BaseCollection {
 /**
  * Provides the singleton instance of this class to all other entities.
  */
-export const Organizations = new OrgCollection();
+export const Organizations = new OrgProfileCollection();

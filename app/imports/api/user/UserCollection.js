@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import _ from 'lodash';
-import { Organizations } from '../organization/OrgCollection';
 
 /**
  * Represents a user, which is someone who has a Meteor account.
@@ -94,7 +93,7 @@ class UserCollection {
    * @return {boolean}
    */
   isReferenced(user) {
-    return Organizations.find({ owner: user }).fetch().length > 0;
+    return false;
   }
 
   /**

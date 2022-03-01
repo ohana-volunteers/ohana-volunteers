@@ -8,16 +8,13 @@ import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { signUpNewOrganizationMethod } from '../../api/organization/OrgCollection.methods';
+import { signUpNewOrganizationMethod } from '../../api/user/organization/OrgProfileCollection.methods';
 import MultiSelect from '../components/form-fields/MultiSelectField';
 import { getVolunteerCategoryNames } from '../../api/utilities/VolunteerCategories';
-import { userSchema, organizationProfileSchema } from '../../api/utilities/SchemaDefinitions';
+import { organizationProfileSchema } from '../../api/utilities/SchemaDefinitions';
 
 // Create a bridge schema from the organization profile schema
-const bridge = new SimpleSchema2Bridge(new SimpleSchema({
-  userInfo: userSchema,
-  orgInfo: organizationProfileSchema,
-}));
+const bridge = new SimpleSchema2Bridge(organizationProfileSchema);
 
 /**
  * Organization sign up page

@@ -74,7 +74,7 @@
     {
       "email": "alyssa@foo.com",
       "password": "changeme",
-      "role": "VOLUNTEER" ,
+      "role": "VOLUNTEER",
       "firstName": "Alyssa",
       "lastName": "Hart",
       "gender": "Female",
@@ -91,11 +91,11 @@
       "totalHours": 64,
       "eventsParticipated": 5,
       "acceptTermsOfUse": true
-    }
-  ],
-
-  "defaultOrganizations": [
+    },
     {
+      "email": "hawaiifoodbank@foo.com",
+      "password": "changeme",
+      "role": "ORGANIZATION",
       "name": "Hawaii Foodbank",
       "categories": ["food", "poverty"],
       "location": "2611 Kilihau St., Honolulu, HI 96819",
@@ -107,10 +107,12 @@
         "email": "volunteer@hawaiifoodbank.org",
         "phone": "808-954-7866"
       },
-      "owner": "admin@foo.com",
       "status": "public"
     },
     {
+      "email": "alohaanimal@foo.com",
+      "password": "changeme",
+      "role": "ORGANIZATION",
       "name": "Aloha Animal Sanctuary",
       "categories": ["animal"],
       "location": "47-119 Pulama Rd, Kaneohe, HI 96744",
@@ -121,10 +123,12 @@
         "name": "Information",
         "email": "info@alohasanctuary.org"
       },
-      "owner": "admin@foo.com",
       "status": "public"
     },
     {
+      "email": "habitat@foo.com",
+      "password": "changeme",
+      "role": "ORGANIZATION",
       "name": "Habitat for Humanity",
       "categories": ["housing", "poverty"],
       "location": "922 Austin Lane, #C-1 Honolulu, HI 96817",
@@ -135,10 +139,12 @@
         "email": "info@honoluluhabitat.org",
         "phone": "(808) 538-7070"
       },
-      "owner": "admin@foo.com",
       "status": "public"
     },
     {
+      "email": "mealsonwheels@foo.com",
+      "password": "changeme",
+      "role": "ORGANIZATION",
       "name": "Hawaii Meals on Wheels",
       "categories": ["food", "seniors"],
       "location": "2728 Huapala St # 209, Honolulu, HI 96822",
@@ -150,7 +156,6 @@
         "email": "info@hmow.org",
         "phone": "(808) 988-6747"
       },
-      "owner": "admin@foo.com",
       "status": "public"
     }
   ],

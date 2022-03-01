@@ -8,6 +8,7 @@ import NavBarMessages from './NavBarMessages';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
+import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
 const NavBar = ({ doc, currentUser, ready }) => {
@@ -95,10 +96,12 @@ const NavBarContainer = withTracker(() => {
   if (Meteor.user()) currentUser = Meteor.user().username;
   const subscriptionAdmin = AdminProfiles.subscribe();
   const subscriptionVolunteer = VolunteerProfiles.subscribe();
-  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready();
+  const subscriptionOrg = Organizations.subscribe();
+  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready();
   // Get the document
   const doc = (ready) ? AdminProfiles.findOne({ email: currentUser })
-    || VolunteerProfiles.findOne({ email: currentUser }) : undefined;
+    || VolunteerProfiles.findOne({ email: currentUser })
+    || Organizations.findOne({ email: currentUser }) : undefined;
   return {
     doc,
     currentUser,

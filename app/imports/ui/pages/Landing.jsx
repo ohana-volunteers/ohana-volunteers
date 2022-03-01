@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
-import { Organizations } from '../../api/organization/OrgCollection';
+import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url}>
