@@ -32,14 +32,13 @@ const ImageUploadField = ({ label, id, disabled, error, required, className, sho
       <label htmlFor={id}>{label}</label>
       <FilePond
         id={id}
-        files={[]}
         name={name}
         allowMultiple={false}
+        allowFileEncode={true}
+        allowReplace={true}
         onupdatefiles={(file) => {
-          // eslint-disable-next-line no-param-reassign
           onChange(file[0].getFileEncodeBase64String());
         }}
-        allowFileEncode={true}
       />
       {!!(error && showInlineError) && <div className="ui red basic pointing label">{errorMessage}</div>}
     </div>

@@ -8,22 +8,20 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import VolunteerProfileDetails from '../components/VolunteerProfileDetails';
+import { decode } from '../utilities/ImageDecode';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
 const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
     <Card fluid>
-      {/* image is a default temporary background image until issue #34 is complete.
-      Citation: https://unsplash.com/photos/apax4M-4kFI */}
-      <Image className="volunteer-bg-banner" src='/images/default-bg.jpeg'/>
+      <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
       <Card.Content>
         <Grid container row={1}>
           <Grid.Row columns={2}>
             <Grid.Column width={12}>
               <Card.Header as="h1">
-                {/* image is a default temporary avatar until issue #34 is complete. */}
-                <Image circular size="small" src={doc.profilePicture}/> {doc.firstName} {doc.lastName}
+                <Image circular size="small" src={decode(doc.profilePicture)}/> {doc.firstName} {doc.lastName}
               </Card.Header>
               <Card.Description>{doc.description}</Card.Description>
             </Grid.Column>

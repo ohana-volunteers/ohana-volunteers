@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import Buffer from 'buffer';
+import * as Buffer from 'buffer';
 import BaseProfileCollection from '../BaseProfileCollection';
 import { ROLE } from '../../role/Role';
 import { Users } from '../UserCollection';
@@ -71,7 +71,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
         defaultValue: '/images/va-logo/VA-logo-circle-v5.svg',
       },
       bannerPicture: {
-        type: String,
+        type: Buffer,
         defaultValue: '/images/default-bg.jpeg',
       },
       acceptTermsOfUse: 'boolean',
@@ -192,7 +192,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER, ROLE.VOLUNTEER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.VOLUNTEER]);
   }
 
   /**
