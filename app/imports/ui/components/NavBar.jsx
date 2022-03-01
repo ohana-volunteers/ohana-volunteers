@@ -29,50 +29,55 @@ const NavBar = ({ role, currentUser, ready }) => {
       </Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} exact to="/" key='home'>Home</Menu.Item>
+      {(role !== ROLE.ORGANIZATION) ?
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organizations</Menu.Item> : ''}
       {(role === ROLE.ADMIN) ?
-        <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities-admin" key='admin-browse'>Browse Opportunities</Menu.Item>
-        :
-        <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Browse Opportunities</Menu.Item>}
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organization Library</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_COMMNUITY_EVENT} as={NavLink} activeClassName="active" exact to="/event" key='event' >Community Events</Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
-      <Menu.Item key="user">
-        <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
-        {(role) ?
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities-admin" key='admin-browse'>Opportunities</Menu.Item>
+        : <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Opportunities</Menu.Item>}
+      {(!role || role === ROLE.VOLUNTEER) ?
+        <React.Fragment>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_COMMUNITY_EVENT} as={NavLink} activeClassName="active" exact to="/event" key='event' >Calendar</Menu.Item>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
+        </React.Fragment> : ''}
+      {(role) ?
+        <Menu.Item key="user">
+          <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
-            {(role === ROLE.VOLUNTEER) ?
-              // Volunteer drop-down options
-              <Dropdown.Menu>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} text="Verify More Hours" as={NavLink} exact to="/addhours"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} text="Tracked Hours" as={NavLink} exact to="/listhours"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_OPPORTUNITY} text="My Opportunity" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
-              </Dropdown.Menu> : ''}
-            {(role === ROLE.ADMIN) ?
-              // Admin drop-down options
-              <Dropdown.Menu>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} text="Verify More Hours" as={NavLink} exact to="/addhours"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} text="Tracked Hours" as={NavLink} exact to="/listhours"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
-              </Dropdown.Menu> : ''}
-            {(role === ROLE.ORGANIZATION) ?
-              // Org drop-down options
-              <Dropdown.Menu>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} text="My Organization Profile" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
-                <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
-              </Dropdown.Menu> : ''}
-          </Dropdown> : ''}
-      </Menu.Item>,
-      <Menu.Item key="messages">
-        <NavBarMessages/>
-      </Menu.Item>
+            <Dropdown.Menu>
+              {(role === ROLE.VOLUNTEER) ?
+                // Volunteer drop-down options
+                <React.Fragment>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADD_HOURS} text="Verify More Hours" as={NavLink} exact to="/addhours"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} text="Tracked Hours" as={NavLink} exact to="/listhours"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
+                </React.Fragment> : ''}
+              {(role === ROLE.ADMIN) ?
+                // Admin drop-down options
+                <React.Fragment>
+                  <Dropdown.Item text="Sign up new organization" as={NavLink} exact to="/org-signup"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
+                </React.Fragment> : ''}
+              {(role === ROLE.ORGANIZATION) ?
+                // Org drop-down options
+                <React.Fragment>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} text="My Organization Profile" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
+                </React.Fragment> : ''}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Item> :
+        <React.Fragment>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} exact to="/signup" key='signup'>Sign Up</Menu.Item>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>
+        </React.Fragment>
+      }
     </Menu>
   );
 };

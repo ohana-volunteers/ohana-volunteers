@@ -70,32 +70,32 @@ const OrganizationSignup = ({ location }) => {
               Create new user account
             </Header>
             <Segment>
-              <TextField label='User Email' name='userInfo.username'/>
-              <TextField type='password' name='userInfo.password'/>
+              <TextField type='email' name='email'/>
+              <TextField type='password' name='password'/>
             </Segment>
             <Header as="h5" textAlign="center">
               Create organization profile
             </Header>
             <Segment>
-              <TextField label='Organization Name' name='orgInfo.name'/>
-              <MultiSelect placeholder='Select one or more categories' label='Categories' name='orgInfo.categories' allowedValues={getVolunteerCategoryNames()}/>
-              <TextField label='Organization Address' name='orgInfo.location'/>
-              <TextField label='Mailing Address' name='orgInfo.mailing_address'/>
-              <TextField label='Website URL' name='orgInfo.website'/>
-              <TextField label='Logo URL' name='orgInfo.logo'/>
-              <TextField label='Avatar URL' name='orgInfo.logo_mini'/>
+              <TextField label='Organization Name' name='name'/>
+              <MultiSelect placeholder='Select one or more categories' label='Categories' name='categories' allowedValues={getVolunteerCategoryNames()}/>
+              <TextField label='Organization Address' name='location'/>
+              <TextField label='Mailing Address' name='mailing_address'/>
+              <TextField label='Website URL' name='website'/>
+              <TextField label='Logo URL' name='logo'/>
+              <TextField label='Avatar URL' name='logo_mini'/>
 
               <Segment>
                 <Header as="h5" textAlign="center">
                   Contact info
                 </Header>
-                <TextField name='orgInfo.contact.name'/>
-                <TextField name='orgInfo.contact.email'/>
-                <TextField name='orgInfo.contact.address'/>
-                <TextField name='orgInfo.contact.phone'/>
+                <TextField name='contact.name'/>
+                <TextField name='contact.email'/>
+                <TextField name='contact.address'/>
+                <TextField name='contact.phone'/>
               </Segment>
 
-              <RadioField label='Publish Organization Profile?' name='orgInfo.status' >
+              <RadioField label='Publish Organization Profile? (profile can be edited and published later)' name='status' >
               </RadioField>
 
               <Form.Field>

@@ -3,7 +3,6 @@ import { Grid, Header, Image, Button, Container, Divider, Card, Icon, Loader } f
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
-import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 
 const OpportunityItem = ({ opp }) => (
@@ -143,22 +142,12 @@ const Landing = ({ orgs, ready }) => (
         }}/>
       </Card.Group>
     </Grid.Row>
-
-    <Divider/>
-
     <Grid.Row>
-      <Header as='h2'>Browse Opportunities By Category</Header>
-      <Card.Group centered>
-        {Object.getOwnPropertyNames(volunteerCategories).map((item) => {
-          const cat = volunteerCategories[item];
-          return <Card key={cat.name} raised>
-            <Card.Content>
-              <Card.Header><Icon name={cat.icon}/>{cat.name}</Card.Header>
-            </Card.Content>
-          </Card>;
-        })}
-
-      </Card.Group>
+      <Container textAlign='center'>
+        <Button href='#/browse-opportunities'>
+          Browse Opportunities
+        </Button>
+      </Container>
     </Grid.Row>
 
     <Divider/>
@@ -167,10 +156,10 @@ const Landing = ({ orgs, ready }) => (
       <Header as='h1'>Ready to Get Started?</Header>
     </Grid.Row>
     <Grid.Row>
-      <p>Sign up now as a volunteer or organization</p>
+      <p>Sign up now as a volunteer!</p>
     </Grid.Row>
     <Grid.Row>
-      <Button>Get Started</Button>
+      <Button href='#/signup'>Get Started</Button>
     </Grid.Row>
   </Grid>
 );
