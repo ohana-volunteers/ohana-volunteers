@@ -78,7 +78,7 @@ const AddOpportunity = () => {
                 <NumField name='coordinates.log' decimal={true} showInlineError={true} label='Coordinates longitude (optional)' placeholder='-158.0608245'/>
                 <NumField name='coordinates.lat' decimal={true} showInlineError={true} label='Coordinates latitude (optional)' placeholder='21.4561886' />
               </Form.Group>
-              <a href='/https://www.gps-coordinates.net/'>  How to find coordinates ?</a>
+              <a href='https://www.gps-coordinates.net'>  How to find coordinates ?</a>
             </Segment>
 
             <Segment padded color='blue'>

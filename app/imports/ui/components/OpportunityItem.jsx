@@ -35,7 +35,7 @@ const OpportunityItem = ({ opp, user }) => (
     {/* Only display the edit button if logged in as admin */}
     {(user === 'admin@foo.com') ?
       <Card.Content extra>
-        <Button basic color='green' size='tiny'>
+        <Button basic color='green' size='tiny' href={`#/event-page/${opp._id}`}>
           <Icon name='linkify' />
           View
         </Button>
