@@ -40,13 +40,13 @@ const AddOpportunity = () => {
   return (
     <Container id={PAGE_IDS.ADD_OPPORTUNITY}>
       <Grid container centered>
-        <Grid.Column>
+        <Grid.Column width={10}>
           <Header as="h2" textAlign="center">Add a Opportunity</Header>
           <Divider/>
           <AutoForm ref={ref => {
             fRef = ref;
           }} schema={bridge} onSubmit={data => submit(data, fRef)}>
-            <Segment>
+            <Segment padded color='blue'>
               <Header as="h4" textAlign="center">
                 <Icon name='calendar outline'/>
                 Opportunity Date
@@ -56,7 +56,7 @@ const AddOpportunity = () => {
                 <DateField name='date.end' label='End date and time'/>
               </Form.Group>
             </Segment>
-            <Segment>
+            <Segment padded color='blue'>
               <Header as="h4" textAlign="center">
                 <Icon name='pencil'/>
               Basic Information
@@ -69,18 +69,19 @@ const AddOpportunity = () => {
               <ImageUploadField name='img' label='Opportunity Picture'/>
             </Segment>
 
-            <Segment>
+            <Segment padded color='blue'>
               <Header as="h4" textAlign="center">
                 <Icon name='pin'/>
               Enter coordinates manually to be marked on the map
               </Header>
               <Form.Group widths={'equal'}>
-                <NumField name='coordinates.log' decimal={true} label='Coordinates longitude (optional)' placeholder='-158.0608245'/>
-                <NumField name='coordinates.lat' decimal={true} label='Coordinates latitude (optional)' placeholder='21.4561886' />
+                <NumField name='coordinates.log' decimal={true} showInlineError={true} label='Coordinates longitude (optional)' placeholder='-158.0608245'/>
+                <NumField name='coordinates.lat' decimal={true} showInlineError={true} label='Coordinates latitude (optional)' placeholder='21.4561886' />
               </Form.Group>
+              <a href='/https://www.gps-coordinates.net/'>  How to find coordinates ?</a>
             </Segment>
 
-            <Segment>
+            <Segment padded color='blue'>
               <Header as="h4" textAlign="center">
                 <Icon name='pencil'/>
               Additional Information

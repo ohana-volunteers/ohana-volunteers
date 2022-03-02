@@ -25,10 +25,12 @@ const BrowseOpportunities = ({ opps, ready }) => {
     formRef.reset();
   };
   const { time } = datas;
+  console.log(datas);
   const order = datas.orderBy === 'Latest' ? { sort: { date: -1 } } : { sort: { organization: 1 } };
   const age = datas.age ? { age: datas.age } : {};
   const envir = datas.environmentalPreference ? { environment: datas.environmentalPreference } : {};
   const cate = datas.categories ? { categories: { $in: datas.categories } } : {};
+  console.log(datas.categories);
   const sortOpps = Opportunities.find({
     $and: [
       // { $text: { $search: 'hawaii' } },

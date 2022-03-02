@@ -28,10 +28,14 @@ export const OpportunitySchema = new SimpleSchema({
   },
   'coordinates.log': {
     type: Number,
+    min: -180,
+    max: 180,
     optional: true,
   },
   'coordinates.lat': {
     type: Number,
+    min: -90,
+    max: 90,
     optional: true,
   },
   event: String,
