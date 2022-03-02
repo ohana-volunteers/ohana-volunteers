@@ -156,16 +156,16 @@ const Landing = ({ orgs, ready }) => (
       </Grid.Row>
 
       <Divider/>
-      
-          <Grid.Row>
-            <Header as='h1'>Ready to Get Started?</Header>
-          </Grid.Row>
-          <Grid.Row>
-            <p>Sign up now as a volunteer!</p>
-          </Grid.Row>
-          <Grid.Row>
-            <Button href='#/signup'>Get Started</Button>
-          </Grid.Row>
+
+      <Grid.Row>
+        <Header as='h1'>Ready to Get Started?</Header>
+      </Grid.Row>
+      <Grid.Row>
+        <p>Sign up now as a volunteer!</p>
+      </Grid.Row>
+      <Grid.Row>
+        <Button href='#/signup'>Get Started</Button>
+      </Grid.Row>
     </Grid>
   </div>
 );
