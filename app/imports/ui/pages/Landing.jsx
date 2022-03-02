@@ -156,9 +156,7 @@ const Landing = ({ orgs, ready }) => (
       </Grid.Row>
 
       <Divider/>
-
-      <div className='get-started-wrap'>
-        <div className='get-started-content'>
+      
           <Grid.Row>
             <Header as='h1'>Ready to Get Started?</Header>
           </Grid.Row>
@@ -168,8 +166,6 @@ const Landing = ({ orgs, ready }) => (
           <Grid.Row>
             <Button href='#/signup'>Get Started</Button>
           </Grid.Row>
-        </div>
-      </div>
     </Grid>
   </div>
 );
