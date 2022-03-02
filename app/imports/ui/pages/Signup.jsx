@@ -6,6 +6,7 @@ import { Container, Grid, Header, Message, Segment, Form } from 'semantic-ui-rea
 import SimpleSchema from 'simpl-schema';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, ErrorsField, SubmitField, TextField, BoolField } from 'uniforms-semantic';
+import * as Buffer from 'buffer';
 import RadioField from '../components/form-fields/RadioField';
 import MultiSelectField from '../components/form-fields/MultiSelectField';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -71,8 +72,14 @@ const formSchema = new SimpleSchema({
     allowedValues: ['One-time', 'Once a week', 'More than 3 times a week', 'Weekdays only',
       'Once a month', '1-3 times a week', 'Weekends only'],
   },
-  profilePicture: String,
-  bannerPicture: String,
+  profilePicture: {
+    type: Buffer,
+    optional: true,
+  },
+  bannerPicture: {
+    type: Buffer,
+    optional: true,
+  },
   acceptTermsOfUse: { type: 'boolean', label: 'I agree to the Terms & Conditions and Privacy Policy.' },
 });
 
