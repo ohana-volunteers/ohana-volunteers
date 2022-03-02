@@ -14,6 +14,7 @@ import Signin from '../pages/Signin';
 import organizations from '../pages/OrganizationLibrary';
 import BrowseOpportunities from '../pages/BrowseOpportunities';
 import BrowseOpportunitiesAdmin from '../pages/BrowseOpportunitiesAdmin';
+import AddOpportunity from '../pages/AddOpportunity';
 import Signup from '../pages/Signup';
 import OrganizationSignup from '../pages/OrganizationSignup';
 import Signout from '../pages/Signout';
@@ -50,6 +51,7 @@ class App extends React.Component {
             <Route path="/organization-library" component={organizations}/>
             <Route path="/browse-opportunities" component={BrowseOpportunities}/>
             <ProtectedRoute path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
+            <ProtectedRoute path="/add-opportunity" component={AddOpportunity}/>
             <Route path="/event" component={CommunityEvent}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>

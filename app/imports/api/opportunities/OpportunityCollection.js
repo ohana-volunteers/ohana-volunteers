@@ -4,7 +4,7 @@ import SimpleSchema from 'simpl-schema';
 import { Roles } from 'meteor/alanning:roles';
 import BaseCollection from '../base/BaseCollection';
 import { ROLE } from '../role/Role';
-import { volunteerCategories } from '../utilities/VolunteerCategories';
+import { OpportunitySchema } from '../utilities/OpportunitySchema';
 
 export const OpportunityEnvironment = ['Indoor', 'Outdoor', 'Both', 'No Preference'];
 export const OpportunityAge = ['Adults', 'Family-Friendly', 'Teens', 'Seniors'];
@@ -16,45 +16,11 @@ export const OpportunityPublications = {
 
 class OpportunityCollection extends BaseCollection {
   constructor() {
-    super('Opportunities', new SimpleSchema({
-      url: String,
-      date: Object,
-      'date.start': {
-        type: Date,
-      },
-      'date.end': {
-        type: Date,
-      },
-      img: String,
-      organization: String,
-      address: String,
-      coordinates: Object,
-      'coordinates.log': {
-        type: Number,
-      },
-      'coordinates.lat': {
-        type: Number,
-      },
-      event: String,
-      categories: Array, // List of applicable categories
-      'categories.$': {
-        type: String,
-        allowedValues: Object.keys(volunteerCategories),
-      },
-      environment: {
-        type: String,
-        allowedValues: OpportunityEnvironment,
-      },
-      age: {
-        type: String,
-        allowedValues: OpportunityAge,
-      },
-    }));
+    super('Opportunities', new SimpleSchema(OpportunitySchema));
   }
 
   /**
    * Defines a new Opportunity item.
-   * @param url the url of the item.
    * @param date the date.
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
@@ -66,9 +32,8 @@ class OpportunityCollection extends BaseCollection {
    * @param age  the age group of the item.
    * @return {String} the docID of the new document.
    */
-  define({ url, date, img, organization, address, coordinates, event, categories, environment, age }) {
+  define({ date, img, organization, address, coordinates, event, categories, environment, age }) {
     const docID = this._collection.insert({
-      url,
       date,
       img,
       organization,
@@ -86,7 +51,6 @@ class OpportunityCollection extends BaseCollection {
   /**
    * Updates the given document.
    * @param docID the id of the document to update.
-   * @param url the url of the item.
    * @param date the date.
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
@@ -97,9 +61,8 @@ class OpportunityCollection extends BaseCollection {
    * @param environment  the environment of the item.
    * @param age  the age group of the item.
    */
-  update(docID, { url, date, img, organization, address, coordinates, event, categories, environment, age }) {
+  update(docID, { date, img, organization, address, coordinates, event, categories, environment, age }) {
     const updateData = {};
-    if (url) updateData.url = url;
     if (date)updateData.date = date;
     if (img) updateData.img = img;
     if (organization) updateData.organization = organization;
@@ -211,7 +174,6 @@ class OpportunityCollection extends BaseCollection {
    */
   dumpOne(docID) {
     const doc = this.findDoc(docID);
-    const url = doc.url;
     const date = doc.date;
     const img = doc.img;
     const organization = doc.organization;
@@ -221,7 +183,7 @@ class OpportunityCollection extends BaseCollection {
     const categories = doc.categories;
     const environment = doc.environment;
     const age = doc.age;
-    return { url, date, img, organization, address, coordinates, event, categories, environment, age };
+    return { date, img, organization, address, coordinates, event, categories, environment, age };
   }
 }
 
