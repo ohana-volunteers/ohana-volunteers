@@ -18,15 +18,6 @@ const ImageUploadField = ({ label, id, disabled, error, required, className, sho
     FilePondPluginFileValidateSize,
   );
 
-  /* const [files, setFiles] = useState([]); */
-
-  // const processUpload = (files) => {
-  //   const aFile = files[0];
-  //   const someValue = aFile.getFileEncodeBase64String();
-  //   console.log(someValue);
-  //   return aFile;
-  // };
-
   return (
     <div className={classnames({ disabled, error, required }, className, 'field')} {...filterDOMProps(props)}>
       <label htmlFor={id}>{label}</label>
@@ -36,6 +27,9 @@ const ImageUploadField = ({ label, id, disabled, error, required, className, sho
         allowMultiple={false}
         allowFileEncode={true}
         allowReplace={true}
+        allowFileSizeValidation={true}
+        maxFileSize="2MB"
+        acceptedFileTypes={['image/png', 'image/jpeg']}
         onupdatefiles={(file) => {
           onChange(file[0].getFileEncodeBase64String());
         }}
