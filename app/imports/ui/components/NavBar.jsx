@@ -12,7 +12,7 @@ import { ROLE } from '../../api/role/Role';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
 const NavBar = ({ role, currentUser }) => {
-  const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
+  const menuStyle = { marginBottom: '25px', backgroundColor: 'rgba(0, 255, 255, .1)' };
   const input = { width: '20rem' };
   return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
