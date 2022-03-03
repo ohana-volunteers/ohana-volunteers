@@ -19,8 +19,8 @@ const MapView = ({ opps, ready }) => ((ready) ? (
     mapStyle="mapbox://styles/mapbox/streets-v9"
     mapboxAccessToken={MAPBOX_TOKEN}
   >
-    {opps.map((opp) => <Marker key={opp._id} longitude={opp.coordinates.log} latitude={opp.coordinates.lat} color="red" />)}
-  </Map>
+    {opps.map((opp) => ((opp.coordinates) ?
+      <Marker key={opp._id} longitude={opp.coordinates.log} latitude={opp.coordinates.lat} color="red" /> : ''))}  </Map>
 ) : <Loader active>Getting data</Loader>);
 MapView.propTypes = {
   opps: PropTypes.array.isRequired,
