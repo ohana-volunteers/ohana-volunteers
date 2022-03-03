@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
+<<<<<<< Updated upstream
 import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
@@ -13,12 +14,74 @@ import { ROLE } from '../../api/role/Role';
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
 const NavBar = ({ role, currentUser }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: 'rgba(0, 255, 255, .1)' };
+=======
+import { Menu, Dropdown, Image, Input, Icon} from 'semantic-ui-react';
+import NavBarMessages from './NavBarMessages';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
+import { Organizations } from '../../api/organization/OrgCollection';
+import { useEffect, useState } from "react";
+
+
+/** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
+const NavBar = ({ currentUser, orgs }) => {
+  const menuStyle = { marginBottom: '25px', backgroundColor: '#FFFFFF' };
+>>>>>>> Stashed changes
   const input = { width: '20rem' };
-  return (
+  const [searchTerm, setSearchTerm] = useState("");
+  var nameList = orgs;
+  const cars = [];
+  nameList.forEach((item) => {
+        cars.push(item.name);
+      }
+  );
+  
+  const carsLength = cars.length;
+
+  console.log(cars);
+
+  console.log(carsLength);
+
+
+
+
+
+
+  for (let i = 0; i < carsLength; i++) {
+    if (searchTerm === carsLength[i]) {
+      console.log("true");
+    }
+  }
+
+  {
+    orgs.filter((item) => {
+          if (searchTerm === "") {
+            console.log("enter in a term");
+          } else if (item.name.toLowerCase().includes(searchTerm)) {
+
+
+            )
+          }
+        }
+    )
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+    return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} exact to="/">
         <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
+<<<<<<< Updated upstream
       <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} exact to="/" key='home'>Home</Menu.Item>
       {(role !== ROLE.ORGANIZATION) ?
@@ -33,6 +96,20 @@ const NavBar = ({ role, currentUser }) => {
         </React.Fragment> : ''}
       {(role) ?
         <Menu.Item key="user">
+=======
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..." name="search" onChange={(event) => { setSearchTerm(event.target.value); }}></Input>
+      </Menu.Item>
+      <button className="ui centered circular icon button"><i aria-hidden="true" className="settings icon"></i></button>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} activeClassName="" exact to="/" key='home'>Home</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} activeClassName="" exact to="/browse-opportunities" key='browse'>Browse Opportunities</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} activeClassName="" exact to="/organization-library" key='library'>Organization Library</Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} activeClassName="" exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
+      {currentUser === '' ? (
+        [<Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP} as={NavLink} activeClassName="" exact to="/signup" key='signup'>Sign Up</Menu.Item>,
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_LOGIN_SIGN_IN} as={NavLink} exact to="/signin" key='signin'><Icon name='user'/>Sign In</Menu.Item>]
+      ) : (
+        [<Menu.Item key="user">
+>>>>>>> Stashed changes
           <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
             <Dropdown.Menu>
@@ -74,16 +151,26 @@ const NavBar = ({ role, currentUser }) => {
   );
 };
 
+
+
+
 // Declare the types of all properties.
 NavBar.propTypes =
 {
+<<<<<<< Updated upstream
   role: PropTypes.string,
+=======
+  orgs: PropTypes.array.isRequired,
+>>>>>>> Stashed changes
   currentUser: PropTypes.string,
   ready: PropTypes.bool.isRequired,
 };
 
+
+
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
 const NavBarContainer = withTracker(() => {
+<<<<<<< Updated upstream
   let currentUser = '';
   // Get the current user
   if (Meteor.user()) currentUser = Meteor.user().username;
@@ -99,6 +186,15 @@ const NavBarContainer = withTracker(() => {
   return {
     role,
     currentUser,
+=======
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  const subscription = Organizations.subscribe();
+  const ready = subscription.ready();
+  const orgs = Organizations.find({}, { sort: { name: 1 } }).fetch();
+
+  return {
+    orgs, currentUser,ready,
+>>>>>>> Stashed changes
   };
 })(NavBar);
 
