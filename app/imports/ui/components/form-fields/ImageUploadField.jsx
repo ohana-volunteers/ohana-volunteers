@@ -5,6 +5,7 @@ import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import classnames from 'classnames';
 
@@ -16,6 +17,7 @@ const ImageUploadField = ({ label, id, disabled, error, required, className, sho
     FilePondPluginFileEncode,
     FilePondPluginImagePreview,
     FilePondPluginFileValidateSize,
+    FilePondPluginFileValidateType,
   );
 
   return (
@@ -29,7 +31,8 @@ const ImageUploadField = ({ label, id, disabled, error, required, className, sho
         allowReplace={true}
         allowFileSizeValidation={true}
         maxFileSize="2MB"
-        acceptedFileTypes={['image/png', 'image/jpeg']}
+        acceptedFileTypes={['image/png', 'image/jpeg', 'image/jpg']}
+        labelIdle='<span class="filepond--label-action">Browse</span> or Drag & Drop an image'
         onupdatefiles={(file) => {
           onChange(file[0].getFileEncodeBase64String());
         }}
