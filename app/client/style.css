@@ -114,6 +114,7 @@
   max-height: 25rem;
 }
 
+<<<<<<< Updated upstream
 .special-header {
   padding-left: 10px!important;
   padding-top: 15px!important;
@@ -133,3 +134,25 @@
   width: 1155px;
   margin-bottom: 60px!important;
 }
+=======
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+// after body element, add the code below. It means the ID #fonts in body element will apply this specific style.
+body #fonts {
+     font-family: 'Montserrat', sans-serif;
+   }
+>>>>>>> Stashed changes

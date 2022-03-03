@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import { Grid, Divider, Item, Icon, Button, Container, Image } from 'semantic-ui-react';
 
 const container1Style = { backgroundColor: 'blue', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
@@ -12,6 +13,30 @@ const iconTextStyle = { paddingLeft: '80px', fontsize: '30px' };
 const gridStyle = { marginTop: '100px' };
 const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px' };
 const marginTop = { marginTop: '100px' };
+=======
+import {Grid, Header, Card, Divider, Item, Icon, Button, Container, Image, DropdownDivider} from 'semantic-ui-react';
+
+const container1Style = { backgroundColor: 'white', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px'};
+const textStyle = { color: 'black', marginTop: '150px', fontSize: '55px', fontFamily: 'Andale Mono'};
+const textStyle2 = { color: 'blue', textAlign: 'center', marginTop: '100px', fontFamily: 'Andale Mono'};
+const textStyle3 = { textAlign: 'center', paddingTop: '50px', marginTop: '50px', fontFamily: 'Andale Mono'};
+const textStyle4 = { textAlign: 'center', paddingTop: '50px', marginTop: '25px', fontFamily: 'Bradley Hand'};
+const textStyle5 = {color: 'black', fontFamily: 'Andale Mono'}
+const iconStyle = { paddingLeft: '115px'};
+const iconTextStyle = { paddingLeft: '80px', fontsize: '30px', fontFamily: "Bradley Hand", marginTop:'5px'};
+const container1Style = { backgroundColor: 'blue', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px'};
+const textStyle = { color: 'white', marginTop: '150px', fontSize: '55px'};
+const textStyle2 = { color: 'blue', textAlign: 'center', marginTop: '100px'};
+const textStyle3 = { textAlign: 'center', paddingTop: '50px', marginTop: '50px'};
+const textStyle4 = { textAlign: 'center', paddingTop: '50px', marginTop: '25px'};
+const textStyle5 = {color: 'white'}
+const iconStyle = { paddingLeft: '115px'};
+const iconTextStyle = { paddingLeft: '80px', fontsize: '30px'};
+const gridStyle = { marginTop: '100px'};
+const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px'};
+const marginTop = { marginTop: '100px'};
+
+>>>>>>> Stashed changes
 
 /** A simple static component to render some text for the About Us page. */
 
