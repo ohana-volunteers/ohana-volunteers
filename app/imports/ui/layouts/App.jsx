@@ -26,6 +26,7 @@ import AboutUs from '../pages/AboutUs';
 import OrganizationProfile from '../pages/OrganizationProfile';
 import { ROLE } from '../../api/role/Role';
 import CommunityEvent from '../pages/CommunityEvent';
+import TermsAndConditions from '../pages/TermsAndConditions'
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -50,6 +51,7 @@ class App extends React.Component {
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
             <Route path="/organization-library" component={organizations}/>
             <Route path="/browse-opportunities" component={BrowseOpportunities}/>
+              <Route path="/TermsAndConditions" component={TermsAndConditions}/>
             <ProtectedRoute path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
             <ProtectedRoute path="/add-opportunity" component={AddOpportunity}/>
             <Route path="/event" component={CommunityEvent}/>
