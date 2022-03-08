@@ -18,23 +18,23 @@ class OrgProfileCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Organization.
+   * Defines a new Organization and User.
    * @return {String} the docID of the new document.
    */
-  define(profile) {
+  define({ user, profile }) {
     if (Meteor.isServer) {
-      const profileID = this._collection.insert(profile);
-      const username = profile.email;
-      const password = profile.password;
-      const user = this.findOne(username);
-      // create new user if necessary
-      if (!user) {
-        const role = ROLE.ORGANIZATION;
-        const userID = Users.define({ username, role, password });
+      const newUser = user;
+      newUser.role = ROLE.ORGANIZATION;
+      const existingUser = Meteor.users.findOne({ username: user.username });
+      if (!existingUser) {
+        const userID = Users.define(newUser);
         Roles.createRole(ROLE.ORGANIZATION, { unlessExists: true });
         Roles.addUsersToRoles(userID, ROLE.ORGANIZATION);
       }
-      return profileID;
+
+      const newProfile = profile;
+      newProfile.owner = user.username;
+      return this._collection.insert(newProfile);
     }
     return undefined;
   }
@@ -45,6 +45,20 @@ class OrgProfileCollection extends BaseCollection {
    */
   update(docID, object) {
     this._collection.update(docID, { $set: object });
+  }
+
+  /**
+   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
+   * @param { String | Object } id A document or docID in this collection.
+   */
+  removeIt(id) {
+    const doc = this.findDoc(id);
+    check(doc, Object);
+    // const user = doc.username;
+    // const userID = Users.getID(user);
+    // TODO: Allow for user deletion through UserCollection
+    this._collection.remove(doc._id);
+    return true;
   }
 
   /**
