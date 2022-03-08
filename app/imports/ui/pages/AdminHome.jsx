@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader, Container, Tab } from 'semantic-ui-react';
+import { Loader, Header, Container, Tab, Card, Grid, Divider } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
@@ -9,12 +9,27 @@ import { Organizations } from '../../api/user/organization/OrgProfileCollection'
 import UploadFixture from '../components/UploadFixture';
 import DumpDbFixture from '../components/DumpDbFixture';
 import OpportunitiesAdmin from '../components/OpportunitiesAdmin';
+import AdminViewVolunteers from '../components/AdminViewVolunteers';
 
 /** Renders the admin home page where information can be viewed and modified. */
 
-const AdminHome = ({ readyVolunteers, readyOrganizations }) => {
+const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers }) => {
 
   const panes = [
+    // eslint-disable-next-line react/display-name
+    { menuItem: 'Volunteers', render: () => <Tab.Pane>
+      <Grid textAlign='center' container>
+        <Grid.Row centered>
+          <Header as='h1'>Manage Volunteers</Header>
+        </Grid.Row>
+        <Divider/>
+        <Grid.Row>
+          <Card.Group centered>
+            {allVolunteers.map((volunteer) => <AdminViewVolunteers key={volunteer} doc={volunteer}/>)}
+          </Card.Group>
+        </Grid.Row>
+      </Grid>
+    </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Opportunities', render: () => <Tab.Pane>
       <OpportunitiesAdmin/>
@@ -37,11 +52,13 @@ const AdminHome = ({ readyVolunteers, readyOrganizations }) => {
 AdminHome.propTypes = {
   readyVolunteers: PropTypes.bool.isRequired,
   readyOrganizations: PropTypes.bool.isRequired,
+  allVolunteers: PropTypes.array.isRequired,
 };
 
 export default withTracker(() => {
   const subscriptionVolunteers = VolunteerProfiles.subscribe();
   const readyVolunteers = subscriptionVolunteers.ready();
+  const allVolunteers = VolunteerProfiles.find({}).fetch();
   const subscriptionOrganizations = Organizations.subscribeAdmin();
   const readyOrganizations = subscriptionOrganizations.ready();
   // const subscriptionOpportunities = Opportunities.subscribeOpportunityAdmin();
@@ -52,5 +69,6 @@ export default withTracker(() => {
   return {
     readyVolunteers,
     readyOrganizations,
+    allVolunteers,
   };
 })(AdminHome);
