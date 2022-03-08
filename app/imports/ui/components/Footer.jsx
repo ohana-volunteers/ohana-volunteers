@@ -11,7 +11,7 @@ const Footer = () => {
         <a href='https://github.com/ohana-volunteers'>Ohana Volunteers.</a>&nbsp;
         All rights reserved.&nbsp;
         <a href='#/privacy-policy'>Privacy Policy.</a>&nbsp;
-          <a href='#/TermsAndConditions'>Terms & Conditions</a>&nbsp;
+        <a href='#/TermsAndConditions'>Terms & Conditions</a>&nbsp;
       </div>
       <br/>
     </footer>

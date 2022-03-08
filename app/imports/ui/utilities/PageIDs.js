@@ -1,6 +1,7 @@
 /** Define ids for each page. */
 export const PAGE_IDS = {
   ADD_HOURS: 'add-hours',
+  ADMIN_HOME: 'admin-home',
   LANDING: 'landing',
   LIST_HOURS: 'list-hours',
   MANAGE_DATABASE: 'manage-database',
