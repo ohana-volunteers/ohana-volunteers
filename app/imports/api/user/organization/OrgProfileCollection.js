@@ -25,7 +25,7 @@ class OrgProfileCollection extends BaseCollection {
     if (Meteor.isServer) {
       const newUser = user;
       newUser.role = ROLE.ORGANIZATION;
-      const existingUser = Meteor.users.findOne({ username: user.username });
+      const existingUser = Meteor.users.findOne({ username: user.email });
       if (!existingUser) {
         const userID = Users.define(newUser);
         Roles.createRole(ROLE.ORGANIZATION, { unlessExists: true });
@@ -33,7 +33,7 @@ class OrgProfileCollection extends BaseCollection {
       }
 
       const newProfile = profile;
-      newProfile.owner = user.username;
+      newProfile.owner = user.email;
       return this._collection.insert(newProfile);
     }
     return undefined;
@@ -57,18 +57,6 @@ class OrgProfileCollection extends BaseCollection {
     // const user = doc.username;
     // const userID = Users.getID(user);
     // TODO: Allow for user deletion through UserCollection
-    this._collection.remove(doc._id);
-    return true;
-  }
-
-  /**
-   * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
-   * @param { String | Object } name A document or docID in this collection.
-   * @returns true
-   */
-  removeIt(name) {
-    const doc = this.findDoc(name);
-    check(doc, Object);
     this._collection.remove(doc._id);
     return true;
   }
