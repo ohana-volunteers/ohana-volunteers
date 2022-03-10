@@ -1,23 +1,25 @@
 import React from 'react';
 import { Grid, Divider, Item, Icon, Button, Container, Image } from 'semantic-ui-react';
 
-const container1Style = { backgroundColor: 'blue', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
-const textStyle = { color: 'white', marginTop: '150px', fontSize: '55px' };
-const textStyle2 = { color: 'blue', textAlign: 'center', marginTop: '100px' };
-const textStyle3 = { textAlign: 'center', paddingTop: '50px', marginTop: '50px' };
-const textStyle4 = { textAlign: 'center', paddingTop: '50px', marginTop: '25px' };
-const textStyle5 = { color: 'white' };
+const container1Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
+const container2Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '40px', paddingLeft: '0px', marginBottom: '-23px' };
+const bodyStyle = {backgroundColor: 'rgba(0, 255, 255, .1)' }
+const textStyle = { color: 'white', marginTop: '120px', fontSize: '55px', fontFamily: 'Papyrus' };
+const textStyle2 = { color: 'black', textAlign: 'center', marginTop: '100px', fontSize: '40px', fontFamily: 'Copperplate' };
+const textStyle3 = { textAlign: 'center', paddingTop: '50px', marginTop: '50px', fontSize: '25px', fontFamily: 'Copperplate' };
+const textStyle4 = { textAlign: 'center', paddingTop: '50px', marginTop: '25px', fontSize: '25px', fontFamily: 'Copperplate' };
+const textStyle5 = { color: 'white', fontSize: '15px'};
 const iconStyle = { paddingLeft: '115px' };
 const iconTextStyle = { paddingLeft: '80px', fontsize: '30px' };
 const gridStyle = { marginTop: '100px' };
-const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px' };
+const gridStyle2 = { paddingTop: '150px', paddingBottom: '120px' };
 const marginTop = { marginTop: '100px' };
 
 /** A simple static component to render some text for the About Us page. */
 
 const OrganizationLibrary = () => (
 
-  <div>
+  <div style={bodyStyle}>
     <Divider style={container1Style}>
       <Container textAlign='center'>
         <Item.Header as="h1" style={textStyle}> Organization Library </Item.Header>
@@ -130,9 +132,11 @@ const OrganizationLibrary = () => (
         <Item.Description style={iconTextStyle}> Integration-ready </Item.Description>
       </Grid.Column>
     </Grid>
+    <Divider style={container2Style}>
     <Grid centered columns={1} style={gridStyle2}>
-      <Button size='huge' color='blue'>Sign Up Today</Button>
+      <Button size='huge' color='black'>Sign Up Today</Button>
     </Grid>
+    </Divider>
   </div>
 );
 
