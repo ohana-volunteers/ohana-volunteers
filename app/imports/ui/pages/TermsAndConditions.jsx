@@ -1,11 +1,12 @@
 import React from 'react';
 import { Grid, Divider, Item, Icon, Button, Container, Image } from 'semantic-ui-react';
 
-const container1Style = { backgroundColor: 'blue', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
-const textStyle = { color: 'white', marginTop: '150px', fontSize: '35px' };
-const textStyle2 = { color: 'white', marginTop: '75px', fontSize: '35px' };
+const container1Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
+const container2Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '40px', paddingLeft: '0px', marginBottom: '-23px' };
+const textStyle = { color: 'white', marginTop: '150px', fontSize: '30px', fontFamily: 'Papyrus' };
+const textStyle2 = { color: 'white', marginTop: '75px', fontSize: '28px', fontFamily: 'Papyrus' };
 const textStyle3 = { color: 'white', marginTop: '30px', fontSize: '10px' };
-const textStyle4 = { textAlign: 'center', paddingTop: '50px', marginTop: '25px' };
+const textStyle4 = { color: 'gray', paddingTop: '40px' };
 const textStyle5 = { color: 'white' };
 const iconStyle = { paddingLeft: '115px' };
 const iconTextStyle = { paddingLeft: '80px', fontsize: '30px' };
@@ -24,6 +25,7 @@ const TermsAndConditions = () => (
             </Container>
         </Divider>
 
+        <Container style={textStyle4}>
         <h5>TERMS OF USE</h5>
 
 
@@ -183,12 +185,13 @@ const TermsAndConditions = () => (
         <p>In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at:</p>
         <h5>Volunteer Ally, LLC</h5>
             <h5>info@volunteerally.org</h5>
-        <Divider style={container1Style}>
+        </Container>
+        <Divider style={container2Style}>
             <Container textAlign='center'>
                 <Item.Header as="h1" style={textStyle2}> Ready to Get Started?</Item.Header>
                 <Item.Description as="h1" style={textStyle3}> Sign up now as a volunteer or organization.</Item.Description>
                 <Grid centered columns={1} style={gridStyle2}>
-                    <Button size='huge' color='blue'>Get Started</Button>
+                    <Button size='huge' color='black'>Get Started</Button>
                 </Grid>
             </Container>
         </Divider>
