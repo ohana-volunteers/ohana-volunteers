@@ -10,10 +10,11 @@ import UploadFixture from '../components/UploadFixture';
 import DumpDbFixture from '../components/DumpDbFixture';
 import OpportunitiesAdmin from '../components/OpportunitiesAdmin';
 import AdminViewVolunteers from '../components/AdminViewVolunteers';
+import AdminViewOrganizations from '../components/AdminViewOrganizations';
 
 /** Renders the admin home page where information can be viewed and modified. */
 
-const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers }) => {
+const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrganizations }) => {
 
   const panes = [
     // eslint-disable-next-line react/display-name
@@ -25,7 +26,21 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers }) => {
         <Divider/>
         <Grid.Row>
           <Card.Group centered>
-            {allVolunteers.map((volunteer) => <AdminViewVolunteers key={volunteer} doc={volunteer}/>)}
+            {allVolunteers.map((volunteer) => <AdminViewVolunteers key={volunteer._id} doc={volunteer}/>)}
+          </Card.Group>
+        </Grid.Row>
+      </Grid>
+    </Tab.Pane> },
+    // eslint-disable-next-line react/display-name
+    { menuItem: 'Organizations', render: () => <Tab.Pane>
+      <Grid textAlign='center' container>
+        <Grid.Row centered>
+          <Header as='h1'>Manage Organizations</Header>
+        </Grid.Row>
+        <Divider/>
+        <Grid.Row>
+          <Card.Group centered>
+            {allOrganizations.map((organization) => <AdminViewOrganizations key={organization._id} doc={organization}/>)}
           </Card.Group>
         </Grid.Row>
       </Grid>
@@ -53,6 +68,7 @@ AdminHome.propTypes = {
   readyVolunteers: PropTypes.bool.isRequired,
   readyOrganizations: PropTypes.bool.isRequired,
   allVolunteers: PropTypes.array.isRequired,
+  allOrganizations: PropTypes.array.isRequired,
 };
 
 export default withTracker(() => {
@@ -61,6 +77,7 @@ export default withTracker(() => {
   const allVolunteers = VolunteerProfiles.find({}).fetch();
   const subscriptionOrganizations = Organizations.subscribeAdmin();
   const readyOrganizations = subscriptionOrganizations.ready();
+  const allOrganizations = Organizations.find({}).fetch();
   // const subscriptionOpportunities = Opportunities.subscribeOpportunityAdmin();
   // const readyOpportunities = subscriptionOpportunities.ready();
   // const activeOpps = Opportunities.find({ 'date.end': { $gte: toDate } }).fetch();
@@ -70,5 +87,6 @@ export default withTracker(() => {
     readyVolunteers,
     readyOrganizations,
     allVolunteers,
+    allOrganizations,
   };
 })(AdminHome);
