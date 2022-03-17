@@ -6,12 +6,15 @@ import { decode } from '../utilities/ImageDecode';
 /** Renders individual card of organization profiles that admin can view. */
 const AdminViewOrganizations = ({ doc }) => (
   <Card>
-    <Image src={decode(doc.logo)}/>
     <Card.Content>
+      <Image
+        floated='right'
+        size='tiny'
+        src={decode(doc.logo)}/>
       <Card.Header>{doc.name}</Card.Header>
       <Card.Meta>{doc.email}</Card.Meta>
-      <Card.Description>Visibility: {doc.status}</Card.Description>
-      <Card.Description>Location: {doc.location}</Card.Description>
+      <Card.Description><u>Visibility:</u> {doc.status}</Card.Description>
+      <Card.Description><u>Location:</u> {doc.location}</Card.Description>
     </Card.Content>
     <Card.Content extra>
       <Button color='grey' size='tiny'><Icon name='eye'/>View</Button>

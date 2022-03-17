@@ -6,11 +6,15 @@ import { decode } from '../utilities/ImageDecode';
 /** Renders individual card of volunteer profiles that admin can view. */
 const AdminViewVolunteers = ({ doc }) => (
   <Card>
-    <Image src={decode(doc.profilePicture)}/>
     <Card.Content>
+      <Image
+        floated='right'
+        size='tiny'
+        src={decode(doc.profilePicture)}/>
       <Card.Header>{doc.firstName} {doc.lastName}</Card.Header>
       <Card.Meta>{doc.email}</Card.Meta>
-      <Card.Description>{doc.description}</Card.Description>
+      <Card.Description><u>Total Hours:</u> {doc.totalHours}</Card.Description>
+      <Card.Description><u>Events Participated:</u> {doc.eventsParticipated}</Card.Description>
     </Card.Content>
     <Card.Content extra>
       <Button color='grey' size='tiny'><Icon name='eye'/>View</Button>

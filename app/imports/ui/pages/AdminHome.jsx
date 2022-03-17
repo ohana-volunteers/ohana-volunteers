@@ -19,7 +19,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
   const panes = [
     // eslint-disable-next-line react/display-name
     { menuItem: 'Volunteers', render: () => <Tab.Pane>
-      <Grid textAlign='center' container>
+      <Grid container>
         <Grid.Row centered>
           <Header as='h1'>Manage Volunteers</Header>
         </Grid.Row>
@@ -33,7 +33,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Organizations', render: () => <Tab.Pane>
-      <Grid textAlign='center' container>
+      <Grid container>
         <Grid.Row centered>
           <Header as='h1'>Manage Organizations</Header>
         </Grid.Row>
