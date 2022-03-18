@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Grid, Header, Icon, Image, Modal } from 'semantic-ui-react';
 import swal from 'sweetalert';
-// import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
+import { removeVolunteerMethod } from '../../api/user/volunteer/VolunteerProfileCollection.methods';
 import { decode } from '../utilities/ImageDecode';
 
 /** Renders individual card of volunteer profiles that admin can view. */
 const AdminViewVolunteers = ({ doc }) => {
 
   const [open, closed] = useState(false);
-  const alert = () => {
+  const removeVolunteer = () => {
+    const docID = doc._id;
+    removeVolunteerMethod.callPromise(docID)
+      .catch(error => swal('Deletion unsuccessful', error.message, 'error'))
+      .then(() => swal('Deletion successful', 'Document has been removed', 'success'));
     closed(false);
-    setTimeout(() => {
-      swal('Document Removed', 'Process completed', 'success');
-    }, 10);
-    // VolunteerProfiles.removeIt(doc);
   };
-  const modal = (
+  const modalVolunteer = (
     <Modal
       onClose={() => closed(false)}
       onOpen={() => closed(true)}
       open={open}
-      trigger={<Button color='red' size='tiny'><Icon name='trash'/>Delete</Button>}>
+      trigger={<Button color='red' size='small'><Icon name='trash'/>Delete</Button>}>
       <Header>Confirm Deletion</Header>
       <Modal.Content>
         <Grid container centered verticalAlign='middle' rows={2}>
@@ -29,7 +29,7 @@ const AdminViewVolunteers = ({ doc }) => {
             <Icon name='warning circle' size='huge' color='yellow'/>
           </Grid.Row>
           <Grid.Row>
-            <Header as='h1'>Are you sure you want to delete this document?</Header>
+            <Header as='h1'>Are you sure you want to delete this volunteer from the system?</Header>
           </Grid.Row>
         </Grid>
       </Modal.Content>
@@ -39,7 +39,7 @@ const AdminViewVolunteers = ({ doc }) => {
             <Button negative size='huge' content='Cancel'
               onClick={() => closed(false)}/>
             <Button positive size='huge' content='Delete Document'
-              onClick={() => alert()}/>
+              onClick={() => removeVolunteer()}/>
           </Grid.Row>
         </Grid>
       </Modal.Actions>
@@ -60,12 +60,11 @@ const AdminViewVolunteers = ({ doc }) => {
       <Card.Content extra>
         <Button
           color='grey'
-          size='tiny'
+          size='small'
           as='a'
           href={`#/volunteer-profile/${doc._id}`}>
           <Icon name='eye'/>View</Button>
-        <Button color='orange' size='tiny'><Icon name='pencil'/>Edit</Button>
-        {modal}
+        {modalVolunteer}
       </Card.Content>
     </Card>
   );

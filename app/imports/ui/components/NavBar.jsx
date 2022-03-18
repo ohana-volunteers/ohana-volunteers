@@ -24,7 +24,10 @@ const NavBar = ({ role, currentUser }) => {
       {(role !== ROLE.ORGANIZATION) ?
         <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organizations</Menu.Item> : ''}
       {(role === ROLE.ADMIN) ?
-        <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Opportunities</Menu.Item> : ''}
+        <React.Fragment>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Opportunities</Menu.Item>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_ADMIN_HOME} as={NavLink} exact to="/admin-home" key='admin-home'>Admin Dashboard</Menu.Item>
+        </React.Fragment> : ''}
       {(!role || role === ROLE.VOLUNTEER) ?
         <React.Fragment>
           <Menu.Item id={COMPONENT_IDS.NAVBAR_COMMUNITY_EVENT} as={NavLink} activeClassName="active" exact to="/event" key='event' >Calendar</Menu.Item>
@@ -47,8 +50,7 @@ const NavBar = ({ role, currentUser }) => {
               {(role === ROLE.ADMIN) ?
                 // Admin drop-down options
                 <React.Fragment>
-                  <Dropdown.Item text="Home (Admin)" as={NavLink} exact to ="/admin-home"/>
-                  <Dropdown.Item text="Sign up new organization" as={NavLink} exact to="/org-signup"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN_SIGN_UP_ORGANIZATION} text="Sign up new organization" as={NavLink} exact to="/org-signup"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/add-opportunity"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
