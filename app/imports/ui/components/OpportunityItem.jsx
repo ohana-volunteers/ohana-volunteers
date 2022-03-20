@@ -36,10 +36,10 @@ const OpportunityItem = ({ opp, user }) => (
     {(user === 'admin@foo.com') ?
       <Card.Content extra>
         <Button basic color='green' size='tiny' href={`#/event-page/${opp._id}`}>
-          <Icon name='linkify' />
+          <Icon name='eye' />
           View
         </Button>
-        <Button basic color='blue' size='tiny'>
+        <Button basic color='blue' size='tiny' href={`#/edit/${opp._id}`}>
           <Icon name='edit' />
             Edit
         </Button>
