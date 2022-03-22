@@ -129,7 +129,7 @@
 }
 
 .ui.line.segment {
-  border : 3px solid #aee8fa !important;
+  border : 3px solid rgba(1, 182, 182, 0.5) !important;
   width: 1155px;
   margin-bottom: 60px!important;
 }
