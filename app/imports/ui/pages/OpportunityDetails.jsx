@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Card, Image, Loader, Container, Icon, List, Button, Segment, Divider } from 'semantic-ui-react';
+import { Grid, Card, Image, Loader, Container, Icon, List, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
@@ -16,7 +16,7 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.OPPORTUNITY_DETAILS}>
     <Card fluid>
       {/* Temp image */}
-      <Image className="volunteer-bg-banner" src="https://volunteerally.org/wp-content/uploads/2021/08/va-default-header_v2.jpg"/>
+      <Image className="volunteer-bg-banner" src="/images/default_opp_header.jpeg"/>
       <Card.Content>
         <Grid container row={1}>
           <Grid.Row columns={2}>
@@ -74,7 +74,7 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
           <Grid.Column>
             <Card fluid>
               <Card.Content>
-                <Card.Header><Icon name="map "/> Address </Card.Header>
+                <Card.Header><Icon name="map"/> Address </Card.Header>
               </Card.Content>
               <Card.Content>
                 <List size="big">
