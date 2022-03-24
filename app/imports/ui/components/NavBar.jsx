@@ -24,16 +24,15 @@ const NavBar = ({ role, currentUser }) => {
       {(role !== ROLE.ORGANIZATION) ?
         <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organizations</Menu.Item> : ''}
       {(role === ROLE.ADMIN) ?
-        <React.Fragment>
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Opportunities</Menu.Item>
-          <Menu.Item id={COMPONENT_IDS.NAVBAR_ADMIN_HOME} as={NavLink} exact to="/admin-home" key='admin-home'>Admin Dashboard</Menu.Item>
-        </React.Fragment> : ''}
+        <Menu.Item id={COMPONENT_IDS.NAVBAR_ADMIN_HOME} as={NavLink} exact to="/admin-home" key='admin-home'>Admin Dashboard</Menu.Item> : ''}
       {(!role || role === ROLE.VOLUNTEER) ?
         <React.Fragment>
           <Menu.Item id={COMPONENT_IDS.NAVBAR_COMMUNITY_EVENT} as={NavLink} activeClassName="active" exact to="/event" key='event' >Calendar</Menu.Item>
+          <Menu.Item id={COMPONENT_IDS.NAVBAR_BROWSE_OPPORTUNITIES} as={NavLink} exact to="/browse-opportunities" key='browse'>Opportunities</Menu.Item>
           <Menu.Item id={COMPONENT_IDS.NAVBAR_ABOUT_US} as={NavLink} exact to="/about-us" key='aboutUs'>About Us</Menu.Item>
         </React.Fragment> : ''}
-      {(role) ?
+      {/* If we have a defined role, show the signed in user and dropdown */}
+      {(currentUser) ?
         <Menu.Item key="user">
           <Image src="/images/va-logo/VA-logo-circle-v5.svg" avatar/>
           <Dropdown id={COMPONENT_IDS.NAVBAR_CURRENT_USER} text={currentUser} pointing="top right">
@@ -45,7 +44,6 @@ const NavBar = ({ role, currentUser }) => {
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_LIST_HOURS} text="Tracked Hours" as={NavLink} exact to="/listhours"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
-                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
                 </React.Fragment> : ''}
               {(role === ROLE.ADMIN) ?
                 // Admin drop-down options
@@ -53,17 +51,15 @@ const NavBar = ({ role, currentUser }) => {
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_ADMIN_DROPDOWN_SIGN_UP_ORGANIZATION} text="Sign up new organization" as={NavLink} exact to="/org-signup"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/add-opportunity"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
-                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
                 </React.Fragment> : ''}
               {(role === ROLE.ORGANIZATION) ?
                 // Org drop-down options
                 <React.Fragment>
-                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE} text="My Profile" as={NavLink} exact to="/my-profile"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ADD_OPPORTUNITY} text="Add Opportunity" as={NavLink} exact to="/add-opportunity"/>
-                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} text="My Organization Profile" as={NavLink} exact to="/notfound"/>
+                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_MY_ORGANIZATION_PROFILE} text="My Organization Profile" as={NavLink} exact to="/my-organization-profile"/>
                   <Dropdown.Item id={COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS} text="Account Settings" as={NavLink} exact to="/notfound"/>
-                  <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
                 </React.Fragment> : ''}
+              <Dropdown.Item id={COMPONENT_IDS.NAVBAR_SIGN_OUT} icon="sign out" text="Logout" as={NavLink} exact to="/signout"/>
             </Dropdown.Menu>
           </Dropdown>
         </Menu.Item> :
@@ -81,7 +77,6 @@ NavBar.propTypes =
 {
   role: PropTypes.string,
   currentUser: PropTypes.string,
-  ready: PropTypes.bool.isRequired,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
@@ -94,10 +89,12 @@ const NavBarContainer = withTracker(() => {
   const subscriptionOrg = Organizations.subscribe();
   const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready();
   // Get the document
-  const doc = (ready) ? AdminProfiles.findOne({ email: currentUser })
-    || VolunteerProfiles.findOne({ email: currentUser })
-    || Organizations.findOne({ email: currentUser }) : undefined;
-  const role = (doc) ? doc.role : undefined;
+  let role;
+  if (ready) {
+    if (AdminProfiles.findOne({ email: currentUser })) role = ROLE.ADMIN;
+    if (VolunteerProfiles.findOne({ email: currentUser })) role = ROLE.VOLUNTEER;
+    if (Organizations.findOne({ owner: currentUser })) role = ROLE.ORGANIZATION;
+  }
   return {
     role,
     currentUser,

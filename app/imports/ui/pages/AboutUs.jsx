@@ -147,7 +147,7 @@ const AboutUs = () => (
       <Header as='h1'>Ready to Get Started?</Header>
     </Grid.Row>
     <Grid.Row centered>
-      <p>Sign up now as a volunteer or organization</p>
+      <p>Sign up now as a volunteer!</p>
     </Grid.Row>
     <Grid.Row centered>
       <Button as={NavLink} activeClassName="active" exact to='/signup'>Get Started</Button>
