@@ -10,7 +10,7 @@ import { removeItMethod } from '../../api/base/BaseCollection.methods';
 import { decode } from '../utilities/ImageDecode';
 
 const OpportunityItem = ({ opp, user }) => (
-  <Card href={(user === 'admin@foo.com') ? '' : `#/event-page/${opp._id}`} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
+  <Card href={(user === 'admin@foo.com') ? '' : `#/opportunity-page/${opp._id}`} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
     <Label color='blue' ribbon >
       <p>
         From {opp.date.start.toISOString().slice(0, 10).concat('  ')}
@@ -35,7 +35,7 @@ const OpportunityItem = ({ opp, user }) => (
     {/* Only display the edit button if logged in as admin */}
     {(user === 'admin@foo.com') ?
       <Card.Content extra>
-        <Button basic color='green' size='tiny' href={`#/event-page/${opp._id}`}>
+        <Button basic color='green' size='tiny' href={`#/opportunity-page/${opp._id}`}>
           <Icon name='linkify' />
           View
         </Button>
