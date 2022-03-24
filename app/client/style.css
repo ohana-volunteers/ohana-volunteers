@@ -7,20 +7,37 @@
   margin-bottom: 3rem;
 }
 
-.ohana-landing-background {
-  background-image: url('');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50%;
-  height: 500px;
+.landing-top-image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
-.ohana-home-background {
-  background-image: url('');
-  height: 1100px;
-  background-position: center;
+.landing-background {
+  background-color: rgba(0, 255, 255, .1)
+}
+
+.landing-top-wrap {
+  position: relative;
+}
+
+.landing-top-wrap:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-image: url('images/Landing-top.jpg');
   background-repeat: no-repeat;
+  background-position: 100% 0;
   background-size: cover;
+}
+
+.landing-top-content {
   position: relative;
 }
 
@@ -42,12 +59,26 @@
   position: relative;
 }
 
-.ohana-bo-background {
-  background-image: url('images/BO.png');
-  height: 200px;
-  background-position: center;
+.get-started-wrap {
+  position: relative;
+}
+
+.get-started-wrap:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-image: url('images/Landing-top.jpg');
   background-repeat: no-repeat;
+  background-position: 100% 0;
   background-size: cover;
+}
+
+.get-started-content {
   position: relative;
 }
 

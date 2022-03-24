@@ -13,3 +13,14 @@ export const signUpNewVolunteerMethod = new ValidatedMethod({
     }
   },
 });
+
+export const removeVolunteerMethod = new ValidatedMethod({
+  name: 'VolunteerProfiles.RemoveIt',
+  mixins: [CallPromiseMixin],
+  validate: null,
+  run(profileID) {
+    if (Meteor.isServer) {
+      VolunteerProfiles.removeIt(profileID);
+    }
+  },
+});

@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 import { OpportunityEnvironment, OpportunityAge } from '../opportunities/OpportunityCollection';
-import { getVolunteerCategoryNames } from './VolunteerCategories';
+import { volunteerCategories } from './VolunteerCategories';
 
 export const searchForm = new SimpleSchema({
   categories: {
@@ -10,7 +10,7 @@ export const searchForm = new SimpleSchema({
   },
   'categories.$': {
     type: String,
-    allowedValues: getVolunteerCategoryNames,
+    allowedValues: Object.keys(volunteerCategories),
   },
   orderBy: {
     type: String,

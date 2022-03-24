@@ -7,9 +7,10 @@ import { volunteerCategories } from '../../api/utilities/VolunteerCategories';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { removeItMethod } from '../../api/base/BaseCollection.methods';
+import { decode } from '../utilities/ImageDecode';
 
 const OpportunityItem = ({ opp, user }) => (
-  <Card href={(user === 'admin@foo.com') ? '' : opp.url} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
+  <Card href={(user === 'admin@foo.com') ? '' : `#/event-page/${opp._id}`} id={COMPONENT_IDS.OPPORTUNITY_ITEM} color='blue'>
     <Label color='blue' ribbon >
       <p>
         From {opp.date.start.toISOString().slice(0, 10).concat('  ')}
@@ -20,7 +21,7 @@ const OpportunityItem = ({ opp, user }) => (
       </p>
     </Label>
     <Card.Content>
-      <Image size='tiny' src={opp.img} />
+      <Image size='tiny' src={decode(opp.img)} />
       <Card.Header>{opp.organization}</Card.Header>
       <Card.Meta> <Icon name='map marker alternate'/>{opp.address}</Card.Meta>
       <Card.Description>{opp.event}</Card.Description>
@@ -34,7 +35,7 @@ const OpportunityItem = ({ opp, user }) => (
     {/* Only display the edit button if logged in as admin */}
     {(user === 'admin@foo.com') ?
       <Card.Content extra>
-        <Button basic color='green' size='tiny'>
+        <Button basic color='green' size='tiny' href={`#/event-page/${opp._id}`}>
           <Icon name='linkify' />
           View
         </Button>
@@ -71,7 +72,6 @@ const OpportunityItem = ({ opp, user }) => (
 OpportunityItem.propTypes = {
   opp: PropTypes.shape({
     _id: PropTypes.string,
-    url: PropTypes.string,
     date: PropTypes.object,
     img: PropTypes.string,
     organization: PropTypes.string,

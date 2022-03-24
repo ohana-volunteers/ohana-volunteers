@@ -10,6 +10,8 @@ export const COMPONENT_IDS = {
   NAVBAR_ORGANIZATION_LIBRARY: 'navbar-organization-library',
   NAVBAR_COMMUNITY_EVENT: 'navbar-community-events',
   NAVBAR_ABOUT_US: 'navbar-about-us',
+  NAVBAR_ADMIN_HOME: 'navbar-admin-home',
+  NAVBAR_ADMIN_DROPDOWN_SIGN_UP_ORGANIZATION: 'navbar-admin-dropdown-sign-up-organization',
   NAVBAR_DROPDOWN_ADD_OPPORTUNITY: 'navbar-dropdown-add-opportunity',
   NAVBAR_DROPDOWN_MY_OPPORTUNITY: 'navbar-dropdown-my-opportunity',
   NAVBAR_DROPDOWN_MY_PROFILE: 'navbar-dropdown-my-profile',

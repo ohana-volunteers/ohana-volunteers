@@ -3,7 +3,6 @@ import { Grid, Header, Card, Button, Image, List, Loader, Container } from 'sema
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
@@ -13,7 +12,7 @@ import { decode } from '../utilities/ImageDecode';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
-const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
+const MyVolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
     <Card fluid>
       <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
@@ -46,7 +45,7 @@ const VolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
   </Container>
 ) : <Loader active>Getting data</Loader>);
 
-VolunteerProfile.propTypes = {
+MyVolunteerProfile.propTypes = {
   currentUser: PropTypes.string,
   doc: PropTypes.object,
   ready: PropTypes.bool.isRequired,
@@ -55,13 +54,11 @@ VolunteerProfile.propTypes = {
 export default withTracker(() => {
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   const subscription = VolunteerProfiles.subscribe();
-  const { _id } = useParams();
-  const documentId = _id;
   const ready = subscription.ready();
-  const doc = (ready) ? VolunteerProfiles.findDoc(documentId) : undefined;
+  const doc = (ready) ? VolunteerProfiles.findDoc({ email: currentUser }) : undefined;
   return {
     currentUser,
     doc,
     ready,
   };
-})(VolunteerProfile);
+})(MyVolunteerProfile);
