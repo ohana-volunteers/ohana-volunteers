@@ -15,8 +15,13 @@ function createUser(data) {
     VolunteerProfiles.define(data);
   } else if (data.role === ROLE.ORGANIZATION) { // if user account belongs to organization
     const profile = data.profile;
-    profile.categories = data.categories.map((key) => volunteerCategories[key].name);
-    Organizations.define({ data, profile });
+    const user = {
+      email: data.email,
+      password: data.password,
+      role: data.role,
+    };
+    profile.categories = data.profile.categories.map((key) => volunteerCategories[key].name);
+    Organizations.define({ user, profile });
   }
   // New user is created in the respective define methods
   // Meteor.users.insert(data);
