@@ -56,7 +56,17 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
           <Grid.Column>
             <Card fluid>
               <Card.Content>
-                <Card.Header> Categories <Icon name="map outline"/></Card.Header>
+                <Card.Header><Icon name="map "/> Address </Card.Header>
+              </Card.Content>
+              <Card.Content>
+                <List size="big">
+                  <List.Item>{doc.address}</List.Item>
+                </List>
+              </Card.Content>
+            </Card>
+            <Card fluid>
+              <Card.Content>
+                <Card.Header><Icon name="columns"/> Categories </Card.Header>
               </Card.Content>
               <Card.Content>
                 <List as="ul" size="big">
@@ -66,7 +76,7 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
             </Card>
             <Card fluid>
               <Card.Content>
-                <Card.Header> Environment <Icon name="tree"/></Card.Header>
+                <Card.Header><Icon name="tree"/> Environment</Card.Header>
               </Card.Content>
               <Card.Content>
                 <List as="ul" size="big">
@@ -76,7 +86,7 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
             </Card>
             <Card fluid>
               <Card.Content>
-                <Card.Header> Age Group <Icon name="man"/></Card.Header>
+                <Card.Header><Icon name="user"/> Age Group</Card.Header>
               </Card.Content>
               <Card.Content>
                 <List as="ul" size="big">
@@ -84,7 +94,8 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
                 </List>
               </Card.Content>
             </Card>
-            <Button primary fluid size="large">Contact Organization Hosts</Button>
+            {/* Button currently non-functional */}
+            <Button primary fluid size="large">Register With Organization Host</Button>
           </Grid.Column>
         </Grid>
       </Card.Content>
