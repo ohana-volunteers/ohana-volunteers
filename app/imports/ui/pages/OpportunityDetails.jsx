@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Card, Image, Loader, Container, Icon, List, Button } from 'semantic-ui-react';
+import { Grid, Card, Image, Loader, Container, Icon, List, Button, Segment, Divider } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
@@ -40,18 +40,36 @@ const OpportunityDetails = ({ doc, ready }) => ((ready) ? (
       <Card.Content>
         <Grid columns={2}>
           <Grid.Column>
-            <Map
-              initialViewState={{
-                latitude: doc.coordinates.lat,
-                longitude: doc.coordinates.log,
-                zoom: 14,
-              }}
-              style={{ width: 500, height: 500 }}
-              mapStyle="mapbox://styles/mapbox/streets-v9"
-              mapboxAccessToken={MAPBOX_TOKEN}
-            >
-              <Marker longitude={doc.coordinates.log} latitude={doc.coordinates.lat} color="red"/>
-            </Map>
+            <Grid.Row style={{ paddingBottom: '5px' }}>
+              <Button color='blue' size="small" href={`https://www.google.com/maps/place/${doc.address}`}>
+                <Icon name='map' />
+              Get Direction
+              </Button>
+            </Grid.Row>
+            <Grid.Row >
+              {(doc.coordinates) ? (
+                <Map
+                  initialViewState={{
+                    latitude: doc.coordinates.lat,
+                    longitude: doc.coordinates.log,
+                    zoom: 14,
+                  }}
+                  style={{ width: 500, height: 400 }}
+                  mapStyle="mapbox://styles/mapbox/streets-v9"
+                  mapboxAccessToken={MAPBOX_TOKEN}
+                >
+                  <Marker longitude={doc.coordinates.log} latitude={doc.coordinates.lat} color="red"/>
+                </Map>) : (<Map
+                initialViewState={{
+                  latitude: 21.315603,
+                  longitude: -157.858093,
+                  zoom: 14,
+                }}
+                style={{ width: 500, height: 400 }}
+                mapStyle="mapbox://styles/mapbox/streets-v9"
+                mapboxAccessToken={MAPBOX_TOKEN}
+              />)}
+            </Grid.Row>
           </Grid.Column>
           <Grid.Column>
             <Card fluid>

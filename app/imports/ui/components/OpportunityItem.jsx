@@ -39,7 +39,7 @@ const OpportunityItem = ({ opp, user }) => (
           <Icon name='linkify' />
           View
         </Button>
-        <Button basic color='blue' size='tiny'>
+        <Button basic color='blue' size='tiny' href={`#/edit/${opp._id}`}>
           <Icon name='edit' />
             Edit
         </Button>
