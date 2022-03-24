@@ -21,5 +21,6 @@ export const PAGE_IDS = {
   COMMUNITY_EVENT: 'community-event',
   ORGANIZATION_LIBRARY: 'organization-library',
   ADD_OPPORTUNITY: 'add-opportunity',
+  EDIT_OPPORTUNITY: 'edit-opportunity',
   COMMNUITY_EVENT: 'CommunityEvent',
 };

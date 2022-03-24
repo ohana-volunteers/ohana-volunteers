@@ -9,7 +9,7 @@ import OpportunityItem from '../components/OpportunityItem';
 import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 
 const toDate = new Date();
-const headerStyle = { color: 'white', backgroundColor: '#2BCAF8', padding: 10 };
+const headerStyle = { color: 'white', backgroundColor: 'teal', padding: 10 };
 // const buttonStyle = { color: 'black', backgroundColor: 'white', borderRadius: 3, padding: 5, borderColor: 'blue' };
 
 const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser }) => {
