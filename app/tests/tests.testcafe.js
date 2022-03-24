@@ -26,19 +26,23 @@ test('Test that landing page shows up', async () => {
   await landingPage.isDisplayed();
 });
 
-test('Test that sign in and sign out work for each role', async () => {
+test('Test that sign in and sign out work for volunteer', async () => {
   await navBar.gotoSigninPage();
   await signInPage.signin(volunteer.username, volunteer.password);
   await navBar.isLoggedIn(volunteer.username);
   await navBar.logout();
   await signOutPage.isDisplayed();
+});
 
+test('Test that sign in and sign out work for admin', async () => {
   await navBar.gotoSigninPage();
   await signInPage.signin(admin.username, admin.password);
   await navBar.isLoggedIn(admin.username);
   await navBar.logout();
   await signOutPage.isDisplayed();
+});
 
+test('Test that sign in and sign out work for organization', async () => {
   await navBar.gotoSigninPage();
   await signInPage.signin(organization.username, organization.password);
   await navBar.isLoggedIn(organization.username);

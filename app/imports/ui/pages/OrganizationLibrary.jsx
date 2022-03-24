@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
+import { PAGE_IDS } from '../utilities/PageIDs';
 
 const container1Style = { backgroundColor: 'teal', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
 const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-73px' };
@@ -24,7 +25,7 @@ const marginTop = { marginTop: '100px' };
 
 const OrganizationLibrary = ({ orgs, ready }) => (
 
-  <div style={bodyStyle}>
+  <Container fluid style={bodyStyle} id={PAGE_IDS.ORGANIZATION_LIBRARY}>
     <Divider style={container1Style}>
       <Container textAlign='center'>
         <Item.Header as="h1" style={textStyle}> Organization Library </Item.Header>
@@ -114,7 +115,7 @@ const OrganizationLibrary = ({ orgs, ready }) => (
         <Link to={'/signup'}> <Icon name='handshake outline' size='huge'/></Link>
       </Grid.Column>
     </Grid>
-  </div>
+  </Container>
 );
 
 // Require an array of documents in the props.

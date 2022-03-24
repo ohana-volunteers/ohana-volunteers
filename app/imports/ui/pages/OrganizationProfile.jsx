@@ -64,13 +64,18 @@ OrganizationProfile.propTypes = {
 export default withTracker(() => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
   const { _id } = useParams();
-  const documentId = _id;
+  // Get the current user
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
   const subscription = Organizations.subscribe();
   const ready = subscription.ready();
   // Get the document
-  const doc = (ready) ? Organizations.findDoc(documentId) : undefined;
-  // Get the current user
-  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  let doc;
+  if (_id) {
+    doc = (ready) ? Organizations.findDoc(_id) : undefined;
+  } else {
+    // if no docID provided in URL, use the one for the current user
+    doc = (ready) ? Organizations.findDoc({ owner: currentUser }) : undefined;
+  }
   return {
     doc,
     currentUser,
