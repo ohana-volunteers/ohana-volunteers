@@ -164,7 +164,6 @@ const OrganizationLibrary = () => (
         <Link to={'/signup'}> <Icon name='handshake outline' size='huge'/></Link>
       </Grid.Column>
     </Grid>
-
   </div>
 );
 

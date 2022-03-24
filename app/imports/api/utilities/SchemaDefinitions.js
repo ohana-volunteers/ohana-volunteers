@@ -3,7 +3,7 @@ import { getVolunteerCategoryNames } from './VolunteerCategories';
 
 export const orgPublicationStatus = ['hidden', 'public'];
 
-export const organizationProfileSchema = new SimpleSchema({
+export const userSchema = new SimpleSchema({
   email: {
     type: String,
     optional: false,
@@ -13,6 +13,12 @@ export const organizationProfileSchema = new SimpleSchema({
     optional: false,
   },
   role: {
+    type: String,
+    optional: false,
+  },
+});
+export const organizationProfileSchema = new SimpleSchema({
+  owner: {
     type: String,
     optional: false,
   },
@@ -28,7 +34,10 @@ export const organizationProfileSchema = new SimpleSchema({
     type: String,
     allowedValues: getVolunteerCategoryNames(),
   },
-  location: String,
+  location: {
+    type: String,
+    optional: true,
+  },
   mailing_address: {
     type: String,
     optional: true,
@@ -45,12 +54,18 @@ export const organizationProfileSchema = new SimpleSchema({
     type: String,
     optional: true,
   },
-  contact: Object,
+  contact: {
+    type: Object,
+    optional: true,
+  },
   'contact.name': {
     type: String,
     optional: true,
   },
-  'contact.email': String,
+  'contact.email': {
+    type: String,
+    optional: true,
+  },
   'contact.address': {
     type: String,
     optional: true,

@@ -14,11 +14,12 @@ function createUser(data) {
   } else if (data.role === ROLE.VOLUNTEER) { // if user signs up as a volunteer
     VolunteerProfiles.define(data);
   } else if (data.role === ROLE.ORGANIZATION) { // if user account belongs to organization
-    const newData = data;
-    newData.categories = data.categories.map((key) => volunteerCategories[key].name);
-    Organizations.define(data);
+    const profile = data.profile;
+    profile.categories = data.categories.map((key) => volunteerCategories[key].name);
+    Organizations.define({ data, profile });
   }
-  Meteor.users.insert(data);
+  // New user is created in the respective define methods
+  // Meteor.users.insert(data);
 }
 
 // When running app for first time, pass a settings file to set up a default user account.
