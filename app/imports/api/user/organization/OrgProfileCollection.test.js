@@ -24,15 +24,14 @@ if (Meteor.isServer) {
         fc.property(fc.lorem({ maxCount: 1 }), fc.lorem({ maxCount: 1 }),
           () => {
             const user = {
-              username: faker.internet.email(),
+              email: faker.internet.email(),
               password: faker.internet.password(),
             };
             const profile = {
               name: faker.lorem.words(),
               categories: getVolunteerCategoryNames().sort(() => 0.5 - Math.random()).slice(0, 2),
-              owner: user.username,
             };
-            const docID = Organizations.define(user, profile);
+            const docID = Organizations.define({ user, profile });
             expect(Organizations.isDefined(docID)).to.be.true;
             Organizations.removeIt(docID);
             expect(Organizations.isDefined(docID)).to.be.false;

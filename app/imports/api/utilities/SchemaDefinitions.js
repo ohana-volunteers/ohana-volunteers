@@ -54,7 +54,10 @@ export const organizationProfileSchema = new SimpleSchema({
     type: String,
     optional: true,
   },
-  contact: Object,
+  contact: {
+    type: Object,
+    optional: true,
+  },
   'contact.name': {
     type: String,
     optional: true,

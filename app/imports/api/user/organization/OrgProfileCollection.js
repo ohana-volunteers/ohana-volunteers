@@ -23,8 +23,11 @@ class OrgProfileCollection extends BaseCollection {
    */
   define({ user, profile }) {
     if (Meteor.isServer) {
-      const newUser = user;
-      newUser.role = ROLE.ORGANIZATION;
+      const newUser = {
+        username: user.email,
+        role: ROLE.ORGANIZATION,
+        password: user.password,
+      };
       const existingUser = Meteor.users.findOne({ username: user.email });
       if (!existingUser) {
         const userID = Users.define(newUser);
