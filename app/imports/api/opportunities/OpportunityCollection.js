@@ -25,6 +25,7 @@ class OpportunityCollection extends BaseCollection {
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
    * @param address  the address of the item.
+   * @param description  the description of the item.
    * @param coordinates  the coordinates of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
@@ -32,12 +33,13 @@ class OpportunityCollection extends BaseCollection {
    * @param age  the age group of the item.
    * @return {String} the docID of the new document.
    */
-  define({ date, img, organization, address, coordinates, event, categories, environment, age }) {
+  define({ date, img, organization, address, description, coordinates, event, categories, environment, age }) {
     const docID = this._collection.insert({
       date,
       img,
       organization,
       address,
+      description,
       coordinates,
       event,
       categories,
@@ -55,18 +57,20 @@ class OpportunityCollection extends BaseCollection {
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
    * @param address  the address of the item.
+   * @param description  the description of the item.
    * @param coordinates  the coordinates of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
    * @param age  the age group of the item.
    */
-  update(docID, { date, img, organization, address, coordinates, event, categories, environment, age }) {
+  update(docID, { date, img, organization, address, description, coordinates, event, categories, environment, age }) {
     const updateData = {};
     if (date)updateData.date = date;
     if (img) updateData.img = img;
     if (organization) updateData.organization = organization;
     if (address) updateData.address = address;
+    if (description) updateData.description = description;
     if (coordinates) updateData.coordinates = address;
     if (event) updateData.event = event;
     if (categories) updateData.categories = categories;
@@ -178,12 +182,13 @@ class OpportunityCollection extends BaseCollection {
     const img = doc.img;
     const organization = doc.organization;
     const address = doc.address;
+    const description = doc.description;
     const coordinates = doc.coordinates;
     const event = doc.event;
     const categories = doc.categories;
     const environment = doc.environment;
     const age = doc.age;
-    return { date, img, organization, address, coordinates, event, categories, environment, age };
+    return { date, img, organization, address, description, coordinates, event, categories, environment, age };
   }
 }
 

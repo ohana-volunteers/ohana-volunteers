@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Loader, Header, Segment, Divider, Icon, Form, Container } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { AutoForm, DateField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, DateField, ErrorsField, LongTextField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -58,6 +58,7 @@ const EditOpportunity = ({ doc, ready }) => {
                 <TextField name='organization' />
               </Form.Group>
               <TextField name='address'/>
+              <LongTextField name='description'/>
               <ImageUploadField name='img' label='Opportunity Picture'/>
             </Segment>
 

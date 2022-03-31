@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Segment, Header, Icon, Form, Divider, Container } from 'semantic-ui-react';
-import { AutoForm, DateField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, DateField, ErrorsField, NumField, SubmitField, TextField, LongTextField } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -22,11 +22,11 @@ const AddOpportunity = () => {
 
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { date, img, organization, address, coordinates, event, categories, environment, age } = data;
+    const { date, img, organization, address, description, coordinates, event, categories, environment, age } = data;
     // const owner = Meteor.user().username;
     const url = Meteor.user().username;
     const collectionName = Opportunities.getCollectionName();
-    const definitionData = { url, date, img, organization, address, coordinates, event, categories, environment, age };
+    const definitionData = { url, date, img, organization, address, description, coordinates, event, categories, environment, age };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -66,6 +66,7 @@ const AddOpportunity = () => {
                 <TextField name='organization' />
               </Form.Group>
               <TextField name='address'/>
+              <LongTextField name='description' placeholder='Please enter a detailed description of the volunteer opportunity.'/>
               <ImageUploadField name='img' label='Opportunity Picture'/>
             </Segment>
 
