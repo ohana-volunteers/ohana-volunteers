@@ -11,6 +11,7 @@ import {
   listHoursPage,
   accountSettingsPage,
 } from './simple.page';
+import { signUpPage } from './signup.page';
 import { signInPage } from './signin.page';
 import { landingPage } from './landing.page';
 import { navBar } from './navbar.component';
@@ -22,6 +23,20 @@ import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 const volunteer = { username: 'john@foo.com', password: 'changeme' };
 const admin = { username: 'admin@foo.com', password: 'changeme' };
 const organization = { username: 'hawaiifoodbank@foo.com', password: 'changeme' };
+
+// eslint-disable-next-line no-unused-vars
+const volunteerInput = {
+  email: 'jane@foo.com',
+  firstName: 'Jane',
+  lastName: 'Foo',
+  password: 'changeme',
+  address: '2600 Campus Ave.',
+  city: 'Honolulu',
+  state: 'HI',
+  zip: '96822',
+  phone: '(808) 123-4567',
+
+};
 
 // const newOrg = {
 //   username: 'testorg@foo.com', password: 'changeme',
@@ -98,4 +113,9 @@ test('Test that volunteer pages show up', async () => {
   await editVolunteerProfilePage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
+});
+
+test('Test that volunteer forms work', async () => {
+  await navBar.gotoSignupPage();
+  await signUpPage.signUpVolunteer(volunteerInput);
 });
