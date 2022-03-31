@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Loader, Header, Segment, Divider, Icon, Form, Container } from 'semantic-ui-react';
 import swal from 'sweetalert';
 import { AutoForm, DateField, ErrorsField, LongTextField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { useParams } from 'react-router';
@@ -17,27 +18,29 @@ import RadioField from '../components/form-fields/RadioField';
 const bridge = new SimpleSchema2Bridge(Opportunities._schema);
 
 /** Renders the Page for editing a single document. */
-const EditOpportunity = ({ doc, ready }) => {
-
+const EditOpportunity = ({ doc, ready, location }) => {
+  const [redirectToReferer, setRedirectToReferer] = useState(false);
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { date, img, organization, address, coordinates, event, categories, environment, age } = data;
+    const { date, img, organization, address, description, coordinates, event, categories, environment, age } = data;
     const collectionName = Opportunities.getCollectionName();
-    const updateData = { id: doc._id, date, img, organization, address, coordinates, event, categories, environment, age };
+    const updateData = { id: doc._id, date, img, organization, address, description, coordinates, event, categories, environment, age };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
+    setRedirectToReferer(true);
   };
-  let fRef = null;
+  const { from } = location.state || { from: { pathname: '/admin-home' } };
+  if (redirectToReferer) {
+    return <Redirect to={from} />;
+  }
   return (ready) ? (
     <Container id={PAGE_IDS.EDIT_OPPORTUNITY}>
       <Grid container centered>
         <Grid.Column width={10}>
           <Header as="h2" textAlign="center">Edit Opportunity</Header>
           <Divider/>
-          <AutoForm ref={ref => {
-            fRef = ref;
-          }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+          <AutoForm schema={bridge} onSubmit={data => submit(data)} model={doc}>
             <Segment padded color='blue'>
               <Header as="h4" textAlign="center">
                 <Icon name='calendar outline'/>
@@ -96,6 +99,7 @@ const EditOpportunity = ({ doc, ready }) => {
 // Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use.
 EditOpportunity.propTypes = {
   doc: PropTypes.object,
+  location: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
 

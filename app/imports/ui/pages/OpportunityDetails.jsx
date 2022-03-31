@@ -54,10 +54,11 @@ const OpportunityDetails = ({ doc, orgDoc, ready }) => {
                 <Icon name='map'/>
                 Get Directions
               </Button>
-              <Button color='blue' size="tiny" href={`mailto:${orgDoc.contact.email}`}>
-                <Icon name='mail'/>
+              {(orgDoc) ?
+                <Button color='blue' size="tiny" href={`mailto:${orgDoc.contact.email}`}>
+                  <Icon name='mail'/>
                 Send an Email
-              </Button>
+                </Button> : ''}
               <Button color='blue' size="tiny" href={'#/addhours'}>
                 <Icon name='write'/>
                 Verify Hours
@@ -188,12 +189,15 @@ const OpportunityDetails = ({ doc, orgDoc, ready }) => {
                 </Card.Content>
                 <Card.Content>
                   <List>
-                    <List.Item icon='user' content={orgDoc.contact.name}/>
-                    <List.Item
-                      icon='mail'
-                      content={<a href={`mailto:${orgDoc.contact.email}`}>{orgDoc.contact.email}</a>}
-                    />
-                    <List.Item icon='phone' content={orgDoc.contact.phone}/>
+                    {(orgDoc) ?
+                      <List.Item icon='user' content={orgDoc.contact.name}/> : ''}
+                    {(orgDoc) ?
+                      <List.Item
+                        icon='mail'
+                        content={<a href={`mailto:${orgDoc.contact.email}`}>{orgDoc.contact.email}</a>}
+                      /> : ''}
+                    {(orgDoc) ?
+                      <List.Item icon='phone' content={orgDoc.contact.phone}/> : ''}
                   </List>
                 </Card.Content>
               </Card>
@@ -225,10 +229,10 @@ OpportunityDetails.propTypes = {
 
 export default withTracker(() => {
   const subscription = Opportunities.subscribeOpportunity();
-  const subscription2 = Organizations.subscribe();
+  const subscriptionOrg = Organizations.subscribe();
   const { _id } = useParams();
   const documentId = _id;
-  const ready = subscription.ready() && subscription2.ready();
+  const ready = subscription.ready() && subscriptionOrg.ready();
   const doc = (ready) ? Opportunities.findDoc(documentId) : undefined;
   const orgDoc = (ready) ? Organizations.findOne({ name: doc.organization }) : undefined;
   return {

@@ -71,7 +71,7 @@ class OpportunityCollection extends BaseCollection {
     if (organization) updateData.organization = organization;
     if (address) updateData.address = address;
     if (description) updateData.description = description;
-    if (coordinates) updateData.coordinates = address;
+    if (coordinates) updateData.coordinates = coordinates;
     if (event) updateData.event = event;
     if (categories) updateData.categories = categories;
     if (environment) updateData.environment = environment;
