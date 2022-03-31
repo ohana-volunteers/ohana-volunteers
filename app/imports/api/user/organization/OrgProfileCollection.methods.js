@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { CallPromiseMixin } from 'meteor/didericis:callpromise-mixin';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Organizations } from './OrgProfileCollection';
@@ -25,7 +26,13 @@ export const signUpNewOrganizationMethod = new ValidatedMethod({
   mixins: [CallPromiseMixin],
   validate: null,
   run({ user, profile }) {
-    return Organizations.define({ user, profile });
+    if (Meteor.isServer) {
+      // Set the owner to the provided user
+      const newProfile = profile;
+      newProfile.owner = user.email;
+      return Organizations.define({ user, profile: newProfile });
+    }
+    return undefined;
   },
 });
 
