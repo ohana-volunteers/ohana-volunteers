@@ -12,7 +12,14 @@ class NavBar {
     }
   }
 
+  /** Go to page of id */
   async gotoPage(id) {
+    await t.click(`#${id}`);
+  }
+
+  /** Go to page that is within the dropdown menu. */
+  async goToDropDownPage(id) {
+    await t.click(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`);
     await t.click(`#${id}`);
   }
 
@@ -40,7 +47,7 @@ class NavBar {
     await t.click(`#${COMPONENT_IDS.NAVBAR_LOGIN_SIGN_UP}`);
   }
 
-  /** Go to the manage database page. Must be adimin. */
+  /** Go to the manage database page. Must be admin. */
   async gotoManageDatabasePage() {
     await t.expect(Selector(`#${COMPONENT_IDS.NAVBAR_CURRENT_USER}`).exists).ok();
     await t.click(`#${COMPONENT_IDS.NAVBAR_MANAGE_DROPDOWN}`);

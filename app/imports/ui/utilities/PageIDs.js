@@ -7,6 +7,7 @@ export const PAGE_IDS = {
   MANAGE_DATABASE: 'manage-database',
   PRIVACY_POLICY: 'privacy-policy',
   ABOUT_US: 'about-us',
+  MY_VOLUNTEER_PROFILE: 'my-volunteer-profile',
   VOLUNTEER_PROFILE: 'volunteer-profile',
   EDIT_VOLUNTEER_PROFILE: 'edit-volunteer-profile',
   NOT_FOUND: 'not-found',

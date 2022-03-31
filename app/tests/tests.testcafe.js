@@ -1,4 +1,16 @@
-import { signOutPage, aboutUsPage, calendarPage, opportunitiesPage, organizationsPage } from './simple.page';
+import { t } from 'testcafe';
+import {
+  signOutPage,
+  aboutUsPage,
+  calendarPage,
+  opportunitiesPage,
+  organizationsPage,
+  volunteerProfilePage,
+  editVolunteerProfilePage,
+  addHoursPage,
+  listHoursPage,
+  accountSettingsPage,
+} from './simple.page';
 import { signInPage } from './signin.page';
 import { landingPage } from './landing.page';
 import { navBar } from './navbar.component';
@@ -74,6 +86,16 @@ test('Test that volunteer pages show up', async () => {
   await calendarPage.isDisplayed();
   await navBar.gotoPage(COMPONENT_IDS.NAVBAR_ABOUT_US);
   await aboutUsPage.isDisplayed();
+  await navBar.goToDropDownPage(COMPONENT_IDS.NAVBAR_ADD_HOURS);
+  await addHoursPage.isDisplayed();
+  await navBar.goToDropDownPage(COMPONENT_IDS.NAVBAR_LIST_HOURS);
+  await listHoursPage.isDisplayed();
+  await navBar.goToDropDownPage(COMPONENT_IDS.NAVBAR_DROPDOWN_ACCOUNT_SETTINGS);
+  await accountSettingsPage.isDisplayed();
+  await navBar.goToDropDownPage(COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE);
+  await volunteerProfilePage.isDisplayed();
+  await t.click(`#${COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT}`);
+  await editVolunteerProfilePage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
 });

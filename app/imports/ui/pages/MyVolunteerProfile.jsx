@@ -13,7 +13,7 @@ import { decode } from '../utilities/ImageDecode';
 /** A simple component to render some text for the Volunteer Profile page. */
 
 const MyVolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
-  <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
+  <Container id={PAGE_IDS.MY_VOLUNTEER_PROFILE}>
     <Card fluid>
       <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
       <Card.Content>
