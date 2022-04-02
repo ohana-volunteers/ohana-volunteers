@@ -21,7 +21,6 @@ export const opportunitiesPage = new SimplePage(PAGE_IDS.BROWSE_OPPORTUNITIES);
 export const addHoursPage = new SimplePage(PAGE_IDS.ADD_HOURS);
 export const listHoursPage = new SimplePage(PAGE_IDS.LIST_HOURS);
 export const volunteerProfilePage = new SimplePage(PAGE_IDS.MY_VOLUNTEER_PROFILE);
-export const editVolunteerProfilePage = new SimplePage(PAGE_IDS.EDIT_VOLUNTEER_PROFILE);
 export const calendarPage = new SimplePage(PAGE_IDS.COMMUNITY_EVENT);
 export const aboutUsPage = new SimplePage(PAGE_IDS.ABOUT_US);
 export const manageDatabasePage = new SimplePage(PAGE_IDS.MANAGE_DATABASE);

@@ -64,6 +64,7 @@ export const COMPONENT_IDS = {
   VOLUNTEER_PROFILE_EDIT_AVAILABILITY: 'volunteer-profile-edit-availability',
   VOLUNTEER_PROFILE_EDIT_PROFILE_PICTURE: 'volunteer-profile-edit-profile-picture',
   VOLUNTEER_PROFILE_EDIT_BANNER_PICTURE: 'volunteer-profile-edit-banner-picture',
+  VOLUNTEER_PROFILE_EDIT_SUBMIT: 'volunteer-profile-edit-submit',
   ORGANIZATION_PROFILE_EDIT: 'organization-profile-edit',
   LIST_HOURS_EDIT: 'list-hours-edit',
   // ORG_SIGN_UP_FORM_EMAIL: 'org-sign-up-form-email',

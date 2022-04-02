@@ -6,7 +6,6 @@ import {
   opportunitiesPage,
   organizationsPage,
   volunteerProfilePage,
-  editVolunteerProfilePage,
   addHoursPage,
   listHoursPage,
   accountSettingsPage,
@@ -15,6 +14,7 @@ import { signUpPage } from './signup.page';
 import { signInPage } from './signin.page';
 import { landingPage } from './landing.page';
 import { navBar } from './navbar.component';
+import { volunteerProfileEditPage } from './volunteerprofileedit.page';
 import { COMPONENT_IDS } from '../imports/ui/utilities/ComponentIDs';
 
 /* global fixture:false, test:false */
@@ -24,7 +24,6 @@ const volunteer = { username: 'john@foo.com', password: 'changeme' };
 const admin = { username: 'admin@foo.com', password: 'changeme' };
 const organization = { username: 'hawaiifoodbank@foo.com', password: 'changeme' };
 
-// eslint-disable-next-line no-unused-vars
 const volunteerInput = {
   email: 'jane@foo.com',
   firstName: 'Jane',
@@ -32,10 +31,23 @@ const volunteerInput = {
   password: 'changeme',
   address: '2600 Campus Ave.',
   city: 'Honolulu',
+  bio: 'My first bio.',
   state: 'HI',
   zip: '96822',
   phone: '(808) 123-4567',
+};
 
+const updatedVolunteerInput = {
+  email: 'jane@foo.com',
+  firstName: 'Jessica',
+  lastName: 'Fool',
+  password: 'changeme',
+  address: '2600 Campus Road.',
+  city: 'Kapolei',
+  bio: 'My new updated bio.',
+  state: 'HI',
+  zip: '96123',
+  phone: '(808) 987-6543',
 };
 
 // const newOrg = {
@@ -110,14 +122,20 @@ test('Test that volunteer pages show up', async () => {
   await navBar.goToDropDownPage(COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE);
   await volunteerProfilePage.isDisplayed();
   await t.click(`#${COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT}`);
-  await editVolunteerProfilePage.isDisplayed();
+  await volunteerProfileEditPage.isDisplayed();
   await navBar.logout();
   await signOutPage.isDisplayed();
 });
 
 test('Test that volunteer forms work', async () => {
   await navBar.gotoSignupPage();
+  await signUpPage.isDisplayed();
   await signUpPage.signUpVolunteer(volunteerInput);
   await navBar.gotoSigninPage();
   await signInPage.signin(volunteerInput.email, volunteerInput.password);
+  await navBar.goToDropDownPage(COMPONENT_IDS.NAVBAR_DROPDOWN_MY_PROFILE);
+  await volunteerProfilePage.isDisplayed();
+  await t.click(`#${COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT}`);
+  await volunteerProfileEditPage.isDisplayed();
+  await volunteerProfileEditPage.editProfile(updatedVolunteerInput);
 });
