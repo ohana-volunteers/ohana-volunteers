@@ -118,4 +118,6 @@ test('Test that volunteer pages show up', async () => {
 test('Test that volunteer forms work', async () => {
   await navBar.gotoSignupPage();
   await signUpPage.signUpVolunteer(volunteerInput);
+  await navBar.gotoSigninPage();
+  await signInPage.signin(volunteerInput.email, volunteerInput.password);
 });

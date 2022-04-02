@@ -36,8 +36,21 @@ class SignupPage {
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_ZIP}`, newVolunteer.zip);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_PHONE}`, newVolunteer.phone);
     await t.typeText(`#${COMPONENT_IDS.SIGN_UP_FORM_PASSWORD}`, newVolunteer.password);
-    await t.click('#sign-up-form-interests');
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_INTERESTS}`);
+    const selectInterest = Selector('span').withText('Animal Welfare/Rescue');
+    await t.click(selectInterest);
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_INTERESTS}`);
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SKILLS}`);
+    const selectSkill = Selector('span').withText('Agriculture');
+    await t.click(selectSkill);
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SKILLS}`);
     await t.click('#sign-up-form-environmental-preference-Indoor');
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_AVAILABILITY}`);
+    const selectAvailability = Selector('span').withText('One-time');
+    await t.click(selectAvailability);
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_AVAILABILITY}`);
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_TERM}`);
+    await t.click(`#${COMPONENT_IDS.SIGN_UP_FORM_SUBMIT}`);
   }
 }
 
