@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Grid, Header, Message, Form, Segment, Checkbox, Divider } from 'semantic-ui-react';
-import { AutoForm, SubmitField, TextField, RadioField } from 'uniforms-semantic';
-import { Link, Redirect } from 'react-router-dom';
+import { Container, Grid, Header, Segment, Divider } from 'semantic-ui-react';
+import { AutoForm, SubmitField, TextField, RadioField, ErrorsField, HiddenField } from 'uniforms-semantic';
+import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -11,6 +11,7 @@ import { signUpNewOrganizationMethod } from '../../api/user/organization/OrgProf
 import MultiSelect from '../components/form-fields/MultiSelectField';
 import { getVolunteerCategoryNames } from '../../api/utilities/VolunteerCategories';
 import { userSchema, organizationProfileSchema } from '../../api/utilities/SchemaDefinitions';
+import { ROLE } from '../../api/role/Role';
 
 // Create a bridge schema from the organization profile schema
 const bridge = new SimpleSchema2Bridge(new SimpleSchema({
@@ -25,14 +26,10 @@ const bridge = new SimpleSchema2Bridge(new SimpleSchema({
  */
 const OrganizationSignup = ({ location }) => {
   const [redirectToReferer, setRedirectToReferer] = useState(false);
-  const [agreedTerms, setAgreedTerms] = useState(false);
-
-  const onAgreedTerms = () => {
-    setAgreedTerms(!agreedTerms);
-  };
-
   const submit = (data, formRef) => {
-    signUpNewOrganizationMethod.callPromise(data)
+    const user = data.user;
+    const profile = data.profile;
+    signUpNewOrganizationMethod.callPromise({ user, profile })
       .catch(error => {
         swal('Error', error.message, 'error');
         // eslint-disable-next-line no-console
@@ -73,6 +70,7 @@ const OrganizationSignup = ({ location }) => {
             </Header>
             <Segment>
               <TextField type='email' label='Email' name='user.email'/>
+              <HiddenField name='profile.owner' value='admin@foo.com' />
               <TextField type='password' label='Password' name='user.password'/>
             </Segment>
             <Header as="h5" textAlign="center">
@@ -99,18 +97,11 @@ const OrganizationSignup = ({ location }) => {
 
               <RadioField label='Publish Organization Profile? (profile can be edited and published later)' name='profile.status' >
               </RadioField>
-
-              <Form.Field>
-                <Checkbox onChange={onAgreedTerms} label='I agree to the Terms and Conditions' />
-              </Form.Field>
-              {(agreedTerms) ?
-                <SubmitField value='Sign up'/> :
-                <SubmitField value='Sign up' disabled/>}
+              <HiddenField name='user.role' value={ROLE.ORGANIZATION} />
+              <SubmitField value='Sign up'/>
+              <ErrorsField />
             </Segment>
           </AutoForm>
-          <Message>
-            Already have an account? Login <Link to="/signin">here</Link>
-          </Message>
         </Grid.Column>
       </Grid>
     </Container>

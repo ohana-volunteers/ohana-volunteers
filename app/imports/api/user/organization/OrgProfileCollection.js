@@ -34,7 +34,6 @@ class OrgProfileCollection extends BaseCollection {
         Roles.createRole(ROLE.ORGANIZATION, { unlessExists: true });
         Roles.addUsersToRoles(userID, ROLE.ORGANIZATION);
       }
-
       const newProfile = profile;
       newProfile.owner = user.email;
       return this._collection.insert(newProfile);
