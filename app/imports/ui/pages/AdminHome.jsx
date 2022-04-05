@@ -1,7 +1,8 @@
 import React from 'react';
-import { Loader, Header, Container, Tab, Card, Grid, Divider } from 'semantic-ui-react';
+import { Loader, Header, Container, Tab, Card, Grid, Divider, Dropdown, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
@@ -16,6 +17,17 @@ import AdminViewOrganizations from '../components/AdminViewOrganizations';
 
 const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrganizations }) => {
 
+  // const [volunteerOrder, setVOrder] = useState('');
+  // const [orgOrder, setOOrder] = useState('');
+
+  // const handleSelectVolunteer = (e, { value }) => {
+  // setVOrder(value);
+  // };
+
+  // const handleSelectOrg = (e, { value }) => {
+  // setOOrder(value);
+  // };
+
   const panes = [
     // eslint-disable-next-line react/display-name
     { menuItem: 'Volunteers', render: () => <Tab.Pane>
@@ -24,6 +36,18 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
           <Header as='h1'>Manage Volunteers</Header>
         </Grid.Row>
         <Divider/>
+        <Grid.Row centered>
+          <Dropdown
+            text='Sort By'
+            icon='angle down'
+            floating
+            className='icon'>
+            <Dropdown.Menu>
+              <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
+              <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Grid.Row>
         <Grid.Row>
           <Card.Group centered>
             {allVolunteers.map((volunteer) => <AdminViewVolunteers key={volunteer._id} doc={volunteer}/>)}
@@ -38,6 +62,21 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
           <Header as='h1'>Manage Organizations</Header>
         </Grid.Row>
         <Divider/>
+        <Grid.Row centered>
+          <Dropdown
+            text='Sort By'
+            icon='angle down'
+            floating
+            className='icon'>
+            <Dropdown.Menu>
+              <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
+              <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Button primary className='create-org-button' size='small' floated='right' as={NavLink} exact to="/org-signup">
+            Sign-up new organization
+          </Button>
+        </Grid.Row>
         <Grid.Row>
           <Card.Group centered>
             {allOrganizations.map((organization) => <AdminViewOrganizations key={organization._id} doc={organization}/>)}
