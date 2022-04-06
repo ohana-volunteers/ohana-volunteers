@@ -17,19 +17,34 @@ import AdminViewOrganizations from '../components/AdminViewOrganizations';
 const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrganizations }) => {
 
   const [volunteerSearch, setVSearch] = useState('');
+  const [orgSearch, setOrgSearch] = useState('');
 
-  const searchInput = (input) => {
+  const searchInputVolunteer = (input) => {
     setVSearch(input);
+  };
+
+  const searchInputOrg = (input) => {
+    setOrgSearch(input);
   };
 
   const searchResultVolunteer = allVolunteers.filter((val) => {
     if (volunteerSearch === '') {
       return val;
     }
-
     return val.firstName.toLowerCase().includes(volunteerSearch);
-
   });
+
+  const searchResultOrg = allOrganizations.filter((val) => {
+    if (orgSearch === '') {
+      return val;
+    }
+    return val.name.toLowerCase().includes(orgSearch);
+  });
+
+  const clearInputs = () => {
+    setVSearch('');
+    setOrgSearch('');
+  };
 
   const panes = [
     // eslint-disable-next-line react/display-name
@@ -44,7 +59,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
             <Input
               icon='search'
               placeholder="Search Volunteers"
-              onChange={(e) => searchInput(e.target.value)}/>
+              onChange={(e) => searchInputVolunteer(e.target.value)}/>
           </Grid.Column>
           <Grid.Column width={2}>
             <Dropdown
@@ -75,7 +90,10 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
         <Divider/>
         <Grid.Row columns={2}>
           <Grid.Column width={14}>
-            <Input icon='search' placeholder="Search Volunteers"/>
+            <Input
+              icon='search'
+              placeholder="Search Organizations"
+              onChange={(e) => searchInputOrg(e.target.value)}/>
           </Grid.Column>
           <Grid.Column width={2}>
             <Dropdown
@@ -92,7 +110,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
         </Grid.Row>
         <Grid.Row>
           <Card.Group centered>
-            {allOrganizations.map((organization) => <AdminViewOrganizations key={organization._id} doc={organization}/>)}
+            {searchResultOrg.map((organization) => <AdminViewOrganizations key={organization._id} doc={organization}/>)}
           </Card.Group>
         </Grid.Row>
       </Grid>
@@ -111,7 +129,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
 
   return (readyVolunteers && readyOrganizations) ? (
     <Container id={PAGE_IDS.ADMIN_HOME}>
-      <Tab panes={panes}/>
+      <Tab panes={panes} onTabChange={clearInputs}/>
     </Container>
   ) : <Loader active>Getting data</Loader>;
 };
