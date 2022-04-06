@@ -1,8 +1,7 @@
-import React from 'react';
-import { Loader, Header, Container, Tab, Card, Grid, Divider, Dropdown, Button } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Loader, Header, Container, Tab, Card, Grid, Divider, Dropdown, Input } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
@@ -17,16 +16,20 @@ import AdminViewOrganizations from '../components/AdminViewOrganizations';
 
 const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrganizations }) => {
 
-  // const [volunteerOrder, setVOrder] = useState('');
-  // const [orgOrder, setOOrder] = useState('');
+  const [volunteerSearch, setVSearch] = useState('');
 
-  // const handleSelectVolunteer = (e, { value }) => {
-  // setVOrder(value);
-  // };
+  const searchInput = (input) => {
+    setVSearch(input);
+  };
 
-  // const handleSelectOrg = (e, { value }) => {
-  // setOOrder(value);
-  // };
+  const searchResultVolunteer = allVolunteers.filter((val) => {
+    if (volunteerSearch === '') {
+      return val;
+    }
+
+    return val.firstName.toLowerCase().includes(volunteerSearch);
+
+  });
 
   const panes = [
     // eslint-disable-next-line react/display-name
@@ -36,21 +39,29 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
           <Header as='h1'>Manage Volunteers</Header>
         </Grid.Row>
         <Divider/>
-        <Grid.Row centered>
-          <Dropdown
-            text='Sort By'
-            icon='angle down'
-            floating
-            className='icon'>
-            <Dropdown.Menu>
-              <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
-              <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Grid.Row columns={2}>
+          <Grid.Column width={14}>
+            <Input
+              icon='search'
+              placeholder="Search Volunteers"
+              onChange={(e) => searchInput(e.target.value)}/>
+          </Grid.Column>
+          <Grid.Column width={2}>
+            <Dropdown
+              text='Sort By'
+              icon='angle down'
+              floating
+              className='icon'>
+              <Dropdown.Menu>
+                <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
+                <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Card.Group centered>
-            {allVolunteers.map((volunteer) => <AdminViewVolunteers key={volunteer._id} doc={volunteer}/>)}
+            {searchResultVolunteer.map((volunteer) => <AdminViewVolunteers key={volunteer._id} doc={volunteer}/>)}
           </Card.Group>
         </Grid.Row>
       </Grid>
@@ -62,20 +73,22 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
           <Header as='h1'>Manage Organizations</Header>
         </Grid.Row>
         <Divider/>
-        <Grid.Row centered>
-          <Dropdown
-            text='Sort By'
-            icon='angle down'
-            floating
-            className='icon'>
-            <Dropdown.Menu>
-              <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
-              <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Button primary className='create-org-button' size='small' floated='right' as={NavLink} exact to="/org-signup">
-            Sign-up new organization
-          </Button>
+        <Grid.Row columns={2}>
+          <Grid.Column width={14}>
+            <Input icon='search' placeholder="Search Volunteers"/>
+          </Grid.Column>
+          <Grid.Column width={2}>
+            <Dropdown
+              text='Sort By'
+              icon='angle down'
+              floating
+              className='icon'>
+              <Dropdown.Menu>
+                <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
+                <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Card.Group centered>
@@ -117,10 +130,6 @@ export default withTracker(() => {
   const subscriptionOrganizations = Organizations.subscribeAdmin();
   const readyOrganizations = subscriptionOrganizations.ready();
   const allOrganizations = Organizations.find({}).fetch();
-  // const subscriptionOpportunities = Opportunities.subscribeOpportunityAdmin();
-  // const readyOpportunities = subscriptionOpportunities.ready();
-  // const activeOpps = Opportunities.find({ 'date.end': { $gte: toDate } }).fetch();
-  // const expiredOpps = Opportunities.find({ 'date.end': { $lt: toDate } }).fetch();
 
   return {
     readyVolunteers,
