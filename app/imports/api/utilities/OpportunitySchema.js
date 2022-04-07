@@ -20,6 +20,7 @@ export const OpportunitySchema = new SimpleSchema({
   },
   organization: {
     type: String,
+    optional: true,
   },
   address: String,
   description: String,

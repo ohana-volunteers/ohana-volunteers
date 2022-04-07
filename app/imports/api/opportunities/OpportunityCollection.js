@@ -111,7 +111,7 @@ class OpportunityCollection extends BaseCollection {
        * This subscription publishes documents that belong to logged-in organization who can access define, update and removeIt.
        */
       Meteor.publish(OpportunityPublications.opportunityOrg, function publish() {
-        if (this.userId && Roles.userIsInRole(this.userId, ROLE.USER)) {
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.VOLUNTEER)) {
           const username = Meteor.users.findOne(this.userId).username;
           return instance._collection.find({ organization: username });
         }
@@ -168,7 +168,7 @@ class OpportunityCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ORGANIZATION]);
   }
 
   /**
