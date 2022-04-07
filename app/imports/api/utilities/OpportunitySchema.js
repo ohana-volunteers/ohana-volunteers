@@ -22,6 +22,7 @@ export const OpportunitySchema = new SimpleSchema({
     type: String,
   },
   address: String,
+  description: String,
   coordinates: {
     type: Object,
     optional: true,

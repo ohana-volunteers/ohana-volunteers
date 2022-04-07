@@ -76,6 +76,7 @@ OpportunityItem.propTypes = {
     img: PropTypes.string,
     organization: PropTypes.string,
     address: PropTypes.string,
+    description: PropTypes.string,
     coordinates: PropTypes.object,
     event: PropTypes.string,
     categories: PropTypes.array,
