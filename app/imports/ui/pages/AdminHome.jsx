@@ -19,14 +19,6 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
   const [volunteerSearch, setVSearch] = useState('');
   const [orgSearch, setOrgSearch] = useState('');
 
-  const searchInputVolunteer = (input) => {
-    setVSearch(input);
-  };
-
-  const searchInputOrg = (input) => {
-    setOrgSearch(input);
-  };
-
   const searchResultVolunteer = allVolunteers.filter((val) => {
     if (volunteerSearch === '') {
       return val;
@@ -41,11 +33,6 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
     return val.name.toLowerCase().includes(orgSearch);
   });
 
-  const clearInputs = () => {
-    setVSearch('');
-    setOrgSearch('');
-  };
-
   const panes = [
     // eslint-disable-next-line react/display-name
     { menuItem: 'Volunteers', render: () => <Tab.Pane>
@@ -59,7 +46,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
             <Input
               icon='search'
               placeholder="Search Volunteers"
-              onChange={(e) => searchInputVolunteer(e.target.value)}/>
+              onChange={(e) => setVSearch(e.target.value)}/>
           </Grid.Column>
           <Grid.Column width={2}>
             <Dropdown
@@ -93,7 +80,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
             <Input
               icon='search'
               placeholder="Search Organizations"
-              onChange={(e) => searchInputOrg(e.target.value)}/>
+              onChange={(e) => setOrgSearch(e.target.value)}/>
           </Grid.Column>
           <Grid.Column width={2}>
             <Dropdown
@@ -129,7 +116,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
 
   return (readyVolunteers && readyOrganizations) ? (
     <Container id={PAGE_IDS.ADMIN_HOME}>
-      <Tab panes={panes} onTabChange={clearInputs}/>
+      <Tab panes={panes}/>
     </Container>
   ) : <Loader active>Getting data</Loader>;
 };

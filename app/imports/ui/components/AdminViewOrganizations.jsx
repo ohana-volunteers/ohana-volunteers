@@ -53,9 +53,11 @@ const AdminViewOrganizations = ({ doc }) => {
           size='tiny'
           src={decode(doc.logo)}/>
         <Card.Header>{doc.name}</Card.Header>
-        <Card.Meta>{doc.email}</Card.Meta>
-        <Card.Description><u>Visibility:</u> {doc.status}</Card.Description>
+        <Card.Meta>{doc.contact.email}</Card.Meta>
+        <Card.Meta>{doc.contact.phone}</Card.Meta>
         <Card.Description><u>Location:</u> {doc.location}</Card.Description>
+        <Card.Description><u>Visibility:</u> {doc.status}</Card.Description>
+
       </Card.Content>
       <Card.Content extra>
         <Button
