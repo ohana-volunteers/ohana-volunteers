@@ -23,16 +23,13 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 /** Renders the Page for adding a document. */
 const AddOpportunity = ({ ready, defaultOrg }) => {
   // On submit, insert the data.
-  console.log(defaultOrg);
   const submit = (data, formRef) => {
     const { date, img, address, description, coordinates, event, categories, environment, age } = data;
     // const owner = Meteor.user().username;
     const organization = defaultOrg === undefined ? data.organization : defaultOrg.name;
-    // console.log(organization);
     const url = Meteor.user().username;
     const collectionName = Opportunities.getCollectionName();
     const definitionData = { url, date, img, organization, address, description, coordinates, event, categories, environment, age };
-    console.log(definitionData);
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
