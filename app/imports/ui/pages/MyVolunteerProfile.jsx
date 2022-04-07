@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Card, Button, Image, List, Loader, Container } from 'semantic-ui-react';
+import { Grid, Header, Card, Button, Image, Loader, Container, Statistic, Divider } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
@@ -18,23 +18,35 @@ const MyVolunteerProfile = ({ doc, currentUser, ready }) => ((ready) ? (
       <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
       <Card.Content>
         <Grid container row={1}>
-          <Grid.Row columns={2}>
-            <Grid.Column width={12}>
+          <Grid.Row columns={4}>
+            <Grid.Column width={2}>
+              <Image rounded size="small" src={decode(doc.profilePicture)}/>
+            </Grid.Column>
+            <Grid.Column width={8}>
               <Card.Header as="h1">
-                <Image circular size="small" src={decode(doc.profilePicture)}/> {doc.firstName} {doc.lastName}
+                {doc.firstName} {doc.lastName}
+                {(doc.email === currentUser) ?
+                  <Button primary compact size="large" className="volunteer-edit-button" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT} as={NavLink} exact to="/edit-my-profile">Edit</Button> : ''}
               </Card.Header>
-              <Card.Description>{doc.description}</Card.Description>
+              <Card.Description><b>Gender: </b>{doc.gender}</Card.Description>
+              <Card.Description><b>Bio: </b>{doc.description}</Card.Description>
             </Grid.Column>
-            <Grid.Column width={4}>
-              <Header as="h2">Stats:</Header>
-              <List size="massive">
-                <List.Item><b>Recorded Hours:</b> {doc.totalHours}</List.Item>
-                <List.Item><b>Events Participated:</b> {doc.eventsParticipated}</List.Item>
-              </List>
-              {(doc.email === currentUser) ?
-                <Button primary size="big" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT} as={NavLink} exact to="/edit-my-profile">Edit</Button> : ''}
+            <Grid.Column row={2} verticalAlign="middle" width={6}>
+              <Grid.Row centered>
+                <Header as="h2" textAlign="center">Stats</Header>
+                <Divider/>
+              </Grid.Row>
+              <Grid.Row centered>
+                <Statistic floated='left' size='small' className="volunteer-stats-left">
+                  <Statistic.Value>{doc.totalHours}</Statistic.Value>
+                  <Statistic.Label>Recorded Hours</Statistic.Label>
+                </Statistic>
+                <Statistic floated='right' size='small' className="volunteer-stats-right">
+                  <Statistic.Value>{doc.eventsParticipated}</Statistic.Value>
+                  <Statistic.Label>Events Participated</Statistic.Label>
+                </Statistic>
+              </Grid.Row>
             </Grid.Column>
-
           </Grid.Row>
         </Grid>
       </Card.Content>
