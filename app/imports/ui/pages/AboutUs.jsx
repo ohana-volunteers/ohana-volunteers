@@ -1,20 +1,26 @@
 import React from 'react';
-import { Grid, Header, Card, Divider, Item, Icon, Button } from 'semantic-ui-react';
+import { Grid, Header, Card, Divider, Item, Icon, Button, Container } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
+const textStyle = { color: 'black', marginTop: '50px', fontSize: '55px', fontFamily: 'Papyrus' };
+const textStyle2 = { color: 'black', fontSize: '40px', fontFamily: 'Papyrus', fontWeight: 'bold'};
+const textStyle3 = { color: 'black', fontSize: '18px', fontFamily: 'Copperplate' };
+const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-73px' };
+
 /** A simple static component to render some text for the About Us page. */
 const AboutUs = () => (
+    <Container fluid style={bodyStyle}>
   <Grid id={PAGE_IDS.ABOUT_US} container>
     <Grid.Row centered>
-      <Header as="h1" size="huge" textAlign="center">About VolunteerAlly</Header>
+      <Header as="h1" size="huge" textAlign="center" style={textStyle}>About VolunteerAlly</Header>
     </Grid.Row>
     <Divider/>
     <Grid.Row>
       <Item>
         <Item.Content>
-          <Item.Header as="h1">An Easier Way to Volunteer</Item.Header>
-          <Card.Description>VolunteerAlly is a non-profit organization designed to help pair volunteers with organizations in need of service.
+          <Item.Header as="h1" style={textStyle2}>An Easier Way to Volunteer</Item.Header>
+          <Card.Description style={textStyle3}>VolunteerAlly is a non-profit organization designed to help pair volunteers with organizations in need of service.
             On our site you can find numerous organizations and their volunteer opportunities all in one place.
             Once a user, you will have access to sign up for the various volunteer opportunities, from one-time opportunities to flexible/reoccuring opportunities. VolunteerAlly is designed to make volunteering easy.</Card.Description>
         </Item.Content>
@@ -23,15 +29,15 @@ const AboutUs = () => (
     <Grid.Row>
       <Item>
         <Item.Content>
-          <Item.Header as="h1">Why Volunteer Ally?</Item.Header>
-          <Item.Description>Volunteer opportunities are vitally important to the wellbeing of a community.
+          <Item.Header as="h1" style={textStyle2}>Why Volunteer Ally?</Item.Header>
+          <Item.Description style={textStyle3}>Volunteer opportunities are vitally important to the wellbeing of a community.
             VolunteerAlly makes it easy for volunteers to find organizations in need, and for organizations to find qualified volunteers. </Item.Description>
-          <Item.Description>VolunteerAlly makes it simple to give back.</Item.Description>
+          <Item.Description style={textStyle3}>VolunteerAlly makes it simple to give back.</Item.Description>
         </Item.Content>
       </Item>
     </Grid.Row>
     <Grid.Row>
-      <Header as="h1">VolunteerAlly Team</Header>
+      <Header as="h1" style={textStyle2}>VolunteerAlly Team</Header>
       <Card.Group centered>
         <Card>
           <div className="about-us-icon">
@@ -154,6 +160,7 @@ const AboutUs = () => (
     </Grid.Row>
 
   </Grid>
+    </Container>
 
 );
 
