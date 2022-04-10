@@ -179,7 +179,8 @@ class OpportunityCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const date = doc.date;
-    const img = doc.img;
+    // When dumped, string will be sliced as the original base64 string is too long
+    const img = doc.img.slice(0, 50);
     const organization = doc.organization;
     const address = doc.address;
     const description = doc.description;

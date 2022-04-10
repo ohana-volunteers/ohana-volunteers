@@ -44,7 +44,7 @@ const AddOpportunity = ({ ready, defaultOrg }) => {
     <Container id={PAGE_IDS.ADD_OPPORTUNITY}>
       <Grid container centered>
         <Grid.Column width={10}>
-          <Header as="h2" textAlign="center" style={textStyle}>Add a Opportunity</Header>
+          <Header as="h2" textAlign="center">Add a Opportunity</Header>
           <Divider/>
           <AutoForm ref={ref => {
             fRef = ref;

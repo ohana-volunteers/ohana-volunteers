@@ -113,7 +113,22 @@ class OrgProfileCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ORGANIZATION]);
+  }
+
+  dumpOne(docID) {
+    const doc = this.findDoc(docID);
+    const owner = doc.owner;
+    const name = doc.name;
+    const categories = doc.categories;
+    const location = doc.location;
+    const mailing_address = doc.mailing_address;
+    const website = doc.website;
+    const logo = doc.logo;
+    const logo_mini = doc.logo_mini;
+    const contact = doc.contact;
+    const status = doc.status;
+    return { owner, name, categories, location, mailing_address, website, logo, logo_mini, contact, status };
   }
 }
 
