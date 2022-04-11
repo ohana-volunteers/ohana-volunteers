@@ -9,17 +9,46 @@ import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 import { ROLE } from '../../api/role/Role';
+import { useState } from 'react';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
-const NavBar = ({ role, currentUser }) => {
+const NavBar = ({ role, currentUser, orgs, }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: 'rgba(0, 255, 255, .1)' };
   const input = { width: '20rem' };
+  var nameList = orgs;
+  const cars = [];
+  nameList.forEach((item) => {
+        cars.push(item.name);
+      }
+  );
+  const carsLength = cars.length;
+  const [inputText, setInputText] = useState("");
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setInputText(lowerCase);
+  };
+  var myList = new Array();
+  for (let i = 0; i < carsLength; i++) {
+    let temp = cars[i];
+    if (temp.toLowerCase().includes(inputText.toLowerCase()) && inputText != '')
+    {
+      myList.push(temp);
+      console.log(myList);
+    }
+  };
+  console.log(inputText);
   return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} exact to="/">
         <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..."/></Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..." name="search" onChange={(event) => { setInputText(event.target.value); }}></Input></Menu.Item>
+      <ul>
+        {myList.map(post => (
+          <li key={post}>{post}</li>
+        ))}
+      </ul>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} exact to="/" key='home'>Home</Menu.Item>
       {(role !== ROLE.ORGANIZATION) ?
         <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organizations</Menu.Item> : ''}
@@ -88,6 +117,7 @@ const NavBarContainer = withTracker(() => {
   const subscriptionVolunteer = VolunteerProfiles.subscribe();
   const subscriptionOrg = Organizations.subscribe();
   const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready();
+  const orgs = Organizations.find({}, { sort: { name: 1 } }).fetch();
   // Get the document
   let role;
   if (ready) {
@@ -98,6 +128,7 @@ const NavBarContainer = withTracker(() => {
   return {
     role,
     currentUser,
+    orgs,
   };
 })(NavBar);
 
