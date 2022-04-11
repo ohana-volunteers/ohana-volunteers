@@ -194,7 +194,8 @@
       "event": "Kokua Learning Farm Community Workday",
       "categories": ["education", "environment"],
       "environment": "Indoor",
-      "age": "Adults"
+      "age": "Adults",
+      "isVerified": true
     },
     {
       "date": {
@@ -212,7 +213,8 @@
       "event": "Distribution Assistance",
       "categories": ["covid"],
       "environment": "Outdoor",
-      "age": "Family-Friendly"
+      "age": "Family-Friendly",
+      "isVerified": true
     },
     {
       "date": {
@@ -230,7 +232,8 @@
       "event": "Nuuanu Stream Clean-Up",
       "categories": ["environment"],
       "environment": "Both",
-      "age": "Teens"
+      "age": "Teens",
+      "isVerified": false
     },
     {
       "date": {
@@ -248,7 +251,8 @@
       "event": "Test Opportunity",
       "categories": ["environment"],
       "environment": "No Preference",
-      "age": "Seniors"
+      "age": "Seniors",
+      "isVerified": true
     },
     {
       "date": {
@@ -266,7 +270,8 @@
       "event": "Feeding Hawaii Together: Filling Orders",
       "categories": ["food"],
       "environment": "Indoor",
-      "age": "Adults"
+      "age": "Adults",
+      "isVerified": false
     },
     {
       "date": {
@@ -284,7 +289,8 @@
       "event": "Volunteer Recruitment Specialist",
       "categories": ["disaster"],
       "environment": "Indoor",
-      "age": "Teens"
+      "age": "Teens",
+      "isVerified": true
     },
     {
       "date": {
@@ -302,7 +308,8 @@
       "event": "Shopping",
       "categories": ["food"],
       "environment": "Outdoor",
-      "age": "Family-Friendly"
+      "age": "Family-Friendly",
+      "isVerified": false
     }
   ],
 

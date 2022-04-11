@@ -54,4 +54,7 @@ export const OpportunitySchema = new SimpleSchema({
     type: String,
     allowedValues: OpportunityAge,
   },
+  isVerified: {
+    type: Boolean,
+  },
 });
