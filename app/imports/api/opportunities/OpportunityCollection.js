@@ -31,9 +31,10 @@ class OpportunityCollection extends BaseCollection {
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
    * @param age  the age group of the item.
+   * @param isVerified if the item was verified by the admin.
    * @return {String} the docID of the new document.
    */
-  define({ date, img, organization, address, description, coordinates, event, categories, environment, age }) {
+  define({ date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified }) {
     const docID = this._collection.insert({
       date,
       img,
@@ -45,6 +46,7 @@ class OpportunityCollection extends BaseCollection {
       categories,
       environment,
       age,
+      isVerified,
     });
     // this._collection.createIndex({ '$**': 'text' });
     return docID;
@@ -62,9 +64,10 @@ class OpportunityCollection extends BaseCollection {
    * @param event  the name of the item.
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
-   * @param age  the age group of the item.
+   * @param age the age group of the item.
+   * @param isVerified if the item was verified by the admin.
    */
-  update(docID, { date, img, organization, address, description, coordinates, event, categories, environment, age }) {
+  update(docID, { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified }) {
     const updateData = {};
     if (date)updateData.date = date;
     if (img) updateData.img = img;
@@ -76,6 +79,12 @@ class OpportunityCollection extends BaseCollection {
     if (categories) updateData.categories = categories;
     if (environment) updateData.environment = environment;
     if (age) updateData.age = age;
+    if (isVerified) {
+      updateData.isVerified = true;
+    } else {
+      updateData.isVerified = false;
+    }
+    if (isVerified) updateData.isVerified = true;
     this._collection.update(docID, { $set: updateData });
   }
 
@@ -189,7 +198,8 @@ class OpportunityCollection extends BaseCollection {
     const categories = doc.categories;
     const environment = doc.environment;
     const age = doc.age;
-    return { date, img, organization, address, description, coordinates, event, categories, environment, age };
+    const isVerified = doc.isVerified;
+    return { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified };
   }
 }
 

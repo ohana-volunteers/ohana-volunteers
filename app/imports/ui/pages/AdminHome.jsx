@@ -11,6 +11,7 @@ import DumpDbFixture from '../components/DumpDbFixture';
 import OpportunitiesAdmin from '../components/OpportunitiesAdmin';
 import AdminViewVolunteers from '../components/AdminViewVolunteers';
 import AdminViewOrganizations from '../components/AdminViewOrganizations';
+import BrowseOpportunitiesAdmin from './BrowseOpportunitiesAdmin';
 
 /** Renders the admin home page where information can be viewed and modified. */
 
@@ -104,7 +105,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Opportunities', render: () => <Tab.Pane>
-      <OpportunitiesAdmin/>
+      <BrowseOpportunitiesAdmin/>
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Upload/Dump Fixture', render: () => <Tab.Pane>

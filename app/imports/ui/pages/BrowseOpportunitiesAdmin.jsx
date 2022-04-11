@@ -12,15 +12,16 @@ const toDate = new Date();
 const headerStyle = { color: 'white', backgroundColor: 'teal', padding: 10 };
 // const buttonStyle = { color: 'black', backgroundColor: 'white', borderRadius: 3, padding: 5, borderColor: 'blue' };
 
-const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser }) => {
+const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, notVerifiedOpps, ready, currentUser }) => {
   const [order, setOrder] = useState('');
 
   const handleSelect = (e, { value }) => {
     setOrder(value);
   };
   const sort = order === 'Latest' ? { sort: { date: -1 } } : { sort: { organization: 1 } };
-  const sortedExpiredOpps = Opportunities.find({ 'date.end': { $lt: toDate } }, sort);
-  const sortedActiveOpps = Opportunities.find({ 'date.end': { $gte: toDate } }, sort);
+  const sortedExpiredOpps = Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $lt: toDate } }] }, sort);
+  const sortedActiveOpps = Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $gte: toDate } }] }, sort);
+  const sortedNotVerifiedOpps = Opportunities.find({ isVerified: false }, sort);
   return (ready) ? (
     <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES_ADMIN} textAlign='center' container>
       <Grid.Row centered>
@@ -64,6 +65,19 @@ const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser 
           </Card.Group>
         </Grid.Row>
       </Segment>
+      <Grid.Row centered>
+        <Header as="h2" style={ headerStyle }> <Icon name='zoom'/>Pending Opportunities ({notVerifiedOpps.length})</Header>
+      </Grid.Row>
+      <Segment vertical padded='very' className='line'>
+        <Grid.Row>
+          <Card.Group centered>
+            {(order === '') ?
+              notVerifiedOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>) :
+              sortedNotVerifiedOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>)
+            }
+          </Card.Group>
+        </Grid.Row>
+      </Segment>
       <Grid.Row>
         <Button as={NavLink} exact to='/browse-opportunities'>Browse Opportunities as Volunteers</Button>
       </Grid.Row>
@@ -75,6 +89,7 @@ const BrowseOpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser 
 BrowseOpportunitiesAdmin.propTypes = {
   expiredOpps: PropTypes.array.isRequired,
   activeOpps: PropTypes.array.isRequired,
+  notVerifiedOpps: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
   currentUser: PropTypes.string,
 };
@@ -85,12 +100,14 @@ export default withTracker(() => {
   const subscription = Opportunities.subscribeOpportunity();
   // Determine if the subscription is ready
   const ready = subscription.ready();
-  const expiredOpps = Opportunities.find({ 'date.end': { $lt: toDate } }).fetch();
-  const activeOpps = Opportunities.find({ 'date.end': { $gte: toDate } }).fetch();
+  const expiredOpps = Opportunities.find({ isVerified: true }, { 'date.end': { $lt: toDate } }).fetch();
+  const activeOpps = Opportunities.find({ isVerified: true }, { 'date.end': { $gte: toDate } }).fetch();
+  const notVerifiedOpps = Opportunities.find({ isVerified: false }).fetch();
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   return {
     expiredOpps,
     activeOpps,
+    notVerifiedOpps,
     ready,
     currentUser,
   };
