@@ -12,6 +12,7 @@ const toDate = new Date();
 const headerStyle = { color: 'white', backgroundColor: '#2BCAF8', padding: 10 };
 // const buttonStyle = { color: 'black', backgroundColor: 'white', borderRadius: 3, padding: 5, borderColor: 'blue' };
 
+/** TEMPORARILY DEPRECATED. Use BrowseOpportunitiesAdmin.jsx instead */
 const OpportunitiesAdmin = ({ expiredOpps, activeOpps, ready, currentUser }) => {
   const [order, setOrder] = useState('');
 

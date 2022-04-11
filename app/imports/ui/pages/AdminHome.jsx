@@ -1,107 +1,29 @@
-import React, { useState } from 'react';
-import { Loader, Header, Container, Tab, Card, Grid, Divider, Dropdown, Input } from 'semantic-ui-react';
+import React from 'react';
+import { Loader, Container, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
-// import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import UploadFixture from '../components/UploadFixture';
 import DumpDbFixture from '../components/DumpDbFixture';
-import OpportunitiesAdmin from '../components/OpportunitiesAdmin';
-import AdminViewVolunteers from '../components/AdminViewVolunteers';
-import AdminViewOrganizations from '../components/AdminViewOrganizations';
+// import OpportunitiesAdmin from '../components/OpportunitiesAdmin';
+import AdminHomeVolunteers from '../components/AdminHomeVolunteers';
+import AdminHomeOrganizations from '../components/AdminHomeOrganizations';
 import BrowseOpportunitiesAdmin from './BrowseOpportunitiesAdmin';
 
 /** Renders the admin home page where information can be viewed and modified. */
 
 const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrganizations }) => {
 
-  const [volunteerSearch, setVSearch] = useState('');
-  const [orgSearch, setOrgSearch] = useState('');
-
-  const searchResultVolunteer = allVolunteers.filter((val) => {
-    if (volunteerSearch === '') {
-      return val;
-    }
-    return val.firstName.toLowerCase().includes(volunteerSearch);
-  });
-
-  const searchResultOrg = allOrganizations.filter((val) => {
-    if (orgSearch === '') {
-      return val;
-    }
-    return val.name.toLowerCase().includes(orgSearch);
-  });
-
   const panes = [
     // eslint-disable-next-line react/display-name
     { menuItem: 'Volunteers', render: () => <Tab.Pane>
-      <Grid container>
-        <Grid.Row centered>
-          <Header as='h1'>Manage Volunteers</Header>
-        </Grid.Row>
-        <Divider/>
-        <Grid.Row columns={2}>
-          <Grid.Column width={14}>
-            <Input
-              icon='search'
-              placeholder="Search Volunteers"
-              onChange={(e) => setVSearch(e.target.value)}/>
-          </Grid.Column>
-          <Grid.Column width={2}>
-            <Dropdown
-              text='Sort By'
-              icon='angle down'
-              floating
-              className='icon'>
-              <Dropdown.Menu>
-                <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
-                <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Card.Group centered>
-            {searchResultVolunteer.map((volunteer) => <AdminViewVolunteers key={volunteer._id} doc={volunteer}/>)}
-          </Card.Group>
-        </Grid.Row>
-      </Grid>
+      <AdminHomeVolunteers allVolunteers={allVolunteers}/>
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Organizations', render: () => <Tab.Pane>
-      <Grid container>
-        <Grid.Row centered>
-          <Header as='h1'>Manage Organizations</Header>
-        </Grid.Row>
-        <Divider/>
-        <Grid.Row columns={2}>
-          <Grid.Column width={14}>
-            <Input
-              icon='search'
-              placeholder="Search Organizations"
-              onChange={(e) => setOrgSearch(e.target.value)}/>
-          </Grid.Column>
-          <Grid.Column width={2}>
-            <Dropdown
-              text='Sort By'
-              icon='angle down'
-              floating
-              className='icon'>
-              <Dropdown.Menu>
-                <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z'/>
-                <Dropdown.Item icon='sort alphabet down' text='Latest' value='Latest'/>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Card.Group centered>
-            {searchResultOrg.map((organization) => <AdminViewOrganizations key={organization._id} doc={organization}/>)}
-          </Card.Group>
-        </Grid.Row>
-      </Grid>
+      <AdminHomeOrganizations allOrganizations={allOrganizations}/>
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Opportunities', render: () => <Tab.Pane>
