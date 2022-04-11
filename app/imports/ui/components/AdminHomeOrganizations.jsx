@@ -12,6 +12,7 @@ const AdminHomeOrganizations = ({ allOrganizations }) => {
     setOrgSort(value);
   };
 
+  // Filter organizations based on search results
   const searchOrg = allOrganizations.filter((val) => {
     if (orgSearch === '') {
       return val;
@@ -19,7 +20,15 @@ const AdminHomeOrganizations = ({ allOrganizations }) => {
     return val.name.toLowerCase().includes(orgSearch);
   });
 
-  const resultOrganizations = orgSort === 'A-Z' ? searchOrg.sort((a, b) => a.name.localeCompare(b.name)) : searchOrg;
+  // Sort organizations alphabetically, newest to oldest, or oldest to newest.
+  let resultOrganizations;
+  if (orgSort === 'A-Z') {
+    resultOrganizations = searchOrg.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (orgSort === 'Newest Registered - Oldest Registered') {
+    resultOrganizations = searchOrg.reverse();
+  } else { // if (orgSort === 'Oldest Registered - Newest Registered')
+    resultOrganizations = searchOrg;
+  }
   return (
     <Grid container>
       <Grid.Row centered>
@@ -41,7 +50,8 @@ const AdminHomeOrganizations = ({ allOrganizations }) => {
             className='icon'>
             <Dropdown.Menu>
               <Dropdown.Item icon='calendar outline' text='A-Z' value='A-Z' onClick={handleSelect}/>
-              <Dropdown.Item icon='sort alphabet down' text='Sign-Up Date' value='Sign-Up Date' onClick={handleSelect}/>
+              <Dropdown.Item icon='sort alphabet down' text='Newest Registered - Oldest Registered' value='Newest Registered - Oldest Registered' onClick={handleSelect}/>
+              <Dropdown.Item icon='sort alphabet up' text='Oldest Registered - Newest Registered' value='Oldest Registered - Newest Registered' onClick={handleSelect}/>
             </Dropdown.Menu>
           </Dropdown>
         </Grid.Column>
