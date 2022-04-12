@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Dropdown, Image, Input, Icon } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Icon, Card } from 'semantic-ui-react';
 import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
@@ -23,11 +23,7 @@ const NavBar = ({ role, currentUser, orgs, }) => {
   );
   const carsLength = cars.length;
   const [inputText, setInputText] = useState("");
-  let inputHandler = (e) => {
-    //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
+
   var myList = new Array();
   for (let i = 0; i < carsLength; i++) {
     let temp = cars[i];
@@ -44,11 +40,18 @@ const NavBar = ({ role, currentUser, orgs, }) => {
         <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..." name="search" onChange={(event) => { setInputText(event.target.value); }}></Input></Menu.Item>
-      <ul>
+
+      <Card>
         {myList.map(post => (
-          <li key={post}>{post}</li>
+              <Card.Content>
+
+                <Card.Description>
+                  {post}
+                </Card.Description>
+              </Card.Content>
         ))}
-      </ul>
+      </Card>
+
       <Menu.Item id={COMPONENT_IDS.NAVBAR_HOME} position="right" as={NavLink} exact to="/" key='home'>Home</Menu.Item>
       {(role !== ROLE.ORGANIZATION) ?
         <Menu.Item id={COMPONENT_IDS.NAVBAR_ORGANIZATION_LIBRARY} as={NavLink} exact to="/organization-library" key='library'>Organizations</Menu.Item> : ''}
