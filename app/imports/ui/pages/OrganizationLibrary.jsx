@@ -73,8 +73,9 @@ const OrganizationLibrary = ({ orgs, ready }) => (
     <Item.Description style={textStyle4}> Here are some of the great features you’ll find with Volunteer Ally: </Item.Description>
 
     <Grid style={gridStyle}>
+        <Grid.Column></Grid.Column>
       <Grid.Column>
-        <Icon name='check' size='big' style={iconStyle}/>
+        <Icon name='check' size='big'/>
       </Grid.Column>
       <Grid.Column width={10}>
         <Item.Description style={iconTextStyle}> Access to hundreds of volunteers with a wide range of skills and availability </Item.Description>
@@ -82,8 +83,9 @@ const OrganizationLibrary = ({ orgs, ready }) => (
     </Grid>
 
     <Grid>
+        <Grid.Column></Grid.Column>
       <Grid.Column>
-        <Icon name='check' size='big' style={iconStyle}/>
+        <Icon name='check' size='big'/>
       </Grid.Column>
       <Grid.Column width={10}>
         <Item.Description style={iconTextStyle}> Direct opportunity RSVPs to your inbox </Item.Description>
@@ -91,8 +93,9 @@ const OrganizationLibrary = ({ orgs, ready }) => (
     </Grid>
 
     <Grid>
+        <Grid.Column></Grid.Column>
       <Grid.Column>
-        <Icon name='check' size='big' style={iconStyle}/>
+        <Icon name='check' size='big'/>
       </Grid.Column>
       <Grid.Column width={10}>
         <Item.Description style={iconTextStyle}> Database of volunteers and opportunities </Item.Description>
@@ -100,8 +103,9 @@ const OrganizationLibrary = ({ orgs, ready }) => (
     </Grid>
 
     <Grid>
+        <Grid.Column></Grid.Column>
       <Grid.Column>
-        <Icon name='check' size='big' style={iconStyle}/>
+        <Icon name='check' size='big'/>
       </Grid.Column>
       <Grid.Column width={10}>
         <Item.Description style={iconTextStyle}> Integration-ready </Item.Description>
