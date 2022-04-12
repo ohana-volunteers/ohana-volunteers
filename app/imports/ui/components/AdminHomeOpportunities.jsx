@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Grid, Header, Divider, Card, Segment, Icon, Button, Dropdown, Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { PAGE_IDS } from '../utilities/PageIDs';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import OpportunityItem from '../components/OpportunityItem';
 
 const headerStyle = { color: 'white', backgroundColor: '#2BCAF8', padding: 10 };
@@ -39,7 +39,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
 
   let resultExpiredOpps;
   if (order === 'A-Z') {
-    resultExpiredOpps = searchExpiredOpps.sort((a, b) => a.organization.localeCompare(b.organization));
+    resultExpiredOpps = searchExpiredOpps.sort((a, b) => a.event.localeCompare(b.event));
   } else if (order === 'Latest - Oldest') {
     resultExpiredOpps = searchExpiredOpps.slice().sort((a, b) => b.date.start - a.date.start);
   } else { // if (order === 'Oldest to Newest)
@@ -48,7 +48,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
 
   let resultActiveOpps;
   if (order === 'A-Z') {
-    resultActiveOpps = searchActiveOpps.sort((a, b) => a.organization.localeCompare(b.organization));
+    resultActiveOpps = searchActiveOpps.sort((a, b) => a.event.localeCompare(b.event));
   } else if (order === 'Latest - Oldest') {
     resultActiveOpps = searchActiveOpps.slice().sort((a, b) => b.date.start - a.date.start);
   } else { // if (order === 'Oldest to Newest)
@@ -57,7 +57,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
 
   let resultNotVerifiedOpps;
   if (order === 'A-Z') {
-    resultNotVerifiedOpps = searchNotVerifiedOpps.sort((a, b) => a.organization.localeCompare(b.organization));
+    resultNotVerifiedOpps = searchNotVerifiedOpps.sort((a, b) => a.event.localeCompare(b.event));
   } else if (order === 'Latest - Oldest') {
     resultNotVerifiedOpps = searchNotVerifiedOpps.slice().sort((a, b) => b.date.start - a.date.start);
   } else { // if (order === 'Oldest to Newest)
@@ -65,7 +65,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
   }
 
   return (
-    <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES_ADMIN} container centered>
+    <Grid id={COMPONENT_IDS.ADMIN_HOME_OPPORTUNITIES} container centered>
       <Grid.Row centered>
         <Header as="h1" >Manage Opportunities</Header>
       </Grid.Row>

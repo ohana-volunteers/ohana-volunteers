@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Divider, Dropdown, Grid, Header, Input } from 'semantic-ui-react';
 import AdminViewOrganizations from './AdminViewOrganizations';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** The organization tab for the admin home. */
 const AdminHomeOrganizations = ({ allOrganizations }) => {
@@ -30,7 +31,7 @@ const AdminHomeOrganizations = ({ allOrganizations }) => {
     resultOrganizations = searchOrg;
   }
   return (
-    <Grid container>
+    <Grid container id={COMPONENT_IDS.ADMIN_HOME_ORGANIZATIONS}>
       <Grid.Row centered>
         <Header as='h1'>Manage Organizations</Header>
       </Grid.Row>

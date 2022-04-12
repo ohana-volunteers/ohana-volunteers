@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Divider, Dropdown, Grid, Header, Input } from 'semantic-ui-react';
 import AdminViewVolunteers from './AdminViewVolunteers';
+import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 
 /** The volunteer tab for the admin home. */
 const AdminHomeVolunteers = ({ allVolunteers }) => {
@@ -30,7 +31,7 @@ const AdminHomeVolunteers = ({ allVolunteers }) => {
     resultVolunteers = searchVolunteer;
   }
   return (
-    <Grid container>
+    <Grid container id={COMPONENT_IDS.ADMIN_HOME_VOLUNTEERS}>
       <Grid.Row centered>
         <Header as='h1'>Manage Volunteers</Header>
       </Grid.Row>
