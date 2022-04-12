@@ -7,7 +7,7 @@ import { Organizations } from '../../api/user/organization/OrgProfileCollection'
 import { PAGE_IDS } from '../utilities/PageIDs';
 
 const container1Style = { backgroundColor: 'teal', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
-const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-73px' };
+const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-50px' };
 const textStyle = { color: 'white', marginTop: '120px', fontSize: '55px', fontFamily: 'Papyrus' };
 const textStyle2 = { color: 'teal', textAlign: 'center', marginTop: '40px', fontSize: '40px', fontFamily: 'Copperplate' };
 const textStyle3 = { color: 'teal', textAlign: 'center', paddingTop: '50px', marginTop: '20px', fontSize: '20px', fontFamily: 'Copperplate' };
