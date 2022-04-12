@@ -22,9 +22,9 @@ const OpportunityItem = ({ opp, user }) => (
     </Label>
     <Card.Content>
       <Image size='tiny' src={decode(opp.img)} />
-      <Card.Header>{opp.organization}</Card.Header>
+      <Card.Header>{opp.event}</Card.Header>
       <Card.Meta> <Icon name='map marker alternate'/>{opp.address}</Card.Meta>
-      <Card.Description>{opp.event}</Card.Description>
+      <Card.Description>{opp.organization}</Card.Description>
       {opp.isVerified ?
         <Label size='tiny'color='green'> Verified <Icon name='check' /></Label> : ''}
     </Card.Content>

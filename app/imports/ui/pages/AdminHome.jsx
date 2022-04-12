@@ -2,6 +2,7 @@ import React from 'react';
 import { Loader, Container, Tab } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { Meteor } from 'meteor/meteor';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
@@ -10,11 +11,14 @@ import DumpDbFixture from '../components/DumpDbFixture';
 // import OpportunitiesAdmin from '../components/OpportunitiesAdmin';
 import AdminHomeVolunteers from '../components/AdminHomeVolunteers';
 import AdminHomeOrganizations from '../components/AdminHomeOrganizations';
-import BrowseOpportunitiesAdmin from './BrowseOpportunitiesAdmin';
+// import BrowseOpportunitiesAdmin from './BrowseOpportunitiesAdmin';
+import { Opportunities } from '../../api/opportunities/OpportunityCollection';
+import AdminHomeOpportunities from '../components/AdminHomeOpportunities';
 
 /** Renders the admin home page where information can be viewed and modified. */
+const toDate = new Date();
 
-const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrganizations }) => {
+const AdminHome = ({ ready, allVolunteers, allOrganizations, expiredOpps, activeOpps, notVerifiedOpps, currentUser }) => {
 
   const panes = [
     // eslint-disable-next-line react/display-name
@@ -27,7 +31,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Opportunities', render: () => <Tab.Pane>
-      <BrowseOpportunitiesAdmin/>
+      <AdminHomeOpportunities expiredOpps={expiredOpps} activeOpps={activeOpps} notVerifiedOpps={notVerifiedOpps} currentUser={currentUser}/>
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
     { menuItem: 'Upload/Dump Fixture', render: () => <Tab.Pane>
@@ -37,7 +41,7 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
 
   ];
 
-  return (readyVolunteers && readyOrganizations) ? (
+  return (ready) ? (
     <Container id={PAGE_IDS.ADMIN_HOME}>
       <Tab panes={panes}/>
     </Container>
@@ -45,24 +49,33 @@ const AdminHome = ({ readyVolunteers, readyOrganizations, allVolunteers, allOrga
 };
 
 AdminHome.propTypes = {
-  readyVolunteers: PropTypes.bool.isRequired,
-  readyOrganizations: PropTypes.bool.isRequired,
   allVolunteers: PropTypes.array.isRequired,
   allOrganizations: PropTypes.array.isRequired,
+  expiredOpps: PropTypes.array.isRequired,
+  activeOpps: PropTypes.array.isRequired,
+  notVerifiedOpps: PropTypes.array.isRequired,
+  ready: PropTypes.bool.isRequired,
+  currentUser: PropTypes.string,
 };
 
 export default withTracker(() => {
   const subscriptionVolunteers = VolunteerProfiles.subscribe();
-  const readyVolunteers = subscriptionVolunteers.ready();
   const allVolunteers = VolunteerProfiles.find({}).fetch();
   const subscriptionOrganizations = Organizations.subscribeAdmin();
-  const readyOrganizations = subscriptionOrganizations.ready();
   const allOrganizations = Organizations.find({}).fetch();
-
+  const subscriptionOpportunities = Opportunities.subscribeOpportunityAdmin();
+  const expiredOpps = Opportunities.find({ isVerified: true }, { 'date.end': { $lt: toDate } }).fetch();
+  const activeOpps = Opportunities.find({ isVerified: true }, { 'date.end': { $gte: toDate } }).fetch();
+  const notVerifiedOpps = Opportunities.find({ isVerified: false }).fetch();
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
+  const ready = subscriptionVolunteers.ready() && subscriptionOrganizations.ready() && subscriptionOpportunities.ready();
   return {
-    readyVolunteers,
-    readyOrganizations,
     allVolunteers,
     allOrganizations,
+    expiredOpps,
+    activeOpps,
+    notVerifiedOpps,
+    ready,
+    currentUser,
   };
 })(AdminHome);
