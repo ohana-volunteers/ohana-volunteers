@@ -8,25 +8,26 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
+import { Opportunities } from "../../api/opportunities/OpportunityCollection";
 import { ROLE } from '../../api/role/Role';
 import { useState } from 'react';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
-const NavBar = ({ role, currentUser, orgs, }) => {
+const NavBar = ({ role, currentUser, orgs, opps,}) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: 'rgba(0, 255, 255, .1)' };
   const input = { width: '20rem' };
   var nameList = orgs;
-  const cars = [];
+  const orgsArray = [];
   nameList.forEach((item) => {
-        cars.push(item.name);
+        orgsArray.push(item.name);
       }
   );
-  const carsLength = cars.length;
+  const orgsLength = orgs.length;
   const [inputText, setInputText] = useState("");
 
   var myList = new Array();
-  for (let i = 0; i < carsLength; i++) {
-    let temp = cars[i];
+  for (let i = 0; i < orgsLength; i++) {
+    let temp = orgsArray[i];
     if (temp.toLowerCase().includes(inputText.toLowerCase()) && inputText != '')
     {
       myList.push(temp);
@@ -116,11 +117,15 @@ const NavBarContainer = withTracker(() => {
   let currentUser = '';
   // Get the current user
   if (Meteor.user()) currentUser = Meteor.user().username;
+  const subscriptionOpps = Opportunities.subscribeOpportunity();
   const subscriptionAdmin = AdminProfiles.subscribe();
   const subscriptionVolunteer = VolunteerProfiles.subscribe();
   const subscriptionOrg = Organizations.subscribe();
-  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready();
+  const subscriptionOpp = Opportunities.subscribe();
+  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready() && subscriptionOpps.ready();
   const orgs = Organizations.find({}, { sort: { name: 1 } }).fetch();
+  const opps = Opportunities.find({}, { sort: { organization: 1 } }).fetch();
+
   // Get the document
   let role;
   if (ready) {
@@ -132,6 +137,7 @@ const NavBarContainer = withTracker(() => {
     role,
     currentUser,
     orgs,
+    opps,
   };
 })(NavBar);
 

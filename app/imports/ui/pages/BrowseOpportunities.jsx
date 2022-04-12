@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Header, Divider, Card, Segment, Loader, Tab } from 'semantic-ui-react';
+import {Grid, Header, Divider, Card, Segment, Loader, Tab, Container, Item,} from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -17,8 +17,12 @@ import MapView from '../components/MapView';
 const bridge = new SimpleSchema2Bridge(searchForm);
 const segmentStyle = { overflow: 'auto', maxHeight: 580 };
 const buttonStyle = { color: 'white', backgroundColor: '#2185D0' };
+const textStyle = { color: 'black', marginTop: '50px', marginBottom: '10px', fontSize: '55px', fontFamily: 'Papyrus' };
+const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-22px', marginTop: '-25px' };
+
 
 const BrowseOpportunities = ({ opps, ready }) => {
+
   const [datas, setDatas] = useState('');
   const submit = (data, formRef) => {
     setDatas(data);
@@ -57,9 +61,10 @@ const BrowseOpportunities = ({ opps, ready }) => {
   ];
   let fRef = null;
   return (ready) ? (
+      <Container fluid style={bodyStyle}>
     <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
       <Grid.Row centered>
-        <Header as="h1" size="huge" >Browse Opportunities</Header>
+        <Header as="h1" size="huge"  style={textStyle}>Browse Opportunities</Header>
       </Grid.Row>
       <Divider/>
       <Grid.Row centered columns={3}>
@@ -100,6 +105,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
         </Grid.Column>
       </Grid.Row>
     </Grid>
+      </Container>
   ) : <Loader active>Getting data</Loader>;
 };
 
