@@ -1,10 +1,12 @@
 import React from 'react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
+const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginTop: '22px' };
+
 const Footer = () => {
   const divStyle = { paddingTop: '15px' };
   return (
-    <footer>
+    <footer style={bodyStyle}>
       <div style={divStyle} className="ui center aligned container">
         <hr/>
         ©2021-2022 VolunteerAlly and&nbsp;

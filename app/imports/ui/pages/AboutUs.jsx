@@ -6,7 +6,7 @@ import { PAGE_IDS } from '../utilities/PageIDs';
 const textStyle = { color: 'black', marginTop: '50px', fontSize: '55px', fontFamily: 'Papyrus' };
 const textStyle2 = { color: 'black', fontSize: '40px', fontFamily: 'Papyrus', fontWeight: 'bold'};
 const textStyle3 = { color: 'black', fontSize: '18px', fontFamily: 'Copperplate' };
-const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-73px' };
+const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-22px', marginTop: '-25px' };
 
 /** A simple static component to render some text for the About Us page. */
 const AboutUs = () => (
