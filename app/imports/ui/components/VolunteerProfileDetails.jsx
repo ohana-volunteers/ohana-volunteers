@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Grid, Icon, List } from 'semantic-ui-react';
+import { volunteerInterests } from '../../api/utilities/VolunteerCategories';
 
 /** The main section of the volunteer profile page that presents the main information of the user. */
 const VolunteerProfileDetails = ({ doc }) => (
@@ -24,7 +25,12 @@ const VolunteerProfileDetails = ({ doc }) => (
           <Card.Header>Interests <Icon name="handshake outline"/></Card.Header>
         </Card.Content>
         <Card.Content>
-          <List bulleted size="big" items={doc.interests}/>
+          <List/>
+          {doc.interests.map((item, index) => <List.Item key={index}>
+            <List.Content>
+              <Icon circular size="large" name={volunteerInterests[item].icon}/> {item}
+            </List.Content>
+          </List.Item>)}
         </Card.Content>
       </Card>
     </Grid.Column>
