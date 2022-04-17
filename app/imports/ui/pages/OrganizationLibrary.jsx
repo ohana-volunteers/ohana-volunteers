@@ -3,23 +3,20 @@ import { Grid, Divider, Item, Icon, Button, Container, Image } from 'semantic-ui
 import { Link } from 'react-router-dom'
 
 const container1Style = { backgroundColor: 'teal', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
-const container2Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '40px', paddingLeft: '0px', marginBottom: '-23px' };
 const bodyStyle = {backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-73px' }
 const textStyle = { color: 'white', marginTop: '120px', fontSize: '55px', fontFamily: 'Papyrus' };
 const textStyle2 = { color: 'teal', textAlign: 'center', marginTop: '40px', fontSize: '40px', fontFamily: 'Copperplate' };
 const textStyle3 = { color: 'teal', textAlign: 'center', paddingTop: '50px', marginTop: '20px', fontSize: '20px', fontFamily: 'Copperplate' };
 const textStyle4 = { color: 'teal', textAlign: 'center', paddingTop: '50px', marginTop: '0px', fontSize: '20px', fontFamily: 'Copperplate' };
 const textStyle5 = { color: 'white', fontSize: '15px'};
-const textStyle6 = { color: 'black', fontSize: '55px', fontFamily: 'Papyrus' };
 const textStyle7 = { color: 'black', fontSize: '55px', fontFamily: 'Papyrus', marginBottom: '-50px' };
 const iconStyle = { paddingLeft: '115px' };
-const iconStyle2 = { paddingLeft: '300px' };
 const iconTextStyle = { paddingLeft: '80px', fontsize: '30px', fontFamily: 'Copperplate', color: 'teal' };
 const gridStyle = { marginTop: '100px' };
-const gridStyle2 = { paddingTop: '150px', paddingBottom: '120px' };
 const gridStyle3 = { marginTop: '50px' };
 const gridStyle4 = { marginTop: '50px', marginBottom: '50px' };
 const marginTop = { marginTop: '100px' };
+const style = {marginTop: '100px' };
 
 /** A simple static component to render some text for the About Us page. */
 
@@ -156,7 +153,7 @@ const OrganizationLibrary = () => (
             <Item.Description style={iconTextStyle}> Integration-ready </Item.Description>
           </Grid.Column>
         </Grid>
-      <Container textAlign='center'>
+      <Container textAlign='center' style={style}>
         <Link to={"/signup"}><Item.Header as="h1" style={textStyle7}> Sign Up Today! </Item.Header></Link>
       </Container>
       <Grid centered columns={16} style={gridStyle4}>
