@@ -15,7 +15,9 @@
 }
 
 .landing-background {
-  background-color: rgba(0, 255, 255, .1)
+  background-color: rgba(0, 255, 255, .1);
+  margin-top: -25px;
+  margin-bottom: -22px;
 }
 
 .landing-top-wrap {
@@ -111,7 +113,7 @@
 
 .volunteer-bg-banner {
   max-width: 10rem;
-  max-height: 25rem;
+  max-height: 22rem;
 }
 
 .special-header {
@@ -129,7 +131,23 @@
 }
 
 .ui.line.segment {
-  border : 3px solid #aee8fa !important;
+  border : 3px solid rgba(1, 182, 182, 0.5) !important;
   width: 1155px;
   margin-bottom: 60px!important;
+}
+
+.create-org-button {
+  margin-left: 20rem !important;
+}
+
+.volunteer-edit-button {
+  margin-left: 2rem !important;
+}
+
+.volunteer-stats-left {
+  margin-left: 2rem !important;
+}
+
+.volunteer-stats-right {
+  margin-right: 2rem !important;
 }

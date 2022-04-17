@@ -1,11 +1,13 @@
 /** Define ids for each page. */
 export const PAGE_IDS = {
   ADD_HOURS: 'add-hours',
+  ADMIN_HOME: 'admin-home',
   LANDING: 'landing',
   LIST_HOURS: 'list-hours',
   MANAGE_DATABASE: 'manage-database',
   PRIVACY_POLICY: 'privacy-policy',
   ABOUT_US: 'about-us',
+  MY_VOLUNTEER_PROFILE: 'my-volunteer-profile',
   VOLUNTEER_PROFILE: 'volunteer-profile',
   EDIT_VOLUNTEER_PROFILE: 'edit-volunteer-profile',
   NOT_FOUND: 'not-found',
@@ -15,7 +17,11 @@ export const PAGE_IDS = {
   ORG_SIGN_UP: 'org-sign-up',
   ORGANIZATION_PROFILE: 'organization-profile',
   BROWSE_OPPORTUNITIES: 'browse-opportunities',
+  OPPORTUNITY_DETAILS: 'opportunity-details',
   BROWSE_OPPORTUNITIES_ADMIN: 'browse-opportunities-admin',
+  COMMUNITY_EVENT: 'community-event',
+  ORGANIZATION_LIBRARY: 'organization-library',
   ADD_OPPORTUNITY: 'add-opportunity',
+  EDIT_OPPORTUNITY: 'edit-opportunity',
   COMMNUITY_EVENT: 'CommunityEvent',
 };

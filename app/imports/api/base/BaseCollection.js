@@ -31,6 +31,7 @@ class BaseCollection {
   /**
    * Defines documents in this collection. Must be overridden in subclasses.
    * @param {Object} obj the object defining the new document.
+   * @return {String} the docID of the new document.
    */
   define(obj) {
     throw new Meteor.Error(`The define(${obj}) method is not defined in BaseCollection.`);

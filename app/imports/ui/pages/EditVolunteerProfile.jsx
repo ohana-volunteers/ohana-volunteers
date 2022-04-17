@@ -63,7 +63,7 @@ const EditVolunteerProfile = ({ doc, ready, location }) => {
             <MultiSelectField id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_AVAILABILITY} label='Availability' name='availability'/>
             <ImageUploadField name='profilePicture' label='Profile Picture' id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_PROFILE_PICTURE}/>
             <ImageUploadField name='bannerPicture' label='Banner Picture' id={COMPONENT_IDS.SIGN_UP_FORM_BANNER_PICTURE}/>
-            <SubmitField value='Submit' />
+            <SubmitField id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT_SUBMIT} value='Submit' />
             <ErrorsField />
           </Segment>
         </AutoForm>

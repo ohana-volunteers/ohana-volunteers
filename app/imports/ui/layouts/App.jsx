@@ -15,18 +15,22 @@ import organizations from '../pages/OrganizationLibrary';
 import BrowseOpportunities from '../pages/BrowseOpportunities';
 import BrowseOpportunitiesAdmin from '../pages/BrowseOpportunitiesAdmin';
 import AddOpportunity from '../pages/AddOpportunity';
+import EditOpportunity from '../pages/EditOpportunity';
 import Signup from '../pages/Signup';
 import OrganizationSignup from '../pages/OrganizationSignup';
 import Signout from '../pages/Signout';
 import ManageDatabase from '../pages/ManageDatabase';
+import AdminHome from '../pages/AdminHome';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import VolunteerProfile from '../pages/VolunteerProfile';
+import MyVolunteerProfile from '../pages/MyVolunteerProfile';
 import EditVolunteerProfile from '../pages/EditVolunteerProfile';
 import AboutUs from '../pages/AboutUs';
 import OrganizationProfile from '../pages/OrganizationProfile';
 import { ROLE } from '../../api/role/Role';
 import CommunityEvent from '../pages/CommunityEvent';
-import TermsAndConditions from '../pages/TermsAndConditions'
+import TermsAndConditions from '../pages/TermsAndConditions';
+import OpportunityDetails from '../pages/OpportunityDetails';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -44,16 +48,21 @@ class App extends React.Component {
             <AdminProtectedRoute path="/org-signup" component={OrganizationSignup}/>
             <Route path="/signout" component={Signout}/>
             <Route path="/organization-profile/:_id" component={OrganizationProfile}/>
-            <ProtectedRoute path="/my-profile" component={VolunteerProfile}/>
+            <ProtectedRoute path="/my-organization-profile/" component={OrganizationProfile}/>
+            <ProtectedRoute path="/volunteer-profile/:_id" component={VolunteerProfile}/>
+            <ProtectedRoute path="/my-profile" component={MyVolunteerProfile}/>
             <ProtectedRoute path="/edit-my-profile" component={EditVolunteerProfile}/>
             <ProtectedRoute path="/addHours" component={AddHours}/>
             <ProtectedRoute path="/listHours" component={ListHours}/>
             <AdminProtectedRoute path="/manage-database" component={ManageDatabase}/>
+            <AdminProtectedRoute path="/admin-home" component={AdminHome}/>
             <Route path="/organization-library" component={organizations}/>
             <Route path="/browse-opportunities" component={BrowseOpportunities}/>
-              <Route path="/TermsAndConditions" component={TermsAndConditions}/>
+            <Route path="/TermsAndConditions" component={TermsAndConditions}/>
             <ProtectedRoute path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
             <ProtectedRoute path="/add-opportunity" component={AddOpportunity}/>
+            <ProtectedRoute path="/edit/:_id" component={EditOpportunity}/>
+            <ProtectedRoute path="/opportunity-page/:_id" component={OpportunityDetails}/>
             <Route path="/event" component={CommunityEvent}/>
             <Route path="/notfound" component={NotFound}/>
           </Switch>

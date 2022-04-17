@@ -18,23 +18,25 @@ class OrgProfileCollection extends BaseCollection {
   }
 
   /**
-   * Defines a new Organization.
+   * Defines a new Organization and User.
    * @return {String} the docID of the new document.
    */
-  define(profile) {
+  define({ user, profile }) {
     if (Meteor.isServer) {
-      const profileID = this._collection.insert(profile);
-      const username = profile.email;
-      const password = profile.password;
-      const user = this.findOne(username);
-      // create new user if necessary
-      if (!user) {
-        const role = ROLE.ORGANIZATION;
-        const userID = Users.define({ username, role, password });
+      const newUser = {
+        username: user.email,
+        role: ROLE.ORGANIZATION,
+        password: user.password,
+      };
+      const existingUser = Meteor.users.findOne({ username: user.email });
+      if (!existingUser) {
+        const userID = Users.define(newUser);
         Roles.createRole(ROLE.ORGANIZATION, { unlessExists: true });
         Roles.addUsersToRoles(userID, ROLE.ORGANIZATION);
       }
-      return profileID;
+      const newProfile = profile;
+      newProfile.owner = user.email;
+      return this._collection.insert(newProfile);
     }
     return undefined;
   }
@@ -49,12 +51,14 @@ class OrgProfileCollection extends BaseCollection {
 
   /**
    * A stricter form of remove that throws an error if the document or docID could not be found in this collection.
-   * @param { String | Object } name A document or docID in this collection.
-   * @returns true
+   * @param { String | Object } id A document or docID in this collection.
    */
-  removeIt(name) {
-    const doc = this.findDoc(name);
+  removeIt(id) {
+    const doc = this.findDoc(id);
     check(doc, Object);
+    // const user = doc.username;
+    // const userID = Users.getID(user);
+    // TODO: Allow for user deletion through UserCollection
     this._collection.remove(doc._id);
     return true;
   }
@@ -109,7 +113,22 @@ class OrgProfileCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ORGANIZATION]);
+  }
+
+  dumpOne(docID) {
+    const doc = this.findDoc(docID);
+    const owner = doc.owner;
+    const name = doc.name;
+    const categories = doc.categories;
+    const location = doc.location;
+    const mailing_address = doc.mailing_address;
+    const website = doc.website;
+    const logo = doc.logo;
+    const logo_mini = doc.logo_mini;
+    const contact = doc.contact;
+    const status = doc.status;
+    return { owner, name, categories, location, mailing_address, website, logo, logo_mini, contact, status };
   }
 }
 

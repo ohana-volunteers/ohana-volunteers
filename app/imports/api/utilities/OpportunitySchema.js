@@ -20,8 +20,10 @@ export const OpportunitySchema = new SimpleSchema({
   },
   organization: {
     type: String,
+    optional: true,
   },
   address: String,
+  description: String,
   coordinates: {
     type: Object,
     optional: true,
@@ -51,5 +53,8 @@ export const OpportunitySchema = new SimpleSchema({
   age: {
     type: String,
     allowedValues: OpportunityAge,
+  },
+  isVerified: {
+    type: Boolean,
   },
 });

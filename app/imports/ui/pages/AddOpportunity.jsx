@@ -1,8 +1,20 @@
 import React from 'react';
-import { Grid, Segment, Header, Icon, Form, Divider, Container } from 'semantic-ui-react';
-import { AutoForm, DateField, ErrorsField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import { Grid, Segment, Header, Icon, Form, Divider, Container, Loader } from 'semantic-ui-react';
+import {
+  AutoForm,
+  DateField,
+  ErrorsField,
+  NumField,
+  SubmitField,
+  TextField,
+  LongTextField,
+  HiddenField,
+  BoolField,
+} from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
 import RadioField from '../components/form-fields/RadioField';
@@ -12,21 +24,22 @@ import { OpportunitySchema } from '../../api/utilities/OpportunitySchema';
 import { defineMethod } from '../../api/base/BaseCollection.methods';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import ImageUploadField from '../components/form-fields/ImageUploadField';
+import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 
 // Create a schema to specify the structure of the data to appear in the form.
 const formSchema = new SimpleSchema(OpportunitySchema);
 const bridge = new SimpleSchema2Bridge(formSchema);
 
 /** Renders the Page for adding a document. */
-const AddOpportunity = () => {
-
+const AddOpportunity = ({ ready, defaultOrg }) => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { date, img, organization, address, coordinates, event, categories, environment, age } = data;
+    const { date, img, address, description, coordinates, event, categories, environment, age, isVerified } = data;
     // const owner = Meteor.user().username;
+    const organization = defaultOrg === undefined ? data.organization : defaultOrg.name;
     const url = Meteor.user().username;
     const collectionName = Opportunities.getCollectionName();
-    const definitionData = { url, date, img, organization, address, coordinates, event, categories, environment, age };
+    const definitionData = { url, date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -37,7 +50,7 @@ const AddOpportunity = () => {
 
   // Render the form. Use Uniforms: https://github.com/vazco/uniforms
   let fRef = null;
-  return (
+  return (ready) ? (
     <Container id={PAGE_IDS.ADD_OPPORTUNITY}>
       <Grid container centered>
         <Grid.Column width={10}>
@@ -63,9 +76,13 @@ const AddOpportunity = () => {
               </Header>
               <Form.Group widths={'equal'}>
                 <TextField name='event' label='Opportunity Title' />
-                <TextField name='organization' />
+                {defaultOrg ?
+                  <TextField name='organization' placeholder={defaultOrg.name} disabled /> :
+                  <TextField name='organization' />
+                }
               </Form.Group>
               <TextField name='address'/>
+              <LongTextField name='description' placeholder='Please enter a detailed description of the volunteer opportunity.'/>
               <ImageUploadField name='img' label='Opportunity Picture'/>
             </Segment>
 
@@ -89,15 +106,39 @@ const AddOpportunity = () => {
               <MultiSelectField name='categories' />
               <RadioField name='age' showInlineError={true} label='Age Group'/>
               <RadioField name='environment' showInlineError={true} label='Environmental Preference'/>
+              {defaultOrg ?
+                <HiddenField name='isVerified' value={false}/> :
+                <BoolField name='isVerified' showInlineError={true} label='Verify this Opportunity? '/>
+              }
             </Segment>
-            <SubmitField value='Submit' />
+            {defaultOrg ?
+              <SubmitField value='Send to Admin' /> :
+              <SubmitField value='Submit' />
+            }
             <ErrorsField />
 
           </AutoForm>
         </Grid.Column>
       </Grid>
     </Container>
-  );
+  ) : <Loader active>Getting data</Loader>;
 };
 
-export default AddOpportunity;
+AddOpportunity.propTypes = {
+  ready: PropTypes.bool.isRequired,
+  defaultOrg: PropTypes.object,
+};
+
+// withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+export default withTracker(() => {
+  // Get access to Opportunity documents.
+  const subscriptionOrg = Organizations.subscribe();
+  // Determine if the subscription is ready
+  const ready = subscriptionOrg.ready();
+  const currentUser = Meteor.user().username;
+  const defaultOrg = Organizations.findOne({ owner: currentUser });
+  return {
+    ready,
+    defaultOrg,
+  };
+})(AddOpportunity);

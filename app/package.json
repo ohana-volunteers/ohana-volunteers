@@ -9,7 +9,7 @@
   },
   "private": true,
   "dependencies": {
-    "@babel/runtime": "^7.17.0",
+    "@babel/runtime": "^7.17.9",
     "classnames": "^2.3.1",
     "core-js": "^3.16.0",
     "faker": "^5.5.3",
@@ -23,7 +23,7 @@
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.7.0",
     "meteor-node-stubs": "^1.1.0",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-big-calendar": "^0.38.9",
     "react-dom": "^17.0.2",
@@ -60,7 +60,7 @@
     "lint": "eslint --quiet --fix --ext .jsx --ext .js ./imports",
     "test-unit": "cross-env TEST_BROWSER_DRIVER=puppeteer MOCHA_TIMEOUT=150000 meteor test --exclude-archs web.browser.legacy,web.cordova --no-release-check --once --driver-package meteortesting:mocha --port 3100",
     "test-integration": "cross-env METEOR_NO_RELEASE_CHECK=1 TEST_BROWSER_DRIVER=puppeteer meteor test --full-app --once --driver-package meteortesting:mocha --port 3100",
-    "test-acceptance-development": "testcafe chrome tests/*.testcafe.js",
+    "test-acceptance-development": "testcafe chrome tests/*.testcafe.js --page-request-timeout 100000",
     "test-acceptance": "meteor reset && testcafe chrome:headless tests/*.testcafe.js -q --page-request-timeout 100000 --app \"meteor npm run start\"",
     "test-all": "meteor reset && meteor npm run lint && meteor npm run test-unit && meteor npm run test-integration && meteor npm run test-acceptance",
     "unimported": "npx unimported"

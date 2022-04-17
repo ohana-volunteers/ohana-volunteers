@@ -96,73 +96,89 @@
       "email": "hawaiifoodbank@foo.com",
       "password": "changeme",
       "role": "ORGANIZATION",
-      "name": "Hawaii Foodbank",
-      "categories": ["food", "poverty"],
-      "location": "2611 Kilihau St., Honolulu, HI 96819",
-      "website": "https://hawaiifoodbank.org",
-      "logo": "/images/hawaii-foodbank/HawaiiFoodbank_Logo.png",
-      "logo_mini": "/images/hawaii-foodbank/org-logos-03-150x150.png",
-      "contact": {
-        "name": "Volunteer Opportunities",
-        "email": "volunteer@hawaiifoodbank.org",
-        "phone": "808-954-7866"
-      },
-      "status": "public"
+      "profile": {
+        "name": "Hawaii Foodbank",
+        "categories": [
+          "food",
+          "poverty"
+        ],
+        "location": "2611 Kilihau St., Honolulu, HI 96819",
+        "website": "https://hawaiifoodbank.org",
+        "logo": "/images/hawaii-foodbank/HawaiiFoodbank_Logo.png",
+        "logo_mini": "/images/hawaii-foodbank/org-logos-03-150x150.png",
+        "contact": {
+          "name": "Volunteer Opportunities",
+          "email": "volunteer@hawaiifoodbank.org",
+          "phone": "808-954-7866"
+        },
+        "status": "public"
+      }
     },
     {
       "email": "alohaanimal@foo.com",
       "password": "changeme",
       "role": "ORGANIZATION",
-      "name": "Aloha Animal Sanctuary",
-      "categories": ["animal"],
-      "location": "47-119 Pulama Rd, Kaneohe, HI 96744",
-      "website": "https://www.alohasanctuary.org",
-      "logo": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
-      "logo_mini": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
-      "contact": {
-        "name": "Information",
-        "email": "info@alohasanctuary.org"
-      },
-      "status": "public"
+      "profile": {
+        "name": "Aloha Animal Sanctuary",
+        "categories": ["animal"],
+        "location": "47-119 Pulama Rd, Kaneohe, HI 96744",
+        "website": "https://www.alohasanctuary.org",
+        "logo": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
+        "logo_mini": "/images/aloha-animal-sanctuary/org-logos-01-150x150.png",
+        "contact": {
+          "name": "Information",
+          "email": "info@alohasanctuary.org"
+        },
+        "status": "public"
+      }
     },
     {
       "email": "habitat@foo.com",
       "password": "changeme",
       "role": "ORGANIZATION",
-      "name": "Habitat for Humanity",
-      "categories": ["housing", "poverty"],
-      "location": "922 Austin Lane, #C-1 Honolulu, HI 96817",
-      "website": "https://www.honoluluhabitat.org",
-      "logo": "/images/habitat-for-humanity/HHH-logo-black.png",
-      "logo_mini": "/images/habitat-for-humanity/org-logos-02-150x150.png",
-      "contact": {
-        "email": "info@honoluluhabitat.org",
-        "phone": "(808) 538-7070"
-      },
-      "status": "public"
+      "profile": {
+        "name": "Habitat for Humanity",
+        "categories": [
+          "housing",
+          "poverty"
+        ],
+        "location": "922 Austin Lane, #C-1 Honolulu, HI 96817",
+        "website": "https://www.honoluluhabitat.org",
+        "logo": "/images/habitat-for-humanity/HHH-logo-black.png",
+        "logo_mini": "/images/habitat-for-humanity/org-logos-02-150x150.png",
+        "contact": {
+          "email": "info@honoluluhabitat.org",
+          "phone": "(808) 538-7070"
+        },
+        "status": "public"
+      }
     },
     {
       "email": "mealsonwheels@foo.com",
       "password": "changeme",
       "role": "ORGANIZATION",
-      "name": "Hawaii Meals on Wheels",
-      "categories": ["food", "seniors"],
-      "location": "2728 Huapala St # 209, Honolulu, HI 96822",
-      "mailing_address": "P.O. Box 236099, Honolulu, Hawaii 96823",
-      "website": "https://hmow.org",
-      "logo": "/images/meals-on-wheels/hawaii-meals-on-wheels.png",
-      "logo_mini": "/images/meals-on-wheels/org-logos-04-150x150.png",
-      "contact": {
-        "email": "info@hmow.org",
-        "phone": "(808) 988-6747"
-      },
-      "status": "public"
+        "profile": {
+          "name": "Hawaii Meals on Wheels",
+          "categories": [
+            "food",
+            "seniors"
+          ],
+          "location": "2728 Huapala St # 209, Honolulu, HI 96822",
+          "mailing_address": "P.O. Box 236099, Honolulu, Hawaii 96823",
+          "website": "https://hmow.org",
+          "logo": "/images/meals-on-wheels/hawaii-meals-on-wheels.png",
+          "logo_mini": "/images/meals-on-wheels/org-logos-04-150x150.png",
+          "contact": {
+            "email": "info@hmow.org",
+            "phone": "(808) 988-6747"
+          },
+          "status": "public"
+        }
     }
   ],
 
   "defaultOpportunities": [
     {
-      "url": "#opportunity-test-opportunity",
       "date": {
         "start": "2022-03-04 09:30:00",
         "end": "2022-03-04 11:30:00"
@@ -170,6 +186,7 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Kokua",
       "address": "66-249 Kamehameha Highway",
+      "description": "Join us for our monthly first Saturday farm workday.",
       "coordinates": {
         "log": -158.1056343,
         "lat": 21.5864533
@@ -177,10 +194,10 @@
       "event": "Kokua Learning Farm Community Workday",
       "categories": ["education", "environment"],
       "environment": "Indoor",
-      "age": "Adults"
+      "age": "Adults",
+      "isVerified": true
     },
     {
-      "url": "#opportunity-test-opportunity",
       "date": {
         "start": "2022-01-21 08:30:00",
         "end": "2022-03-04 12:00:00"
@@ -188,6 +205,7 @@
       "img": "/images/hawaii-foodbank/org-logos-03-150x150.png",
       "organization": "Hawaii Foodbank",
       "address": "Waipio Point Access Road",
+      "description": "Volunteer assistance is needed to help distribute food to those facing food insecurity in the community. Apply at hawaiifoodbank.org.",
       "coordinates": {
         "log": -157.988297,
         "lat": 21.3661178
@@ -195,10 +213,10 @@
       "event": "Distribution Assistance",
       "categories": ["covid"],
       "environment": "Outdoor",
-      "age": "Family-Friendly"
+      "age": "Family-Friendly",
+      "isVerified": true
     },
     {
-      "url": "#opportunity-test-opportunity",
       "date": {
         "start": "2021-12-09 09:00:00",
         "end": "2022-12-09 12:00:00"
@@ -206,6 +224,7 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Joshlyn Sand",
       "address": "123 North Kuakini Street",
+      "description": "Come help us clean the Nuuanu Stream at Lili`uokalani Botanical Garden!  Enjoy the beautiful Waiakahalulu waterfall in the middle of busy downtown.  All supplies are included.  Wear covered shoes, mosquito repellent, hat, sunscreen recommended.",
       "coordinates": {
         "log": -157.857039,
         "lat": 21.319268
@@ -213,10 +232,10 @@
       "event": "Nuuanu Stream Clean-Up",
       "categories": ["environment"],
       "environment": "Both",
-      "age": "Teens"
+      "age": "Teens",
+      "isVerified": false
     },
     {
-      "url": "#opportunity-test-opportunity",
       "date": {
         "start": "2022-02-01 12:00:00",
         "end": "2022-02-01 14:00:00"
@@ -224,6 +243,7 @@
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Scott Wo",
       "address": "921770b Kunia Road",
+      "description": "This is a test event.",
       "coordinates": {
         "log": -158.0608245,
         "lat": 21.4561886
@@ -231,43 +251,65 @@
       "event": "Test Opportunity",
       "categories": ["environment"],
       "environment": "No Preference",
-      "age": "Seniors"
+      "age": "Seniors",
+      "isVerified": true
     },
     {
-      "url": "#opportunity-test-opportunity",
       "date": {
-        "start": "2022-01-04 09:30:00",
-        "end": "2022-01-04 11:30:00"
+        "start": "2022-04-01 09:00:00",
+        "end": "2022-04-01 12:15:00"
       },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
-      "organization": "a-organization#1",
-      "address": "address#1",
+      "organization": "Chase Conching",
+      "address": "2522 Rose Street",
+      "description": "Because orders come in 24/7, we need shoppers to walk around our warehouse shelves and fill boxes with the ordered foods. Indoors.",
       "coordinates": {
-        "log": -158.0608245,
-        "lat": 21.4561886
+        "log": -157.8830595,
+        "lat": 21.3425938
       },
-      "event": "event#1",
-      "categories": ["education", "environment"],
+      "event": "Feeding Hawaii Together: Filling Orders",
+      "categories": ["food"],
       "environment": "Indoor",
-      "age": "Adults"
+      "age": "Adults",
+      "isVerified": false
     },
     {
-      "url": "#opportunity-test-opportunity",
       "date": {
-        "start": "2022-03-04 09:30:00",
-        "end": "2022-03-04 11:30:00"
+        "start": "2021-11-19 12:00:00",
+        "end": "2022-05-21 12:00:00"
       },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
-      "organization": "b-organization#2",
-      "address": "address#2",
+      "organization": "Nary Finley",
+      "address": "Honolulu County",
+      "description": "Help to recruit our workforce! The Red Cross is 90% volunteer run. In this role, you'll help do outreach to local groups, organizations, individuals and schools across the region to help bring in new, diverse and highly skilled volunteers for our highest need positions.",
       "coordinates": {
-        "log": -158.0608245,
-        "lat": 21.4561886
+        "log": -157.9284723,
+        "lat": 21.3069712
       },
-      "event": "event#2",
-      "categories": ["education", "environment"],
+      "event": "Volunteer Recruitment Specialist",
+      "categories": ["disaster"],
       "environment": "Indoor",
-      "age": "Teens"
+      "age": "Teens",
+      "isVerified": true
+    },
+    {
+      "date": {
+        "start": "2022-04-05 09:00:00",
+        "end": "2022-04-05 12:00:00"
+      },
+      "img": "/images/va-logo/VA-logo-circle-v5.svg",
+      "organization": "Leona Larkin",
+      "address": "2522 Rose Street",
+      "description": "Please wear close-toed shoes and breathable clothing.",
+      "coordinates": {
+        "log": -157.9158904,
+        "lat": 21.3426701
+      },
+      "event": "Shopping",
+      "categories": ["food"],
+      "environment": "Outdoor",
+      "age": "Family-Friendly",
+      "isVerified": false
     }
   ],
 

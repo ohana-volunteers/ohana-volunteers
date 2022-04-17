@@ -25,24 +25,28 @@ class OpportunityCollection extends BaseCollection {
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
    * @param address  the address of the item.
+   * @param description  the description of the item.
    * @param coordinates  the coordinates of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
    * @param age  the age group of the item.
+   * @param isVerified if the item was verified by the admin.
    * @return {String} the docID of the new document.
    */
-  define({ date, img, organization, address, coordinates, event, categories, environment, age }) {
+  define({ date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified }) {
     const docID = this._collection.insert({
       date,
       img,
       organization,
       address,
+      description,
       coordinates,
       event,
       categories,
       environment,
       age,
+      isVerified,
     });
     // this._collection.createIndex({ '$**': 'text' });
     return docID;
@@ -55,23 +59,32 @@ class OpportunityCollection extends BaseCollection {
    * @param img the image of the item.
    * @param organization  the organization the item belongs to.
    * @param address  the address of the item.
+   * @param description  the description of the item.
    * @param coordinates  the coordinates of the item.
    * @param event  the name of the item.
    * @param categories  the categories of the item.
    * @param environment  the environment of the item.
-   * @param age  the age group of the item.
+   * @param age the age group of the item.
+   * @param isVerified if the item was verified by the admin.
    */
-  update(docID, { date, img, organization, address, coordinates, event, categories, environment, age }) {
+  update(docID, { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified }) {
     const updateData = {};
     if (date)updateData.date = date;
     if (img) updateData.img = img;
     if (organization) updateData.organization = organization;
     if (address) updateData.address = address;
-    if (coordinates) updateData.coordinates = address;
+    if (description) updateData.description = description;
+    if (coordinates) updateData.coordinates = coordinates;
     if (event) updateData.event = event;
     if (categories) updateData.categories = categories;
     if (environment) updateData.environment = environment;
     if (age) updateData.age = age;
+    if (isVerified) {
+      updateData.isVerified = true;
+    } else {
+      updateData.isVerified = false;
+    }
+    if (isVerified) updateData.isVerified = true;
     this._collection.update(docID, { $set: updateData });
   }
 
@@ -107,7 +120,7 @@ class OpportunityCollection extends BaseCollection {
        * This subscription publishes documents that belong to logged-in organization who can access define, update and removeIt.
        */
       Meteor.publish(OpportunityPublications.opportunityOrg, function publish() {
-        if (this.userId && Roles.userIsInRole(this.userId, ROLE.USER)) {
+        if (this.userId && Roles.userIsInRole(this.userId, ROLE.VOLUNTEER)) {
           const username = Meteor.users.findOne(this.userId).username;
           return instance._collection.find({ organization: username });
         }
@@ -164,7 +177,7 @@ class OpportunityCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.USER]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ORGANIZATION]);
   }
 
   /**
@@ -175,15 +188,18 @@ class OpportunityCollection extends BaseCollection {
   dumpOne(docID) {
     const doc = this.findDoc(docID);
     const date = doc.date;
-    const img = doc.img;
+    // When dumped, string will be sliced as the original base64 string is too long
+    const img = doc.img.slice(0, 50);
     const organization = doc.organization;
     const address = doc.address;
+    const description = doc.description;
     const coordinates = doc.coordinates;
     const event = doc.event;
     const categories = doc.categories;
     const environment = doc.environment;
     const age = doc.age;
-    return { date, img, organization, address, coordinates, event, categories, environment, age };
+    const isVerified = doc.isVerified;
+    return { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified };
   }
 }
 

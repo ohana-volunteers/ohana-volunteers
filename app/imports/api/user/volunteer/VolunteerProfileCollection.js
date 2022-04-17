@@ -234,8 +234,9 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     const availability = doc.availability;
     const totalHours = doc.totalHours;
     const eventsParticipated = doc.eventsParticipated;
-    const profilePicture = doc.profilePicture;
-    const bannerPicture = doc.bannerPicture;
+    // When dumped, string will be sliced as the original base64 string is too long
+    const profilePicture = doc.profilePicture.slice(0, 50);
+    const bannerPicture = doc.bannerPicture.slice(0, 50);
     return { email, firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, profilePicture, bannerPicture };
   }
 }

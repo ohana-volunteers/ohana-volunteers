@@ -6,6 +6,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
+const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-22px', marginTop: '-25px' };
+
 /** A simple static component to render some text for the landing page. */
 class CommunityEvent extends React.Component {
 
@@ -30,7 +32,7 @@ class CommunityEvent extends React.Component {
 
   render() {
     return (
-      <div id={PAGE_IDS.COMMNUITY_EVENT} className="ohana-event-background">
+      <div id={PAGE_IDS.COMMUNITY_EVENT} className="ohana-event-background" style={bodyStyle}>
         <Calendar
           localizer={localizer}
           defaultDate={new Date()}
