@@ -3,8 +3,8 @@ import { Grid, Divider, Item, Button, Container } from 'semantic-ui-react';
 
 const container1Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '-25px', paddingLeft: '0px' };
 const container2Style = { backgroundColor: 'black', paddingBottom: '325px', marginTop: '40px', paddingLeft: '0px', marginBottom: '-23px' };
-const textStyle = { color: 'white', marginTop: '150px', fontSize: '30px', fontFamily: 'Papyrus' };
-const textStyle2 = { color: 'white', marginTop: '75px', fontSize: '28px', fontFamily: 'Papyrus' };
+const textStyle = { color: 'white', marginTop: '150px', fontSize: '30px', fontFamily: 'Copperplate' };
+const textStyle2 = { color: 'white', marginTop: '75px', fontSize: '28px', fontFamily: 'Copperplate' };
 const textStyle3 = { color: 'white', marginTop: '30px', fontSize: '10px' };
 const textStyle4 = { color: 'gray', paddingTop: '40px' };
 const gridStyle2 = { paddingTop: '30px', paddingBottom: '120px' };

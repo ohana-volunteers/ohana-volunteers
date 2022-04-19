@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 
+const textStyle = { fontFamily: 'Copperplate' };
+
 const OpportunityItem = ({ opp }) => (
   <Card href={opp.url}>
     <Card.Content extra>
@@ -60,8 +62,8 @@ const Landing = ({ orgs, ready }) => (
           </Grid.Row>
 
           <Grid.Row>
-            <Header as='h1'>A better way to volunteer.</Header>
-            <Header as='h2'>We connect passionate volunteers with charitable organizations in order to build community. Let us help you easily find service opportunities for organizations in your area of interest.</Header>
+            <Header as='h1' style={textStyle}>A better way to volunteer.</Header>
+            <Header as='h2' style={textStyle}>We connect passionate volunteers with charitable organizations in order to build community. Let us help you easily find service opportunities for organizations in your area of interest.</Header>
           </Grid.Row>
         </div>
       </div>
@@ -69,14 +71,14 @@ const Landing = ({ orgs, ready }) => (
       <Divider/>
 
       <Grid.Row>
-        <Header as='h2'>Dozens of Opportunities for Organizations and Volunteers</Header>
+        <Header as='h2' style={textStyle}>Dozens of Opportunities for Organizations and Volunteers</Header>
       </Grid.Row>
 
       <Grid.Row columns={2}>
         <Grid.Column width={4} verticalAlign='top' textAlign='left'>
-          <Header as='h3'>Take a look at the various organizations Volunteer Ally works with, each with unique volunteer opportunities offering various dates, times, and locations.</Header>
-          <p>Volunteer Ally is a non-profit organization match system designed to pair organizations with volunteers. We partner with various organizations in need of passionate volunteers.</p>
-          <p>Becoming a user is required to ensure committed reliable volunteers for our organizations.</p>
+          <Header as='h3' style={textStyle}>Take a look at the various organizations Volunteer Ally works with, each with unique volunteer opportunities offering various dates, times, and locations.</Header>
+          <p style={textStyle}>Volunteer Ally is a non-profit organization match system designed to pair organizations with volunteers. We partner with various organizations in need of passionate volunteers.</p>
+          <p style={textStyle}>Becoming a user is required to ensure committed reliable volunteers for our organizations.</p>
           <Button>
           Join Now!
           </Button>
@@ -107,7 +109,7 @@ const Landing = ({ orgs, ready }) => (
       <Divider/>
 
       <Grid.Row>
-        <Header as='h2'>Check Out Our Latest Opportunities</Header>
+        <Header as='h2' style={textStyle}>Check Out Our Latest Opportunities</Header>
         <Card.Group centered>
           <OpportunityItem opp={{
             url: '#opportunity-test-opportunity',
@@ -158,10 +160,10 @@ const Landing = ({ orgs, ready }) => (
       <Divider/>
 
       <Grid.Row>
-        <Header as='h1'>Ready to Get Started?</Header>
+        <Header as='h1' style={textStyle}>Ready to Get Started?</Header>
       </Grid.Row>
       <Grid.Row>
-        <p>Sign up now as a volunteer!</p>
+        <p style={textStyle}>Sign up now as a volunteer!</p>
       </Grid.Row>
       <Grid.Row>
         <Button href='#/signup'>Get Started</Button>
