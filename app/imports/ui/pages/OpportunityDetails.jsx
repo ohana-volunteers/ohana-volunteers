@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Card, Image, Loader, Container, Icon, List, Button, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import Map, { Marker } from 'react-map-gl';
@@ -10,11 +11,13 @@ import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { decode } from '../utilities/ImageDecode';
 import OpportunityItem from '../components/OpportunityItem';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
+import { ROLE } from '../../api/role/Role';
+import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 
 /** A simple component to render some text for an Opportunity and its details. */
 const MAPBOX_TOKEN = 'pk.eyJ1IjoieW9uZ3hpbjAwNTYiLCJhIjoiY2t6cm1ueTkzNnY2dTJvbmszZmhtcHo1cSJ9.jpI6brR6TtGGMO9erkuV8g';
 
-const OpportunityDetails = ({ doc, orgDoc, ready }) => {
+const OpportunityDetails = ({ doc, orgDoc, ready, role }) => {
   const openNewTab = () => {
     const link = `https://www.google.com/maps/place/${doc.address}`;
     // eslint-disable-next-line no-undef
@@ -202,7 +205,8 @@ const OpportunityDetails = ({ doc, orgDoc, ready }) => {
                 </Card.Content>
               </Card>
               {/* Button currently non-functional */}
-              <Button primary fluid size="large">Register With Organization Host</Button>
+              {(role === ROLE.VOLUNTEER) ?
+                <Button primary fluid size="large">Register With Organization Host</Button> : '' }
             </Grid.Column>
             <Grid container row={1} centered style={{ paddingTop: '150px' }}>
               <Grid.Row>
@@ -224,10 +228,12 @@ const OpportunityDetails = ({ doc, orgDoc, ready }) => {
 OpportunityDetails.propTypes = {
   doc: PropTypes.object,
   orgDoc: PropTypes.object,
+  role: PropTypes.string,
   ready: PropTypes.bool.isRequired,
 };
 
 export default withTracker(() => {
+  const currentUser = Meteor.user() ? Meteor.user().username : '';
   const subscription = Opportunities.subscribeOpportunity();
   const subscriptionOrg = Organizations.subscribe();
   const { _id } = useParams();
@@ -235,9 +241,12 @@ export default withTracker(() => {
   const ready = subscription.ready() && subscriptionOrg.ready();
   const doc = (ready) ? Opportunities.findDoc(documentId) : undefined;
   const orgDoc = (ready) ? Organizations.findOne({ name: doc.organization }) : undefined;
+  const role = (VolunteerProfiles.findOne({ email: currentUser })) ? ROLE.VOLUNTEER : '';
   return {
+    currentUser,
     doc,
     orgDoc,
+    role,
     ready,
   };
 })(OpportunityDetails);
