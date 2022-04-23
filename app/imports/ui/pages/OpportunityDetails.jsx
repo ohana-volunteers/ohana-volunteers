@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Card, Image, Loader, Container, Icon, List, Button, Header } from 'semantic-ui-react';
+import swal from 'sweetalert';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
@@ -13,11 +14,12 @@ import OpportunityItem from '../components/OpportunityItem';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
 import { ROLE } from '../../api/role/Role';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
+import { updateMethod } from '../../api/base/BaseCollection.methods';
 
 /** A simple component to render some text for an Opportunity and its details. */
 const MAPBOX_TOKEN = 'pk.eyJ1IjoieW9uZ3hpbjAwNTYiLCJhIjoiY2t6cm1ueTkzNnY2dTJvbmszZmhtcHo1cSJ9.jpI6brR6TtGGMO9erkuV8g';
 
-const OpportunityDetails = ({ doc, orgDoc, ready, role }) => {
+const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
   const openNewTab = () => {
     const link = `https://www.google.com/maps/place/${doc.address}`;
     // eslint-disable-next-line no-undef
@@ -28,6 +30,37 @@ const OpportunityDetails = ({ doc, orgDoc, ready, role }) => {
     // eslint-disable-next-line no-undef
     window.open(link);
   };
+
+  const oppRegister = () => {
+    const registeredVolunteers = doc.registeredVolunteers;
+    const collectionName = Opportunities.getCollectionName();
+
+    registeredVolunteers.push(volunteerDoc._id);
+    const updateData = { id: doc._id, registeredVolunteers };
+    updateMethod.callPromise({ collectionName, updateData });
+  };
+
+  const volunteerRegister = () => {
+    const registeredEvents = volunteerDoc.registeredEvents;
+    const collectionName = VolunteerProfiles.getCollectionName();
+
+    if (registeredEvents.includes(doc._id)) {
+      swal('Wait!', 'You already registered for this event!', 'warning');
+      console.log(volunteerDoc.registeredEvents);
+      return -1;
+    }
+    registeredEvents.push(doc._id);
+    const updateData = { id: volunteerDoc._id, registeredEvents };
+    updateMethod.callPromise({ collectionName, updateData })
+      .catch(error => swal('Error', error.message, 'error'))
+      .then(() => swal('Success', 'Event Registered!', 'success'));
+    oppRegister();
+    console.log(doc.registeredVolunteers);
+    console.log(volunteerDoc.registeredEvents);
+    return 0;
+
+  };
+
   return (ready) ? (
     <Container id={PAGE_IDS.OPPORTUNITY_DETAILS}>
       <Card fluid>
@@ -206,7 +239,7 @@ const OpportunityDetails = ({ doc, orgDoc, ready, role }) => {
               </Card>
               {/* Button currently non-functional */}
               {(role === ROLE.VOLUNTEER) ?
-                <Button primary fluid size="large">Register With Organization Host</Button> : '' }
+                <Button primary fluid size="large" onClick={volunteerRegister}>Register With Organization Host</Button> : '' }
             </Grid.Column>
             <Grid container row={1} centered style={{ paddingTop: '150px' }}>
               <Grid.Row>
@@ -228,6 +261,7 @@ const OpportunityDetails = ({ doc, orgDoc, ready, role }) => {
 OpportunityDetails.propTypes = {
   doc: PropTypes.object,
   orgDoc: PropTypes.object,
+  volunteerDoc: PropTypes.object,
   role: PropTypes.string,
   ready: PropTypes.bool.isRequired,
 };
@@ -241,11 +275,13 @@ export default withTracker(() => {
   const ready = subscription.ready() && subscriptionOrg.ready();
   const doc = (ready) ? Opportunities.findDoc(documentId) : undefined;
   const orgDoc = (ready) ? Organizations.findOne({ name: doc.organization }) : undefined;
+  const volunteerDoc = (ready) ? VolunteerProfiles.findOne({ email: currentUser }) : undefined;
   const role = (VolunteerProfiles.findOne({ email: currentUser })) ? ROLE.VOLUNTEER : '';
   return {
     currentUser,
     doc,
     orgDoc,
+    volunteerDoc,
     role,
     ready,
   };

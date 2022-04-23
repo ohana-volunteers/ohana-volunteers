@@ -67,7 +67,7 @@ class OpportunityCollection extends BaseCollection {
    * @param age the age group of the item.
    * @param isVerified if the item was verified by the admin.
    */
-  update(docID, { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified }) {
+  update(docID, { date, img, organization, address, description, coordinates, event, categories, environment, age, registeredVolunteers, isVerified }) {
     const updateData = {};
     if (date)updateData.date = date;
     if (img) updateData.img = img;
@@ -79,6 +79,7 @@ class OpportunityCollection extends BaseCollection {
     if (categories) updateData.categories = categories;
     if (environment) updateData.environment = environment;
     if (age) updateData.age = age;
+    if (registeredVolunteers) updateData.registeredVolunteers = registeredVolunteers;
     if (isVerified) {
       updateData.isVerified = true;
     } else {
@@ -177,7 +178,7 @@ class OpportunityCollection extends BaseCollection {
    * @throws { Meteor.Error } If there is no logged in user, or the user is not an Admin or User.
    */
   assertValidRoleForMethod(userId) {
-    this.assertRole(userId, [ROLE.ADMIN, ROLE.ORGANIZATION]);
+    this.assertRole(userId, [ROLE.ADMIN, ROLE.ORGANIZATION, ROLE.VOLUNTEER]);
   }
 
   /**
@@ -198,8 +199,9 @@ class OpportunityCollection extends BaseCollection {
     const categories = doc.categories;
     const environment = doc.environment;
     const age = doc.age;
+    const registeredVolunteers = doc.registeredVolunteers;
     const isVerified = doc.isVerified;
-    return { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified };
+    return { date, img, organization, address, description, coordinates, event, categories, environment, age, registeredVolunteers, isVerified };
   }
 }
 

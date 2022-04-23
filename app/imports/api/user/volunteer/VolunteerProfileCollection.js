@@ -68,10 +68,10 @@ class VolunteerProfileCollection extends BaseProfileCollection {
       },
       registeredEvents: {
         type: Array,
-        optional: true,
+        defaultValue: [],
       },
       'registeredEvents.$': {
-        type: Object,
+        type: String,
       },
       profilePicture: {
         type: Buffer,
