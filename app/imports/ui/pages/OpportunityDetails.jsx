@@ -32,7 +32,7 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
   };
 
   const oppRegister = () => {
-    const registeredVolunteers = doc.registeredVolunteers;
+    const registeredVolunteers = doc.registeredVolunteers.slice();
     const collectionName = Opportunities.getCollectionName();
 
     registeredVolunteers.push(volunteerDoc._id);
@@ -41,7 +41,7 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
   };
 
   const volunteerRegister = () => {
-    const registeredEvents = volunteerDoc.registeredEvents;
+    const registeredEvents = volunteerDoc.registeredEvents.slice();
     const collectionName = VolunteerProfiles.getCollectionName();
 
     if (registeredEvents.includes(doc._id)) {
@@ -237,7 +237,6 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
                   </List>
                 </Card.Content>
               </Card>
-              {/* Button currently non-functional */}
               {(role === ROLE.VOLUNTEER) ?
                 <Button primary fluid size="large" onClick={volunteerRegister}>Register With Organization Host</Button> : '' }
             </Grid.Column>
