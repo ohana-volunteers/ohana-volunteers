@@ -31,15 +31,17 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
     window.open(link);
   };
 
+  // Add volunteer to the opp's array of registered volunteers
   const oppRegister = () => {
     const registeredVolunteers = doc.registeredVolunteers.slice();
     const collectionName = Opportunities.getCollectionName();
 
     registeredVolunteers.push(volunteerDoc._id);
-    const updateData = { id: doc._id, registeredVolunteers };
+    const updateData = { id: doc._id, registeredVolunteers, isVerified: true };
     updateMethod.callPromise({ collectionName, updateData });
   };
 
+  // Add opp to volunteer's array of opps that they have registered for
   const volunteerRegister = () => {
     const registeredEvents = volunteerDoc.registeredEvents.slice();
     const collectionName = VolunteerProfiles.getCollectionName();
