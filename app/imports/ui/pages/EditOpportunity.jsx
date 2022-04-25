@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Loader, Header, Segment, Divider, Icon, Form, Container } from 'semantic-ui-react';
 import swal from 'sweetalert';
-import { AutoForm, DateField, ErrorsField, LongTextField, NumField, SubmitField, TextField } from 'uniforms-semantic';
+import { AutoForm, BoolField, DateField, ErrorsField, LongTextField, NumField, SubmitField, TextField } from 'uniforms-semantic';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -22,9 +22,9 @@ const EditOpportunity = ({ doc, ready, location }) => {
   const [redirectToReferer, setRedirectToReferer] = useState(false);
   // On successful submit, insert the data.
   const submit = (data) => {
-    const { date, img, organization, address, description, coordinates, event, categories, environment, age } = data;
+    const { date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified } = data;
     const collectionName = Opportunities.getCollectionName();
-    const updateData = { id: doc._id, date, img, organization, address, description, coordinates, event, categories, environment, age };
+    const updateData = { id: doc._id, date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified };
     updateMethod.callPromise({ collectionName, updateData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Item updated successfully', 'success'));
@@ -85,6 +85,7 @@ const EditOpportunity = ({ doc, ready, location }) => {
               <MultiSelectField name='categories' />
               <RadioField name='age' showInlineError={true} label='Age Group'/>
               <RadioField name='environment' showInlineError={true} label='Environmental Preference'/>
+              <BoolField name='isVerified' showInlineError={true} label='Verify this Opportunity? '/>
             </Segment>
             <SubmitField value='Update' />
             <ErrorsField />

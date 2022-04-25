@@ -54,4 +54,14 @@ export const OpportunitySchema = new SimpleSchema({
     type: String,
     allowedValues: OpportunityAge,
   },
+  registeredVolunteers: {
+    type: Array,
+    defaultValue: [],
+  },
+  'registeredVolunteers.$': {
+    type: String,
+  },
+  isVerified: {
+    type: Boolean,
+  },
 });

@@ -1,6 +1,16 @@
 import React from 'react';
 import { Grid, Segment, Header, Icon, Form, Divider, Container, Loader } from 'semantic-ui-react';
-import { AutoForm, DateField, ErrorsField, NumField, SubmitField, TextField, LongTextField } from 'uniforms-semantic';
+import {
+  AutoForm,
+  DateField,
+  ErrorsField,
+  NumField,
+  SubmitField,
+  TextField,
+  LongTextField,
+  HiddenField,
+  BoolField,
+} from 'uniforms-semantic';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -24,12 +34,12 @@ const bridge = new SimpleSchema2Bridge(formSchema);
 const AddOpportunity = ({ ready, defaultOrg }) => {
   // On submit, insert the data.
   const submit = (data, formRef) => {
-    const { date, img, address, description, coordinates, event, categories, environment, age } = data;
+    const { date, img, address, description, coordinates, event, categories, environment, age, isVerified } = data;
     // const owner = Meteor.user().username;
     const organization = defaultOrg === undefined ? data.organization : defaultOrg.name;
     const url = Meteor.user().username;
     const collectionName = Opportunities.getCollectionName();
-    const definitionData = { url, date, img, organization, address, description, coordinates, event, categories, environment, age };
+    const definitionData = { url, date, img, organization, address, description, coordinates, event, categories, environment, age, isVerified };
     defineMethod.callPromise({ collectionName, definitionData })
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => {
@@ -44,7 +54,7 @@ const AddOpportunity = ({ ready, defaultOrg }) => {
     <Container id={PAGE_IDS.ADD_OPPORTUNITY}>
       <Grid container centered>
         <Grid.Column width={10}>
-          <Header as="h2" textAlign="center" style={textStyle}>Add a Opportunity</Header>
+          <Header as="h2" textAlign="center">Add a Opportunity</Header>
           <Divider/>
           <AutoForm ref={ref => {
             fRef = ref;
@@ -96,8 +106,15 @@ const AddOpportunity = ({ ready, defaultOrg }) => {
               <MultiSelectField name='categories' />
               <RadioField name='age' showInlineError={true} label='Age Group'/>
               <RadioField name='environment' showInlineError={true} label='Environmental Preference'/>
+              {defaultOrg ?
+                <HiddenField name='isVerified' value={false}/> :
+                <BoolField name='isVerified' showInlineError={true} label='Verify this Opportunity? '/>
+              }
             </Segment>
-            <SubmitField value='Submit' />
+            {defaultOrg ?
+              <SubmitField value='Send to Admin' /> :
+              <SubmitField value='Submit' />
+            }
             <ErrorsField />
 
           </AutoForm>
