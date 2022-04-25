@@ -19,21 +19,21 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
     if (oppSearch === '') {
       return val;
     }
-    return val.organization.toLowerCase().includes(oppSearch.toLowerCase());
+    return val.event.toLowerCase().includes(oppSearch.toLowerCase());
   });
 
   const searchActiveOpps = activeOpps.filter((val) => {
     if (oppSearch === '') {
       return val;
     }
-    return val.organization.toLowerCase().includes(oppSearch.toLowerCase());
+    return val.event.toLowerCase().includes(oppSearch.toLowerCase());
   });
 
   const searchNotVerifiedOpps = notVerifiedOpps.filter((val) => {
     if (oppSearch === '') {
       return val;
     }
-    return val.organization.toLowerCase().includes(oppSearch.toLowerCase());
+    return val.event.toLowerCase().includes(oppSearch.toLowerCase());
   });
 
   let resultExpiredOpps;

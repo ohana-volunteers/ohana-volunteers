@@ -50,12 +50,20 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
       swal('Wait!', 'You already registered for this event!', 'warning');
       return -1;
     }
-    registeredEvents.push(doc._id);
-    const updateData = { id: volunteerDoc._id, registeredEvents };
-    updateMethod.callPromise({ collectionName, updateData })
-      .catch(error => swal('Error', error.message, 'error'))
-      .then(() => swal('Success', 'Event Registered!', 'success'));
-    oppRegister();
+    swal({
+      text: 'Do you want to register for this opportunity?',
+      icon: 'info',
+      buttons: true,
+    }).then((confirm) => {
+      if (confirm) {
+        registeredEvents.push(doc._id);
+        const updateData = { id: volunteerDoc._id, registeredEvents };
+        updateMethod.callPromise({ collectionName, updateData })
+          .catch(error => swal('Error', error.message, 'error'))
+          .then(() => swal('Success', 'Event Registered!', 'success'));
+        oppRegister();
+      }
+    });
     return 0;
 
   };

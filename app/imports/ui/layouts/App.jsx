@@ -13,7 +13,6 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import organizations from '../pages/OrganizationLibrary';
 import BrowseOpportunities from '../pages/BrowseOpportunities';
-import BrowseOpportunitiesAdmin from '../pages/BrowseOpportunitiesAdmin';
 import AddOpportunity from '../pages/AddOpportunity';
 import EditOpportunity from '../pages/EditOpportunity';
 import Signup from '../pages/Signup';
@@ -61,7 +60,6 @@ class App extends React.Component {
             <Route path="/organization-library" component={organizations}/>
             <Route path="/browse-opportunities" component={BrowseOpportunities}/>
             <Route path="/TermsAndConditions" component={TermsAndConditions}/>
-            <ProtectedRoute path="/browse-opportunities-admin" component={BrowseOpportunitiesAdmin}/>
             <ProtectedRoute path="/add-opportunity" component={AddOpportunity}/>
             <ProtectedRoute path="/edit/:_id" component={EditOpportunity}/>
             <ProtectedRoute path="/opportunity-page/:_id" component={OpportunityDetails}/>

@@ -13,7 +13,7 @@ const VolunteerProfileDetails = ({ doc, activeOpps, expiredOpps }) => {
       {(activeOpps.length === 0) ?
         <React.Fragment>
           <Header as="h1" textAlign="center">No Opportunities Registered!</Header>
-          <Header as="h2" textAlign="center">Go out and register for an opportunities!</Header>
+          <Header as="h2" textAlign="center">Go out and register for an opportunity!</Header>
           <Button as={NavLink} exact to='/browse-opportunities' primary>Browse Opportunities</Button>
         </React.Fragment> :
         <Card.Group centered>
