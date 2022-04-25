@@ -121,7 +121,7 @@ export default withTracker(() => {
   const subscription = Opportunities.subscribeOpportunity();
   // Determine if the subscription is ready
   const ready = subscription.ready();
-  const opps = Opportunities.find({}, { sort: { organization: 1 } }).fetch();
+  const opps = Opportunities.find({ isVerified: true }, { sort: { organization: 1 } }).fetch();
   return {
     opps,
     ready,

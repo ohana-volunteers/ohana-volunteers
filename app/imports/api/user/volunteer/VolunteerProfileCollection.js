@@ -66,6 +66,13 @@ class VolunteerProfileCollection extends BaseProfileCollection {
         type: Number,
         defaultValue: 0,
       },
+      registeredEvents: {
+        type: Array,
+        defaultValue: [],
+      },
+      'registeredEvents.$': {
+        type: String,
+      },
       profilePicture: {
         type: Buffer,
         defaultValue: '/images/va-logo/VA-logo-circle-v5.svg',
@@ -150,8 +157,11 @@ class VolunteerProfileCollection extends BaseProfileCollection {
    * @param availability new availability (optional).
    * @param totalHours update hours (optional).
    * @param eventsParticipated update events participated (optional).
+   * @param registeredEvents update array of registered events (optional).
+   * @param profilePicture update profile picture (optional).
+   * @param bannerPicture update banner picture (optional).
    */
-  update(docID, { firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, profilePicture, bannerPicture }) {
+  update(docID, { firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, registeredEvents, profilePicture, bannerPicture }) {
     this.assertDefined(docID);
     const updateData = {};
     if (firstName) updateData.firstName = firstName;
@@ -168,6 +178,7 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     if (availability) updateData.availability = availability;
     if (totalHours) updateData.totalHours = totalHours;
     if (eventsParticipated) updateData.eventsParticipated = eventsParticipated;
+    if (registeredEvents) updateData.registeredEvents = registeredEvents;
     if (profilePicture) updateData.profilePicture = profilePicture;
     if (bannerPicture) updateData.bannerPicture = bannerPicture;
     this._collection.update(docID, { $set: updateData });
@@ -234,14 +245,16 @@ class VolunteerProfileCollection extends BaseProfileCollection {
     const availability = doc.availability;
     const totalHours = doc.totalHours;
     const eventsParticipated = doc.eventsParticipated;
-    const profilePicture = doc.profilePicture;
-    const bannerPicture = doc.bannerPicture;
-    return { email, firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, profilePicture, bannerPicture };
+    const registeredEvents = doc.registeredEvents;
+    // When dumped, string will be sliced as the original base64 string is too long
+    const profilePicture = doc.profilePicture.slice(0, 50);
+    const bannerPicture = doc.bannerPicture.slice(0, 50);
+    return { email, firstName, lastName, gender, description, address, city, state, zip, phone, interests, skills, environmentalPreference, availability, totalHours, eventsParticipated, registeredEvents, profilePicture, bannerPicture };
   }
 }
 
 /**
- * Profides the singleton instance of this class to all other entities.
+ * Provides the singleton instance of this class to all other entities.
  * @type {VolunteerProfileCollection}
  */
 export const VolunteerProfiles = new VolunteerProfileCollection();

@@ -13,6 +13,7 @@ import classnames from 'classnames';
 
 const ImageUploadField = ({ label, id, disabled, error, required, className, showInlineError, errorMessage, name, onChange, value, ...props }) => {
 
+  // Register plugins used to encode, preview, as well as check file size/type
   registerPlugin(
     FilePondPluginFileEncode,
     FilePondPluginImagePreview,
