@@ -48,7 +48,6 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
 
     if (registeredEvents.includes(doc._id)) {
       swal('Wait!', 'You already registered for this event!', 'warning');
-      console.log(volunteerDoc.registeredEvents);
       return -1;
     }
     registeredEvents.push(doc._id);
@@ -57,8 +56,6 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
       .catch(error => swal('Error', error.message, 'error'))
       .then(() => swal('Success', 'Event Registered!', 'success'));
     oppRegister();
-    console.log(doc.registeredVolunteers);
-    console.log(volunteerDoc.registeredEvents);
     return 0;
 
   };

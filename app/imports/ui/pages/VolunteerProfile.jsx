@@ -14,7 +14,9 @@ import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
-const VolunteerProfile = ({ doc, currentUser, opps, ready }) => ((ready) ? (
+const toDate = new Date();
+
+const VolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
     <Card fluid color="teal">
       <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
@@ -54,7 +56,7 @@ const VolunteerProfile = ({ doc, currentUser, opps, ready }) => ((ready) ? (
         </Grid>
       </Card.Content>
       <Card.Content>
-        <VolunteerProfileDetails doc={ doc } opps={ opps }/>
+        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps }/>
       </Card.Content>
     </Card>
   </Container>
@@ -63,7 +65,8 @@ const VolunteerProfile = ({ doc, currentUser, opps, ready }) => ((ready) ? (
 VolunteerProfile.propTypes = {
   currentUser: PropTypes.string,
   doc: PropTypes.object,
-  opps: PropTypes.array,
+  activeOpps: PropTypes.array,
+  expiredOpps: PropTypes.array,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -75,10 +78,13 @@ export default withTracker(() => {
   const ready = subscription.ready();
   const doc = (ready) ? VolunteerProfiles.findDoc(documentId) : undefined;
   const opps = (ready) ? doc.registeredEvents.map((oppID) => Opportunities.findOne({ _id: oppID })) : undefined;
+  const activeOpps = (ready) ? opps.slice().filter(opp => opp.date.end >= toDate) : undefined;
+  const expiredOpps = (ready) ? opps.slice().filter(opp => opp.date.end < toDate) : undefined;
   return {
     currentUser,
     doc,
-    opps,
+    activeOpps,
+    expiredOpps,
     ready,
   };
 })(VolunteerProfile);

@@ -13,7 +13,9 @@ import { decode } from '../utilities/ImageDecode';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
-const MyVolunteerProfile = ({ doc, currentUser, opps, ready }) => ((ready) ? (
+const toDate = new Date();
+
+const MyVolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.MY_VOLUNTEER_PROFILE}>
     <Card fluid>
       <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
@@ -53,7 +55,7 @@ const MyVolunteerProfile = ({ doc, currentUser, opps, ready }) => ((ready) ? (
         </Grid>
       </Card.Content>
       <Card.Content>
-        <VolunteerProfileDetails doc={ doc } opps={ opps }/>
+        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps }/>
       </Card.Content>
     </Card>
   </Container>
@@ -61,7 +63,8 @@ const MyVolunteerProfile = ({ doc, currentUser, opps, ready }) => ((ready) ? (
 MyVolunteerProfile.propTypes = {
   currentUser: PropTypes.string,
   doc: PropTypes.object,
-  opps: PropTypes.array,
+  activeOpps: PropTypes.array,
+  expiredOpps: PropTypes.array,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -72,10 +75,13 @@ export default withTracker(() => {
   const ready = subscriptionVolunteer.ready() && subscriptionOpportunity.ready();
   const doc = (ready) ? VolunteerProfiles.findDoc({ email: currentUser }) : undefined;
   const opps = (ready) ? doc.registeredEvents.map((oppID) => Opportunities.findOne({ _id: oppID })) : undefined;
+  const activeOpps = (ready) ? opps.slice().filter(opp => opp.date.end >= toDate) : undefined;
+  const expiredOpps = (ready) ? opps.slice().filter(opp => opp.date.end < toDate) : undefined;
   return {
     currentUser,
     doc,
-    opps,
+    activeOpps,
+    expiredOpps,
     ready,
   };
 })(MyVolunteerProfile);
