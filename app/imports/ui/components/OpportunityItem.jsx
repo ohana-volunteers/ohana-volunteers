@@ -32,7 +32,8 @@ const OpportunityItem = ({ opp, user }) => (
       {opp.categories.map((item, index) => <Label key={index} size='tiny' color='blue'>{volunteerCategories[item].name}</Label>)}
     </Card.Content>
     <Card.Content extra >
-      <Icon name='sun' />{opp.environment} | <Icon name='male' /> {opp.age}
+      <Icon name='sun' />{opp.environment} | <Icon name='male' />
+      {opp.age.length > 1 ? opp.age[0].concat('...') : opp.age}
     </Card.Content>
     {/* Only display the edit button if logged in as admin */}
     {(user === 'admin@foo.com') ?
@@ -111,7 +112,7 @@ OpportunityItem.propTypes = {
     event: PropTypes.string,
     categories: PropTypes.array,
     environment: PropTypes.string,
-    age: PropTypes.string,
+    age: PropTypes.array,
     isVerified: PropTypes.bool,
   }).isRequired,
   user: PropTypes.string,

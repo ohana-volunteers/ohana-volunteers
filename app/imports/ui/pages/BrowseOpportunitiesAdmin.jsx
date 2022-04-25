@@ -149,8 +149,8 @@ export default withTracker(() => {
   const subscription = Opportunities.subscribeOpportunity();
   // Determine if the subscription is ready
   const ready = subscription.ready();
-  const expiredOpps = Opportunities.find({ isVerified: true }, { 'date.end': { $lt: toDate } }).fetch();
-  const activeOpps = Opportunities.find({ isVerified: true }, { 'date.end': { $gte: toDate } }).fetch();
+  const expiredOpps = Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $lt: toDate } }] }).fetch();
+  const activeOpps = Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $gte: toDate } }] }).fetch();
   const notVerifiedOpps = Opportunities.find({ isVerified: false }).fetch();
   const currentUser = Meteor.user() ? Meteor.user().username : '';
   return {

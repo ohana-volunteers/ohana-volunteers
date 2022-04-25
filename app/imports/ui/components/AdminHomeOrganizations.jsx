@@ -18,7 +18,7 @@ const AdminHomeOrganizations = ({ allOrganizations }) => {
     if (orgSearch === '') {
       return val;
     }
-    return val.name.toLowerCase().includes(orgSearch);
+    return val.name.toLowerCase().includes(orgSearch.toLowerCase());
   });
 
   // Sort organizations alphabetically, newest to oldest, or oldest to newest.

@@ -83,7 +83,7 @@ const EditOpportunity = ({ doc, ready, location }) => {
                   Additional Information
               </Header>
               <MultiSelectField name='categories' />
-              <RadioField name='age' showInlineError={true} label='Age Group'/>
+              <MultiSelectField name='age' showInlineError={true} label='Age Group'/>
               <RadioField name='environment' showInlineError={true} label='Environmental Preference'/>
               <BoolField name='isVerified' showInlineError={true} label='Verify this Opportunity? '/>
             </Segment>

@@ -104,7 +104,7 @@ const AddOpportunity = ({ ready, defaultOrg }) => {
               Additional Information
               </Header>
               <MultiSelectField name='categories' />
-              <RadioField name='age' showInlineError={true} label='Age Group'/>
+              <MultiSelectField name='age' showInlineError={true}/>
               <RadioField name='environment' showInlineError={true} label='Environmental Preference'/>
               {defaultOrg ?
                 <HiddenField name='isVerified' value={false}/> :

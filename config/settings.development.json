@@ -180,8 +180,8 @@
   "defaultOpportunities": [
     {
       "date": {
-        "start": "2022-03-04 09:30:00",
-        "end": "2022-03-04 11:30:00"
+        "start": "2022-05-04 09:30:00",
+        "end": "2022-06-04 11:30:00"
       },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Kokua",
@@ -194,13 +194,13 @@
       "event": "Kokua Learning Farm Community Workday",
       "categories": ["education", "environment"],
       "environment": "Indoor",
-      "age": "Adults",
+      "age": ["Adults"],
       "isVerified": true
     },
     {
       "date": {
-        "start": "2022-01-21 08:30:00",
-        "end": "2022-03-04 12:00:00"
+        "start": "2022-05-21 08:30:00",
+        "end": "2022-07-04 12:00:00"
       },
       "img": "/images/hawaii-foodbank/org-logos-03-150x150.png",
       "organization": "Hawaii Foodbank",
@@ -213,7 +213,7 @@
       "event": "Distribution Assistance",
       "categories": ["covid"],
       "environment": "Outdoor",
-      "age": "Family-Friendly",
+      "age": ["Family-Friendly"],
       "isVerified": true
     },
     {
@@ -232,7 +232,7 @@
       "event": "Nuuanu Stream Clean-Up",
       "categories": ["environment"],
       "environment": "Both",
-      "age": "Teens",
+      "age": ["Teens"],
       "isVerified": false
     },
     {
@@ -251,13 +251,13 @@
       "event": "Test Opportunity",
       "categories": ["environment"],
       "environment": "No Preference",
-      "age": "Seniors",
+      "age": ["Seniors", "Teens", "Family-Friendly", "Adults"],
       "isVerified": true
     },
     {
       "date": {
         "start": "2022-04-01 09:00:00",
-        "end": "2022-04-01 12:15:00"
+        "end": "2022-05-01 12:15:00"
       },
       "img": "/images/va-logo/VA-logo-circle-v5.svg",
       "organization": "Chase Conching",
@@ -270,7 +270,7 @@
       "event": "Feeding Hawaii Together: Filling Orders",
       "categories": ["food"],
       "environment": "Indoor",
-      "age": "Adults",
+      "age": ["Adults", "Teens"],
       "isVerified": false
     },
     {
@@ -289,7 +289,7 @@
       "event": "Volunteer Recruitment Specialist",
       "categories": ["disaster"],
       "environment": "Indoor",
-      "age": "Teens",
+      "age": ["Teens"],
       "isVerified": true
     },
     {
@@ -308,7 +308,7 @@
       "event": "Shopping",
       "categories": ["food"],
       "environment": "Outdoor",
-      "age": "Family-Friendly",
+      "age": ["Family-Friendly", "Teens"],
       "isVerified": false
     }
   ],

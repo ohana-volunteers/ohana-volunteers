@@ -4,36 +4,11 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { PAGE_IDS } from '../utilities/PageIDs';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
+import OpportunityItem from '../components/OpportunityItem';
+import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 
 const textStyle = { fontFamily: 'Copperplate' };
-
-const OpportunityItem = ({ opp }) => (
-  <Card href={opp.url}>
-    <Card.Content extra>
-      <p>{opp.date}</p>
-    </Card.Content>
-    <Card.Content>
-      <Image size='tiny' src={opp.img}/>
-      <Card.Header>{opp.organization}</Card.Header>
-      <Card.Meta>{opp.address}</Card.Meta>
-      <Card.Description>{opp.event}</Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <p>Category: {opp.categories}</p>
-    </Card.Content>
-  </Card>
-);
-OpportunityItem.propTypes = {
-  opp: PropTypes.shape({
-    url: PropTypes.string,
-    date: PropTypes.string,
-    img: PropTypes.string,
-    organization: PropTypes.string,
-    address: PropTypes.string,
-    event: PropTypes.string,
-    categories: PropTypes.string,
-  }).isRequired,
-};
+const toDate = new Date();
 
 const CategoryItem = ({ category }) => (
   <Card href={category.url}>
@@ -110,43 +85,10 @@ const Landing = ({ orgs, ready }) => (
 
       <Grid.Row>
         <Header as='h2' style={textStyle}>Check Out Our Latest Opportunities</Header>
+      </Grid.Row>
+      <Grid.Row>
         <Card.Group centered>
-          <OpportunityItem opp={{
-            url: '#opportunity-test-opportunity',
-            date: 'March 4, 2022 9:30am - 11:30am',
-            img: '/images/va-logo/VA-logo-circle-v5.svg',
-            organization: 'Kokua',
-            address: '66-249 Kamehameha Highway',
-            event: 'Kokua Learning Farm Community Workday',
-            categories: 'Education, Environment',
-          }}/>
-          <OpportunityItem opp={{
-            url: '#opportunity-test-opportunity',
-            date: 'January 21, 2022 8:30am - 12:00am',
-            img: '/images/hawaii-foodbank/org-logos-03-150x150.png',
-            organization: 'Hawaii Foodbank',
-            address: 'Waipio Point Access Road',
-            event: 'Distribution Assistance',
-            categories: 'COVID-19 Recovery',
-          }}/>
-          <OpportunityItem opp={{
-            url: '#opportunity-test-opportunity',
-            date: 'December 9, 2021 9:00am - 12:00pm',
-            img: '/images/va-logo/VA-logo-circle-v5.svg',
-            organization: 'Joshlyn Sand',
-            address: '123 North Kuakini Street',
-            event: 'Nuuanu Stream Clean-Up',
-            categories: 'Environment',
-          }}/>
-          <OpportunityItem opp={{
-            url: '#opportunity-test-opportunity',
-            date: 'January 1, 2022 12:00pm - 2:00pm',
-            img: '/images/va-logo/VA-logo-circle-v5.svg',
-            organization: 'Scott Wo',
-            address: '921770b Kunia Road',
-            event: 'Test Opportunity',
-            categories: 'Environment',
-          }}/>
+          {Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $gte: toDate } }] }).fetch().map((opp) => <OpportunityItem key={opp._id} opp={opp}/>)}
         </Card.Group>
       </Grid.Row>
       <Grid.Row>

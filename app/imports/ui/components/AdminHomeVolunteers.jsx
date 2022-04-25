@@ -18,7 +18,7 @@ const AdminHomeVolunteers = ({ allVolunteers }) => {
     if (volunteerSearch === '') {
       return val;
     }
-    return val.firstName.toLowerCase().includes(volunteerSearch);
+    return val.firstName.toLowerCase().includes(volunteerSearch.toLowerCase());
   });
 
   // Sort volunteers alphabetically, newest to oldest, or oldest to newest.

@@ -24,10 +24,12 @@ export const searchForm = new SimpleSchema({
   },
   age: {
     label: 'Age Group',
+    type: Array,
+    optional: true,
+  },
+  'age.$': {
     type: String,
     allowedValues: OpportunityAge,
-    uniforms: { checkboxes: true },
-    optional: true,
   },
   environmentalPreference: {
     label: 'Environment',
