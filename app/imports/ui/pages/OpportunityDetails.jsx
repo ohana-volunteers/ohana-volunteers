@@ -216,8 +216,9 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
                   <Card.Header><Icon name="user"/> Age Group</Card.Header>
                 </Card.Content>
                 <Card.Content>
-                  <List as="ul" size="big">
-                    <List.Item as="li">{doc.age}</List.Item>
+                  <List as="ul" size="big" horizontal bulleted>
+                    {doc.age.map((item, index) => <List.Item key={index} content={item}>
+                    </List.Item>)}
                   </List>
                 </Card.Content>
               </Card>

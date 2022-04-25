@@ -15,12 +15,11 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
   const handleSelect = (e, { value }) => {
     setOrder(value);
   };
-
   const searchExpiredOpps = expiredOpps.filter((val) => {
     if (oppSearch === '') {
       return val;
     }
-    return val.organization.toLowerCase().includes(oppSearch);
+    return val.organization.toLowerCase().includes(oppSearch.toLowerCase());
   });
 
   const searchActiveOpps = activeOpps.filter((val) => {

@@ -50,7 +50,8 @@ export const OpportunitySchema = new SimpleSchema({
     type: String,
     allowedValues: OpportunityEnvironment,
   },
-  age: {
+  age: Array,
+  'age.$': {
     type: String,
     allowedValues: OpportunityAge,
   },

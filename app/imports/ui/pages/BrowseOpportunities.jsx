@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Grid, Header, Divider, Card, Segment, Loader, Tab, Container, Item,} from 'semantic-ui-react';
+import { Grid, Header, Divider, Card, Segment, Loader, Tab, Container } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
@@ -20,7 +20,6 @@ const buttonStyle = { color: 'white', backgroundColor: '#2185D0' };
 const textStyle = { color: 'black', marginTop: '50px', marginBottom: '10px', fontSize: '55px', fontFamily: 'Papyrus' };
 const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-22px', marginTop: '-25px' };
 
-
 const BrowseOpportunities = ({ opps, ready }) => {
 
   const [datas, setDatas] = useState('');
@@ -30,7 +29,7 @@ const BrowseOpportunities = ({ opps, ready }) => {
   };
   const { time } = datas;
   const order = datas.orderBy === 'Latest' ? { sort: { date: -1 } } : { sort: { organization: 1 } };
-  const age = datas.age ? { age: datas.age } : {};
+  const age = datas.age ? { age: { $in: datas.age } } : {};
   const envir = datas.environmentalPreference ? { environment: datas.environmentalPreference } : {};
   const cate = datas.categories ? { categories: { $in: datas.categories } } : {};
   const sortOpps = Opportunities.find({
@@ -61,51 +60,51 @@ const BrowseOpportunities = ({ opps, ready }) => {
   ];
   let fRef = null;
   return (ready) ? (
-      <Container fluid style={bodyStyle}>
-    <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
-      <Grid.Row centered>
-        <Header as="h1" size="huge"  style={textStyle}>Browse Opportunities</Header>
-      </Grid.Row>
-      <Divider/>
-      <Grid.Row centered columns={3}>
-        <Grid.Column >
-          <Header as='h2' icon='filter' content='Volunteer Opportunities' className='special-header' />
-          <Segment style={{ overflow: 'auto', maxHeight: 500 }} padded >
-            <AutoForm ref={ref => {
-              fRef = ref;
-            }} schema={bridge} onSubmit={data => submit(data, fRef)}>
-              <MultiSelectField id='categories' name='categories' showInlineError={true} placeholder={'Education'}/>
-              <SelectField id='orderBy' name='orderBy' showInlineError={true} placeholder={'Order By...'}/>
-              <DateField id='time' name='time' showInlineError={true} />
-              <RadioField id='age' name='age' showInlineError={true} />
-              <RadioField id='environment' name='environmentalPreference' showInlineError={true}/>
-              <SubmitField id='submit' value='Filter' style={buttonStyle}/>
-              <ErrorsField />
-            </AutoForm>
-          </Segment>
-        </Grid.Column>
+    <Container fluid style={bodyStyle}>
+      <Grid id={PAGE_IDS.BROWSE_OPPORTUNITIES} textAlign='center' container>
+        <Grid.Row centered>
+          <Header as="h1" size="huge" style={textStyle}>Browse Opportunities</Header>
+        </Grid.Row>
+        <Divider/>
+        <Grid.Row centered columns={3}>
+          <Grid.Column >
+            <Header as='h2' icon='filter' content='Volunteer Opportunities' className='special-header' />
+            <Segment style={{ overflow: 'auto', maxHeight: 500 }} padded >
+              <AutoForm ref={ref => {
+                fRef = ref;
+              }} schema={bridge} onSubmit={data => submit(data, fRef)}>
+                <MultiSelectField id='categories' name='categories' showInlineError={true} placeholder={'Education'}/>
+                <SelectField id='orderBy' name='orderBy' showInlineError={true} placeholder={'Order By...'}/>
+                <DateField id='time' name='time' showInlineError={true} />
+                <SelectField checkboxes id='age' name='age' showInlineError={true} />
+                <RadioField id='environment' name='environmentalPreference' showInlineError={true}/>
+                <SubmitField id='submit' value='Filter' style={buttonStyle}/>
+                <ErrorsField />
+              </AutoForm>
+            </Segment>
+          </Grid.Column>
 
-        <Grid.Column textAlign="center">
-          <Segment style={segmentStyle} padded >
-            {(datas === '') ?
-              <Header as='h4' >Showing all results</Header> :
-              <Header as='h4' >Showing {count} results</Header> }
-            <Card.Group centered>
+          <Grid.Column textAlign="center">
+            <Segment style={segmentStyle} padded >
               {(datas === '') ?
-                opps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} />) :
-                sortOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''}/>)}
-            </Card.Group>
-          </Segment>
-        </Grid.Column>
+                <Header as='h4' >Showing all results</Header> :
+                <Header as='h4' >Showing {count} results</Header> }
+              <Card.Group centered>
+                {(datas === '') ?
+                  opps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} />) :
+                  sortOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''}/>)}
+              </Card.Group>
+            </Segment>
+          </Grid.Column>
 
-        <Grid.Column textAlign="center">
-          <Segment style={segmentStyle} padded>
-            <Tab panes={panes} />
-          </Segment>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-      </Container>
+          <Grid.Column textAlign="center">
+            <Segment style={segmentStyle} padded>
+              <Tab panes={panes} />
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Container>
   ) : <Loader active>Getting data</Loader>;
 };
 

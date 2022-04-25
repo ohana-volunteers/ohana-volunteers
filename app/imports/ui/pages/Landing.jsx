@@ -85,8 +85,10 @@ const Landing = ({ orgs, ready }) => (
 
       <Grid.Row>
         <Header as='h2' style={textStyle}>Check Out Our Latest Opportunities</Header>
+      </Grid.Row>
+      <Grid.Row>
         <Card.Group centered>
-          { Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $gte: toDate } }] }).fetch().map((opp) => <OpportunityItem key={opp._id} opp={opp}/>)}
+          {Opportunities.find({ $and: [{ isVerified: true }, { 'date.end': { $gte: toDate } }] }).fetch().map((opp) => <OpportunityItem key={opp._id} opp={opp}/>)}
         </Card.Group>
       </Grid.Row>
       <Grid.Row>
