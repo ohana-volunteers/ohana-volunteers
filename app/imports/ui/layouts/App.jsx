@@ -31,6 +31,7 @@ import { ROLE } from '../../api/role/Role';
 import CommunityEvent from '../pages/CommunityEvent';
 import TermsAndConditions from '../pages/TermsAndConditions';
 import OpportunityDetails from '../pages/OpportunityDetails';
+import searchResults from '../components/searchResults';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -44,6 +45,7 @@ class App extends React.Component {
             <Route path="/privacy-policy" component={PrivacyPolicy}/>
             <Route path="/about-us" component={AboutUs}/>
             <Route path="/signin" component={Signin}/>
+            <Route path="/searchResults" component={searchResults}/>
             <Route path="/signup" component={Signup}/>
             <AdminProtectedRoute path="/org-signup" component={OrganizationSignup}/>
             <Route path="/signout" component={Signout}/>
