@@ -17,7 +17,7 @@ import MapView from '../components/MapView';
 const bridge = new SimpleSchema2Bridge(searchForm);
 const segmentStyle = { overflow: 'auto', maxHeight: 580 };
 const buttonStyle = { color: 'white', backgroundColor: '#2185D0' };
-const textStyle = { color: 'black', marginTop: '50px', marginBottom: '10px', fontSize: '55px', fontFamily: 'Papyrus' };
+const textStyle = { color: 'black', marginTop: '50px', marginBottom: '10px', fontSize: '55px', fontFamily: 'Copperplate' };
 const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-22px', marginTop: '-25px' };
 
 
