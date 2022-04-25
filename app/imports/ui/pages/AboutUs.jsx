@@ -3,10 +3,13 @@ import { Grid, Header, Card, Divider, Item, Icon, Button, Container } from 'sema
 import { NavLink } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
-const textStyle = { color: 'black', marginTop: '50px', fontSize: '55px', fontFamily: 'Papyrus' };
-const textStyle2 = { color: 'black', fontSize: '40px', fontFamily: 'Papyrus', fontWeight: 'bold' };
+
+const textStyle = { color: 'black', marginTop: '50px', fontSize: '55px', fontFamily: 'Copperplate' };
+const textStyle2 = { color: 'black', fontSize: '40px', fontFamily: 'Copperplate', fontWeight: 'bold' };
+
 const textStyle3 = { color: 'black', fontSize: '18px', fontFamily: 'Copperplate' };
 const bodyStyle = { backgroundColor: 'rgba(0, 255, 255, .1)', marginBottom: '-22px', marginTop: '-25px' };
+const fontStyle = {fontFamily: 'Copperplate'};
 
 /** A simple static component to render some text for the About Us page. */
 const AboutUs = () => (
@@ -135,29 +138,30 @@ const AboutUs = () => (
               </Card.Content>
             </Card>
           </Card.Group>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Card centered>
-          <div className="about-us-icon">
-            <Icon name="user" size='huge' className="about-us-icon"/>
-          </div>
-          <Card.Content>
-            <Card.Header>Allyson Wo</Card.Header>
-            <Card.Meta>Founder</Card.Meta>
-          </Card.Content>
-        </Card>
-      </Grid.Row>
-      <Divider/>
-      <Grid.Row centered>
-        <Header as='h1'>Ready to Get Started?</Header>
-      </Grid.Row>
-      <Grid.Row centered>
-        <p>Sign up now as a volunteer!</p>
-      </Grid.Row>
-      <Grid.Row centered>
-        <Button as={NavLink} activeClassName="active" exact to='/signup'>Get Started</Button>
-      </Grid.Row>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Card centered>
+        <div className="about-us-icon">
+          <Icon name="user" size='huge' className="about-us-icon"/>
+        </div>
+        <Card.Content>
+          <Card.Header>Allyson Wo</Card.Header>
+          <Card.Meta>Founder</Card.Meta>
+        </Card.Content>
+      </Card>
+    </Grid.Row>
+    <Divider/>
+    <Grid.Row centered>
+      <Header as='h1' style={fontStyle}>Ready to Get Started?</Header>
+    </Grid.Row>
+    <Grid.Row centered>
+      <p style={fontStyle}>Sign up now as a volunteer!</p>
+    </Grid.Row>
+    <Grid.Row centered>
+      <Button as={NavLink} activeClassName="active" exact to='/signup'>Get Started</Button>
+    </Grid.Row>
+
 
     </Grid>
   </Container>
