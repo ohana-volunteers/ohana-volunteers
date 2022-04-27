@@ -77,8 +77,9 @@ export default withTracker(() => {
   const ready = subscriptionVolunteer.ready() && subscriptionOpportunity.ready();
   const doc = (ready) ? VolunteerProfiles.findDoc({ email: currentUser }) : undefined;
   const opps = (ready) ? doc.registeredEvents.map((oppID) => Opportunities.findOne({ _id: oppID })) : undefined;
-  const activeOpps = (ready) ? opps.slice().filter(opp => opp.date.end >= toDate) : undefined;
-  const expiredOpps = (ready) ? opps.slice().filter(opp => opp.date.end < toDate) : undefined;
+  const filteredOpps = ready ? opps.filter(opp => opp !== undefined) : undefined;
+  const activeOpps = (ready) ? filteredOpps.slice().filter(opp => opp.date.end >= toDate) : undefined;
+  const expiredOpps = (ready) ? filteredOpps.slice().filter(opp => opp.date.end < toDate) : undefined;
   const role = (VolunteerProfiles.findOne({ email: currentUser })) ? ROLE.VOLUNTEER : '';
   return {
     currentUser,
