@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Divider, Item, Icon, Button, Container, Image } from 'semantic-ui-react';
+import { Grid, Divider, Item, Icon, Container, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { PAGE_IDS } from '../utilities/PageIDs';
 
