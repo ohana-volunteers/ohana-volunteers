@@ -17,45 +17,47 @@ import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 const toDate = new Date();
 
 const VolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }) => ((ready) ? (
-  <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
-    <Card fluid color="teal">
-      <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
-      <Card.Content>
-        <Grid container row={1}>
-          <Grid.Row columns={4}>
-            <Grid.Column width={2}>
-              <Image rounded size="small" src={decode(doc.profilePicture)}/>
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <Card.Header as="h1">
-                {doc.firstName} {doc.lastName}
-                {(doc.email === currentUser) ?
-                  <Button primary compact size="large" className="volunteer-edit-button" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT} as={NavLink} exact to="/edit-my-profile">Edit</Button> : ''}
-              </Card.Header>
-              <Card.Description><b>Bio: </b>{doc.description}</Card.Description>
-              <Card.Description><Icon name="mail"/><b>Email: </b>{doc.email} |  <Icon name="tree"/><b>Environmental Preference: </b>{doc.environmentalPreference}</Card.Description>
-              <Card.Description><Icon name="phone"/><b>Phone: </b>{doc.phone} | <Icon name="calendar"/><b>Availability: </b>{doc.availability}</Card.Description>
-            </Grid.Column>
-            <Grid.Column row={2} verticalAlign="middle" width={6}>
-              <Grid.Row centered>
-                <Header as="h2" textAlign="center">Stats</Header>
-                <Divider/>
-              </Grid.Row>
-              <Grid.Row centered>
-                <Statistic size='small' className="volunteer-stats-right">
-                  <Statistic.Value>{expiredOpps.length}</Statistic.Value>
-                  <Statistic.Label>Events Completed</Statistic.Label>
-                </Statistic>
-              </Grid.Row>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Card.Content>
-      <Card.Content>
-        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps } role={''}/>
-      </Card.Content>
-    </Card>
-  </Container>
+  <div className="volunteer-profile-background">
+    <Container id={PAGE_IDS.VOLUNTEER_PROFILE}>
+      <Card fluid color="teal">
+        <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
+        <Card.Content>
+          <Grid container row={1}>
+            <Grid.Row columns={4}>
+              <Grid.Column width={2}>
+                <Image rounded size="small" src={decode(doc.profilePicture)}/>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Card.Header as="h1">
+                  {doc.firstName} {doc.lastName}
+                  {(doc.email === currentUser) ?
+                    <Button primary compact size="large" className="volunteer-edit-button" id={COMPONENT_IDS.VOLUNTEER_PROFILE_EDIT} as={NavLink} exact to="/edit-my-profile">Edit</Button> : ''}
+                </Card.Header>
+                <Card.Description><b>Bio: </b>{doc.description}</Card.Description>
+                <Card.Description><Icon name="mail"/><b>Email: </b>{doc.email} |  <Icon name="tree"/><b>Environmental Preference: </b>{doc.environmentalPreference}</Card.Description>
+                <Card.Description><Icon name="phone"/><b>Phone: </b>{doc.phone} | <Icon name="calendar"/><b>Availability: </b>{doc.availability}</Card.Description>
+              </Grid.Column>
+              <Grid.Column row={2} verticalAlign="middle" width={6}>
+                <Grid.Row centered>
+                  <Header as="h2" textAlign="center">Stats</Header>
+                  <Divider/>
+                </Grid.Row>
+                <Grid.Row centered>
+                  <Statistic size='small' className="volunteer-stats-right">
+                    <Statistic.Value>{expiredOpps.length}</Statistic.Value>
+                    <Statistic.Label>Events Completed</Statistic.Label>
+                  </Statistic>
+                </Grid.Row>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Card.Content>
+        <Card.Content>
+          <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps } role={''}/>
+        </Card.Content>
+      </Card>
+    </Container>
+  </div>
 ) : <Loader active>Getting data</Loader>);
 
 VolunteerProfile.propTypes = {
