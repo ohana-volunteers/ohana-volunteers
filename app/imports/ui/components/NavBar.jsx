@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -8,50 +8,47 @@ import { COMPONENT_IDS } from '../utilities/ComponentIDs';
 import { AdminProfiles } from '../../api/user/admin/AdminProfileCollection';
 import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 import { Organizations } from '../../api/user/organization/OrgProfileCollection';
-import { Opportunities } from "../../api/opportunities/OpportunityCollection";
+import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { ROLE } from '../../api/role/Role';
-import { useState } from 'react';
 
 /** The NavBar appears at the top of every page.  Access to certain items is dependent on the user role. Rendered by the App Layout component. */
-const fontStyle = {fontFamily: 'Copperplate'};
-const NavBar = ({ role, currentUser, opps,}) => {
+const fontStyle = { fontFamily: 'Copperplate' };
+const NavBar = ({ role, currentUser, opps }) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: 'rgba(0, 255, 255, .1)' };
   const input = { width: '20rem' };
-  var nameList[] = opps;
+  const nameList = opps;
   const oppsArray = [];
   nameList.forEach((item) => {
-        oppsArray.push(item);
-      }
-  );
+    oppsArray.push(item);
+  });
   const oppsLength = opps.length;
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
 
-  var myList = new Array();
+  const myList = [];
   for (let i = 0; i < oppsLength; i++) {
-    let temp = oppsArray[i];
-    if (temp.event.toLowerCase().includes(inputText.toLowerCase()) && inputText !== '')
-    {
+    const temp = oppsArray[i];
+    if (temp.event.toLowerCase().includes(inputText.toLowerCase()) && inputText !== '') {
       myList.push(temp);
       console.log(myList);
     }
-  };
+  }
   console.log(inputText);
   return (
     <Menu secondary stackable style={menuStyle} attached="top" borderless>
       <Menu.Item id={COMPONENT_IDS.NAVBAR_LANDING_PAGE} as={NavLink} exact to="/">
         <Image src="/images/va-logo/VA-logo-circle-v5.svg" size="tiny"/>
       </Menu.Item>
-      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}><Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..." name="search" onChange={(event) =>
-      { setInputText(event.target.value); }}></Input></Menu.Item>
+      <Menu.Item id={COMPONENT_IDS.NAVBAR_SEARCH}>
+        <Input transparent style={input} icon="search" iconPosition="left" size="large" placeholder="Search for an opportunity..." name="search" onChange={(event) => { setInputText(event.target.value); }}></Input>
+      </Menu.Item>
 
       <Card>
-        {myList.map(post => (
-              <Card.Content>
-
-                <Card.Description href='#/opportunity-page/${post._id}'>
-                  {post._id}
-                </Card.Description>
-              </Card.Content>
+        {myList.map((post, index) => (
+          <Card.Content key={index}>
+            <Card.Description href={`#/opportunity-page/${post._id}`}>
+              {post.event}
+            </Card.Description>
+          </Card.Content>
         ))}
       </Card>
 
@@ -112,6 +109,7 @@ NavBar.propTypes =
 {
   role: PropTypes.string,
   currentUser: PropTypes.string,
+  opps: PropTypes.array,
 };
 
 // withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
@@ -119,11 +117,12 @@ const NavBarContainer = withTracker(() => {
   let currentUser = '';
   // Get the current user
   if (Meteor.user()) currentUser = Meteor.user().username;
+  const subscriptionOpps = Opportunities.subscribeOpportunity();
   const subscriptionAdmin = AdminProfiles.subscribe();
   const subscriptionVolunteer = VolunteerProfiles.subscribe();
   const subscriptionOrg = Organizations.subscribe();
-  const subscriptionOpp = Opportunities.subscribe();
-  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready() && subscriptionOpp.ready();
+  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready() && subscriptionOpps.ready();
+  const orgs = Organizations.find({}, { sort: { name: 1 } }).fetch();
   const opps = Opportunities.find({}, { sort: { organization: 1 } }).fetch();
 
   // Get the document
@@ -136,6 +135,7 @@ const NavBarContainer = withTracker(() => {
   return {
     role,
     currentUser,
+    orgs,
     opps,
   };
 })(NavBar);
