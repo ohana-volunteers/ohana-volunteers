@@ -16,10 +16,10 @@ import { useState } from 'react';
 const NavBar = ({ role, currentUser, orgs, opps,}) => {
   const menuStyle = { marginBottom: '25px', backgroundColor: 'rgba(0, 255, 255, .1)' };
   const input = { width: '20rem' };
-  var nameList = orgs;
+  var nameList = opps;
   const orgsArray = [];
   nameList.forEach((item) => {
-        orgsArray.push(item.name);
+        orgsArray.push(item);
       }
   );
   const orgsLength = orgs.length;
@@ -28,7 +28,7 @@ const NavBar = ({ role, currentUser, orgs, opps,}) => {
   var myList = new Array();
   for (let i = 0; i < orgsLength; i++) {
     let temp = orgsArray[i];
-    if (temp.toLowerCase().includes(inputText.toLowerCase()) && inputText != '')
+    if (temp.event.toLowerCase().includes(inputText.toLowerCase()) && inputText != '')
     {
       myList.push(temp);
       console.log(myList);
@@ -46,8 +46,8 @@ const NavBar = ({ role, currentUser, orgs, opps,}) => {
         {myList.map(post => (
               <Card.Content>
 
-                <Card.Description>
-                  {post}
+                <Card.Description href='#/opportunity-page/${post._id}'>
+                  {post._id}
                 </Card.Description>
               </Card.Content>
         ))}
@@ -122,7 +122,7 @@ const NavBarContainer = withTracker(() => {
   const subscriptionVolunteer = VolunteerProfiles.subscribe();
   const subscriptionOrg = Organizations.subscribe();
   const subscriptionOpp = Opportunities.subscribe();
-  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready() && subscriptionOpps.ready();
+  const ready = subscriptionAdmin.ready() && subscriptionVolunteer.ready() && subscriptionOrg.ready() && subscriptionOpp.ready();
   const orgs = Organizations.find({}, { sort: { name: 1 } }).fetch();
   const opps = Opportunities.find({}, { sort: { organization: 1 } }).fetch();
 
