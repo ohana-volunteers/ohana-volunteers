@@ -9,11 +9,43 @@ import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import { ROLE } from '../../api/role/Role';
 import { removeItMethod, updateMethod } from '../../api/base/BaseCollection.methods';
 import { decode } from '../utilities/ImageDecode';
+import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileCollection';
 
 const OpportunityItem = ({ opp, user, role }) => {
   const toDate = new Date();
+
+  // Remove volunteer's user ID from opportunity
+  const oppUnregister = (volunteerDoc) => {
+    const collectionName = Opportunities.getCollectionName();
+    const doc = Opportunities.findOne({ _id: opp._id });
+    const registeredVolunteers = doc.registeredVolunteers.slice();
+    registeredVolunteers.splice(registeredVolunteers.indexOf(volunteerDoc.userID), 1);
+    const updateData = { id: doc._id, registeredVolunteers, isVerified: true };
+    updateMethod.callPromise({ collectionName, updateData });
+  };
+
+  // Remove opportunity's ID from volunteer's registered events
+  const volunteerProfileUnregister = () => {
+    const volunteerDoc = VolunteerProfiles.findOne({ email: user });
+    const collectionName = VolunteerProfiles.getCollectionName();
+    const registeredEvents = volunteerDoc.registeredEvents.slice();
+    swal({
+      text: 'Do you want to unregister from this opportunity? You can always register again as long as it is active.',
+      icon: 'info',
+      buttons: true,
+    }).then((confirmUnregistration) => {
+      if (confirmUnregistration) {
+        registeredEvents.splice(registeredEvents.indexOf(opp._id), 1);
+        const updateData = { id: volunteerDoc._id, registeredEvents };
+        updateMethod.callPromise({ collectionName, updateData })
+          .catch(error => swal('Error', error.message, 'error'))
+          .then(() => swal('Success', 'You have unregistered for this event', 'success'));
+        oppUnregister(volunteerDoc);
+      }
+    });
+  };
   return (
-    <Card href={(user === 'admin@foo.com') ? '' : `#/opportunity-page/${opp._id}`} id={COMPONENT_IDS.OPPORTUNITY_ITEM}
+    <Card href={(user === 'admin@foo.com' || role === ROLE.VOLUNTEER) ? '' : `#/opportunity-page/${opp._id}`} id={COMPONENT_IDS.OPPORTUNITY_ITEM}
       color='blue'>
       <Label color='blue' ribbon>
         <p>
@@ -99,6 +131,7 @@ const OpportunityItem = ({ opp, user, role }) => {
                         categories: doc.categories,
                         environment: doc.environment,
                         age: doc.age,
+                        registeredVolunteers: doc.registeredVolunteers,
                         isVerified: true,
                       };
                       updateMethod.callPromise({ collectionName, updateData })
@@ -114,9 +147,16 @@ const OpportunityItem = ({ opp, user, role }) => {
             > Verify It Now <Icon name='hand point up outline'/></Button>}
         </Card.Content>
         : ''}
-      {/* Only display the unregister button if logged in as volunteer and if opportunity is actve */}
+      {/* Only display the cancel registration button if logged in as volunteer and if opportunity is active */}
       {(role === ROLE.VOLUNTEER && opp.date.end >= toDate) ?
-        <Button fluid color='orange' size='tiny'><Icon name='close'/>Unregister</Button> : '' }
+        <Card.Content extra>
+          <Button basic color='green' size='tiny' href={`#/opportunity-page/${opp._id}`}>
+            <Icon name='linkify'/> View
+          </Button>
+          <Button basic color='orange' size='tiny' onClick={volunteerProfileUnregister}>
+            <Icon name='close'/>Cancel Registration
+          </Button>
+        </Card.Content> : '' }
     </Card>
   );
 };
@@ -133,6 +173,7 @@ OpportunityItem.propTypes = {
     categories: PropTypes.array,
     environment: PropTypes.string,
     age: PropTypes.array,
+    registeredVolunteers: PropTypes.array,
     isVerified: PropTypes.bool,
   }).isRequired,
   user: PropTypes.string,

@@ -6,7 +6,7 @@ import { volunteerInterests } from '../../api/utilities/VolunteerCategories';
 import OpportunityItem from './OpportunityItem';
 
 /** The main section of the volunteer profile page that presents the main information of the user. */
-const VolunteerProfileDetails = ({ doc, activeOpps, expiredOpps, role }) => {
+const VolunteerProfileDetails = ({ doc, activeOpps, expiredOpps, currentUser, role }) => {
   const panes = [
     // eslint-disable-next-line react/display-name
     { menuItem: 'Active', render: () => <Tab.Pane>
@@ -17,7 +17,7 @@ const VolunteerProfileDetails = ({ doc, activeOpps, expiredOpps, role }) => {
           <Button as={NavLink} exact to='/browse-opportunities' primary>Browse Opportunities</Button>
         </React.Fragment> :
         <Card.Group centered>
-          {activeOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} role={ role }/>)}
+          {activeOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser} role={role}/>)}
         </Card.Group> }
     </Tab.Pane> },
     // eslint-disable-next-line react/display-name
@@ -28,7 +28,7 @@ const VolunteerProfileDetails = ({ doc, activeOpps, expiredOpps, role }) => {
           <Header as="h2" textAlign="center">Any finished opportunities will appear here!</Header>
         </React.Fragment> :
         <Card.Group centered>
-          {expiredOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} role={ '' }/>)}
+          {expiredOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} role={''}/>)}
         </Card.Group> }
     </Tab.Pane> },
   ];
@@ -77,6 +77,7 @@ VolunteerProfileDetails.propTypes = {
   doc: PropTypes.object,
   activeOpps: PropTypes.array,
   expiredOpps: PropTypes.array,
+  currentUser: PropTypes.string,
   role: PropTypes.string,
 
 };

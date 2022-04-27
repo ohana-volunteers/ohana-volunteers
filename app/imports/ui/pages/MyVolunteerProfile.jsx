@@ -56,7 +56,7 @@ const MyVolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, role, r
         </Grid>
       </Card.Content>
       <Card.Content>
-        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps } role={ role }/>
+        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps } currentUser={currentUser} role={ role }/>
       </Card.Content>
     </Card>
   </Container>
