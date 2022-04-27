@@ -54,8 +54,7 @@ const AdminViewVolunteers = ({ doc }) => {
           src={decode(doc.profilePicture)}/>
         <Card.Header>{doc.firstName} {doc.lastName}</Card.Header>
         <Card.Meta>{doc.email}</Card.Meta>
-        <Card.Description><u>Total Hours:</u> {doc.totalHours}</Card.Description>
-        <Card.Description><u>Events Participated:</u> {doc.eventsParticipated}</Card.Description>
+        <Card.Description><u>Events Registered:</u> {doc.registeredEvents.length}</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Button

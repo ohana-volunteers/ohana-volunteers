@@ -42,13 +42,9 @@ const VolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }) 
                 <Divider/>
               </Grid.Row>
               <Grid.Row centered>
-                <Statistic floated='left' size='small' className="volunteer-stats-left">
-                  <Statistic.Value>{doc.totalHours}</Statistic.Value>
-                  <Statistic.Label>Recorded Hours</Statistic.Label>
-                </Statistic>
-                <Statistic floated='right' size='small' className="volunteer-stats-right">
-                  <Statistic.Value>{doc.eventsParticipated}</Statistic.Value>
-                  <Statistic.Label>Events Participated</Statistic.Label>
+                <Statistic size='small' className="volunteer-stats-right">
+                  <Statistic.Value>{expiredOpps.length}</Statistic.Value>
+                  <Statistic.Label>Events Completed</Statistic.Label>
                 </Statistic>
               </Grid.Row>
             </Grid.Column>
