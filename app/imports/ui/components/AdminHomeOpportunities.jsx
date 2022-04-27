@@ -97,7 +97,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
       <Segment vertical padded='very' className='line'>
         <Grid.Row centered>
           <Card.Group centered>
-            {resultActiveOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>)}
+            {resultActiveOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser} role={''}/>)}
           </Card.Group>
         </Grid.Row>
       </Segment>
@@ -107,7 +107,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
       <Segment vertical padded='very' className='line'>
         <Grid.Row centered>
           <Card.Group centered className='expired-card'>
-            {resultExpiredOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>)}
+            {resultExpiredOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser} role={''}/>)}
           </Card.Group>
         </Grid.Row>
       </Segment>
@@ -117,7 +117,7 @@ const AdminHomeOpportunities = ({ expiredOpps, activeOpps, notVerifiedOpps, curr
       <Segment vertical padded='very' className='line'>
         <Grid.Row centered>
           <Card.Group centered>
-            {resultNotVerifiedOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser}/>)}
+            {resultNotVerifiedOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={currentUser} role={''}/>)}
           </Card.Group>
         </Grid.Row>
       </Segment>

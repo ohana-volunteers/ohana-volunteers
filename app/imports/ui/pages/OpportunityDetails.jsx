@@ -19,7 +19,7 @@ import { updateMethod } from '../../api/base/BaseCollection.methods';
 /** A simple component to render some text for an Opportunity and its details. */
 const MAPBOX_TOKEN = 'pk.eyJ1IjoieW9uZ3hpbjAwNTYiLCJhIjoiY2t6cm1ueTkzNnY2dTJvbmszZmhtcHo1cSJ9.jpI6brR6TtGGMO9erkuV8g';
 
-const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
+const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, role, ready }) => {
   const openNewTab = () => {
     const link = `https://www.google.com/maps/place/${doc.address}`;
     // eslint-disable-next-line no-undef
@@ -36,7 +36,7 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
     const registeredVolunteers = doc.registeredVolunteers.slice();
     const collectionName = Opportunities.getCollectionName();
 
-    registeredVolunteers.push(volunteerDoc._id);
+    registeredVolunteers.push(volunteerDoc.userID);
     const updateData = { id: doc._id, registeredVolunteers, isVerified: true };
     updateMethod.callPromise({ collectionName, updateData });
   };
@@ -71,7 +71,6 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
   return (ready) ? (
     <Container id={PAGE_IDS.OPPORTUNITY_DETAILS}>
       <Card fluid>
-        {/* Temp image */}
         <Image className="volunteer-bg-banner" src="/images/default_opp_header.jpeg"/>
         <Card.Content>
           <Grid container row={1}>
@@ -86,6 +85,8 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
                 <List size="massive">
                   <List.Item><b>Organization Host:</b> {doc.organization}</List.Item>
                 </List>
+                {(role === ROLE.VOLUNTEER) ?
+                  <Button color="green" size="large" onClick={volunteerRegister}>Register With Organization Host</Button> : '' }
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -245,8 +246,6 @@ const OpportunityDetails = ({ doc, orgDoc, volunteerDoc, ready, role }) => {
                   </List>
                 </Card.Content>
               </Card>
-              {(role === ROLE.VOLUNTEER) ?
-                <Button primary fluid size="large" onClick={volunteerRegister}>Register With Organization Host</Button> : '' }
             </Grid.Column>
             <Grid container row={1} centered style={{ paddingTop: '150px' }}>
               <Grid.Row>

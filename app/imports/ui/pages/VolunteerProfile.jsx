@@ -56,7 +56,7 @@ const VolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }) 
         </Grid>
       </Card.Content>
       <Card.Content>
-        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps }/>
+        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps } role={''}/>
       </Card.Content>
     </Card>
   </Container>
@@ -78,8 +78,9 @@ export default withTracker(() => {
   const ready = subscription.ready();
   const doc = (ready) ? VolunteerProfiles.findDoc(documentId) : undefined;
   const opps = (ready) ? doc.registeredEvents.map((oppID) => Opportunities.findOne({ _id: oppID })) : undefined;
-  const activeOpps = (ready) ? opps.slice().filter(opp => opp.date.end >= toDate) : undefined;
-  const expiredOpps = (ready) ? opps.slice().filter(opp => opp.date.end < toDate) : undefined;
+  const filteredOpps = ready ? opps.filter(opp => opp !== undefined) : undefined;
+  const activeOpps = (ready) ? filteredOpps.slice().filter(opp => opp.date.end >= toDate) : undefined;
+  const expiredOpps = (ready) ? filteredOpps.slice().filter(opp => opp.date.end < toDate) : undefined;
   return {
     currentUser,
     doc,

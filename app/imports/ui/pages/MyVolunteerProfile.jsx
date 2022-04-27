@@ -10,12 +10,13 @@ import { VolunteerProfiles } from '../../api/user/volunteer/VolunteerProfileColl
 import { Opportunities } from '../../api/opportunities/OpportunityCollection';
 import VolunteerProfileDetails from '../components/VolunteerProfileDetails';
 import { decode } from '../utilities/ImageDecode';
+import { ROLE } from '../../api/role/Role';
 
 /** A simple component to render some text for the Volunteer Profile page. */
 
 const toDate = new Date();
 
-const MyVolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }) => ((ready) ? (
+const MyVolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, role, ready }) => ((ready) ? (
   <Container id={PAGE_IDS.MY_VOLUNTEER_PROFILE}>
     <Card fluid>
       <Image className="volunteer-bg-banner" src={decode(doc.bannerPicture)}/>
@@ -55,7 +56,7 @@ const MyVolunteerProfile = ({ doc, currentUser, activeOpps, expiredOpps, ready }
         </Grid>
       </Card.Content>
       <Card.Content>
-        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps }/>
+        <VolunteerProfileDetails doc={ doc } activeOpps={ activeOpps } expiredOpps={ expiredOpps } currentUser={currentUser} role={ role }/>
       </Card.Content>
     </Card>
   </Container>
@@ -65,6 +66,7 @@ MyVolunteerProfile.propTypes = {
   doc: PropTypes.object,
   activeOpps: PropTypes.array,
   expiredOpps: PropTypes.array,
+  role: PropTypes.string,
   ready: PropTypes.bool.isRequired,
 };
 
@@ -75,13 +77,16 @@ export default withTracker(() => {
   const ready = subscriptionVolunteer.ready() && subscriptionOpportunity.ready();
   const doc = (ready) ? VolunteerProfiles.findDoc({ email: currentUser }) : undefined;
   const opps = (ready) ? doc.registeredEvents.map((oppID) => Opportunities.findOne({ _id: oppID })) : undefined;
-  const activeOpps = (ready) ? opps.slice().filter(opp => opp.date.end >= toDate) : undefined;
-  const expiredOpps = (ready) ? opps.slice().filter(opp => opp.date.end < toDate) : undefined;
+  const filteredOpps = ready ? opps.filter(opp => opp !== undefined) : undefined;
+  const activeOpps = (ready) ? filteredOpps.slice().filter(opp => opp.date.end >= toDate) : undefined;
+  const expiredOpps = (ready) ? filteredOpps.slice().filter(opp => opp.date.end < toDate) : undefined;
+  const role = (VolunteerProfiles.findOne({ email: currentUser })) ? ROLE.VOLUNTEER : '';
   return {
     currentUser,
     doc,
     activeOpps,
     expiredOpps,
+    role,
     ready,
   };
 })(MyVolunteerProfile);

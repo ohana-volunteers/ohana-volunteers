@@ -91,8 +91,8 @@ const BrowseOpportunities = ({ opps, ready }) => {
                 <Header as='h4' >Showing {count} results</Header> }
               <Card.Group centered>
                 {(datas === '') ?
-                  opps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} />) :
-                  sortOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''}/>)}
+                  opps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} role={''} />) :
+                  sortOpps.map((opp) => <OpportunityItem key={opp._id} opp={opp} user={''} role={''}/>)}
               </Card.Group>
             </Segment>
           </Grid.Column>
