@@ -17,3 +17,5 @@ class LandingPage {
 }
 
 export const landingPage = new LandingPage();
+
+// this is a test comment
